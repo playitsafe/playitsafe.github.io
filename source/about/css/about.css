@@ -1,0 +1,8 @@
+.frontend {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.frontend ul {
+  flex-basis: 300px;
+}
