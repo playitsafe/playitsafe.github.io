@@ -6,6 +6,7 @@
     <meta name="keywords" content="Hexo Theme Keep">
     <meta name="description" content="Hexo Theme Keep">
     <meta name="author" content="Aaron Zhang">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <title>
         
@@ -42,8 +43,9 @@
     <div class="content flex-center">
         <div class="description">
             <!-- <code>&lt;dev&gt;Keep loving, keep coding&lt;/dev&gt;</code> -->
-            <code>&lt;dev moreAbout={<span class="description__link"><a href="/about">me</a></span>}&gt;</code><br />
-            <code class="description__text">&nbsp;&nbsp;Keep loving, keep coding.</code><br />
+            <code>&lt;dev <span class="description__prop">moreAbout</span>={<span class="description__link animate__animated animate__bounce animate__slow animate__infinite infinite"><a href="/about">me</a></span>}&gt;
+            </code><br />
+            <code class="description__text">&nbsp;&nbsp;Code with love.</code><br />
             <code>&lt;/dev&gt;</code>
             
         </div>
@@ -266,9 +268,6 @@
                 
             </div>
         
-        <div class="theme-info info-item">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
-        </div>
         
         
     </div>

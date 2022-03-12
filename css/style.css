@@ -2095,10 +2095,16 @@ pre .javascript .function {
   color: var(--default-text-color);
 }
 .first-screen-container .content .description__text {
-  color: #42b883;
+  color: #67a177;
+}
+.first-screen-container .content .description__link {
+  display: inline-block;
 }
 .first-screen-container .content .description__link a {
-  color: #fa1e3c;
+  color: #ef675c;
+}
+.first-screen-container .content .description__prop {
+  color: #1a73e8;
 }
 .first-screen-container .content .description code {
   font-size: 2.4rem;
