@@ -1249,6 +1249,12 @@ pre .javascript .function {
     width: 90%;
   }
 }
+.page-container .page-main-content .page-main-content-middle code {
+  font-size: 0.85rem;
+}
+.page-container .page-main-content .page-main-content-middle p > img {
+  margin: 0 auto;
+}
 .page-container .page-main-content .page-main-content-bottom {
   width: 100%;
 }
