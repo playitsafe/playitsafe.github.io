@@ -208,7 +208,7 @@ const TIME_INTERVAL = 59;
 
 export default const TimerModal = () =&gt; &#123;
     const [seconds, setSeconds] = useState&lt;number&gt;(TIME_INTERVAL);
-    const [isActive, setIsActive] = useState&lt;boolean&gt;(false);
+    const [isCounting, setIsCounting] = useState&lt;boolean&gt;(false);
 
     const clickHandler = () =&gt; &#123;
         sendCode();
@@ -217,13 +217,13 @@ export default const TimerModal = () =&gt; &#123;
     
     return (
         &lt;Input /&gt;
-        &lt;Button onClick=&#123;clickHandler&#125; /&gt;
+        &lt;Button onClick=&#123;clickHandler&#125; disabled=&#123;isCounting&#125; /&gt;
     );
 &#125;
 </code></pre>
 <h2 id="Add-timer-logic"><a href="#Add-timer-logic" class="headerlink" title="Add timer logic"></a>Add timer logic</h2><p>From the requirement above we would know that the <code>TimerModal</code> will pop up and a first SMS has already been sent and the Timer button is disabled and start to count down. In this situation <code>useEffect</code> hook will be a perfect function to host the timer logic.</p>
-<h3 id="useEffect-dependency-list"><a href="#useEffect-dependency-list" class="headerlink" title="useEffect() dependency list"></a><code>useEffect()</code> dependency list</h3><p>To listen to the change of the timer button and ensure timer works as we expected, we need to put two of the states(<code>seconds</code> and <code>isActive</code>) to the dependency list of <code>useEffect</code>. </p>
-<h3 id="Inside-of-the-timer-logic"><a href="#Inside-of-the-timer-logic" class="headerlink" title="Inside of the timer logic"></a>Inside of the timer logic</h3><p>We achieve the expected result by updating the <code>seconds</code>(minus 1 in each call) inside a <code>setInterval</code> function. The initial seconds right after the Timer component is mounted is 59s, in the meanwhile, <code>setInterval</code> function inside <code>useEffect</code> hook will update seconds by deducting 1, and this will also trigger useEffect hook again and clear previous setInterval function and start a new session of <code>setInterval()</code> to minus seconds by 1 util it counts down to 1 second, which means the setInterval function is cleared and the countdown session status is reset to inactive(to set <code>isActive</code> to false and <code>seconds</code> set to initial time interval) and the button will be clickable.</p>
+<h3 id="useEffect-dependency-list"><a href="#useEffect-dependency-list" class="headerlink" title="useEffect() dependency list"></a><code>useEffect()</code> dependency list</h3><p>To listen to the change of the timer button and ensure timer works as we expected, we need to put two of the states(<code>seconds</code> and <code>isCounting</code>) to the dependency list of <code>useEffect</code>. </p>
+<h3 id="Inside-of-the-timer-logic"><a href="#Inside-of-the-timer-logic" class="headerlink" title="Inside of the timer logic"></a>Inside of the timer logic</h3><p>We achieve the expected result by updating the <code>seconds</code>(minus 1 in each call) inside a <code>setInterval</code> function. The initial seconds right after the Timer component is mounted is 59s, in the meanwhile, <code>setInterval</code> function inside <code>useEffect</code> hook will update seconds by deducting 1, and this will also trigger useEffect hook again and clear previous setInterval function and start a new session of <code>setInterval()</code> to minus seconds by 1 util it counts down to 1 second, which means the setInterval function is cleared and the countdown session status is reset to inactive(to set <code>isCounting</code> to false and <code>seconds</code> set to initial time interval) and the button will be clickable.</p>
 <p>After the button is clicked, the timer will be reset and a new cycle of the useEffect hook will start again.</p>
 <pre><code class="tsx">import React, &#123; useEffect, useState &#125; from &#39;react&#39;;
 import &#123; Input, Button &#125; from &#39;@/my/components&#39;;
@@ -232,24 +232,24 @@ const TIME_INTERVAL = 59;
 
 export default const TimerModal = () =&gt; &#123;
     const [seconds, setSeconds] = useState&lt;number&gt;(TIME_INTERVAL);
-    const [isActive, setIsActive] = useState&lt;boolean&gt;(false);
+    const [isCounting, setIsCounting] = useState&lt;boolean&gt;(true);
 
     const resetTimer = () =&gt; &#123;
         setSeconds(TIME_INTERVAL);
-        setIsActive(true);
+        setIsCounting(true);
     &#125;
 
     useEffect((): () =&gt; void =&gt; &#123;
         //setInterval Type would be number if uses window.setInterval()
         let interval: null | NodeJS.Timer = null;
-        if (isActive) &#123;
+        if (isCounting) &#123;
             interval = setInterval(() =&gt; &#123;
                 setSeconds(seconds =&gt; &#123;
                     if (seconds &gt; 1) &#123;
                         return seconds - 1;
                     &#125; else &#123;
                         interval &amp;&amp; clearInterval(interval);
-                        setIsActive(false);
+                        setIsCounting(false);
                         return TIME_INTERVAL;
                     &#125;
                 &#125; );
@@ -257,7 +257,7 @@ export default const TimerModal = () =&gt; &#123;
         &#125; else &#123;
             interval &amp;&amp; clearInterval(interval);
         &#125;
-    &#125;, [ isActive, seconds ])
+    &#125;, [ isCounting, seconds ])
 
     const clickHandler = () =&gt; &#123;
         sendCode();
@@ -266,7 +266,7 @@ export default const TimerModal = () =&gt; &#123;
 
     return (
         &lt;Input /&gt;
-        &lt;Button onClick=&#123;clickHandler&#125; /&gt;
+        &lt;Button onClick=&#123;clickHandler&#125; disabled=&#123;isCounting&#125; /&gt;
     );
 &#125;
 </code></pre>
@@ -278,24 +278,24 @@ const TIME_INTERVAL = 59;
 
 export default const TimerModal = () =&gt; &#123;
     const [seconds, setSeconds] = useState&lt;number&gt;(TIME_INTERVAL);
-    const [isActive, setIsActive] = useState&lt;boolean&gt;(false);
+    const [isCounting, setIsCounting] = useState&lt;boolean&gt;(false);
 
     const resetTimer = () =&gt; &#123;
         setSeconds(TIME_INTERVAL);
-        setIsActive(true);
+        setIsCounting(true);
     &#125;
 
     useEffect((): () =&gt; void =&gt; &#123;
         //setInterval Type would be number if uses window.setInterval()
         let interval: null | NodeJS.Timer = null;
-        if (isActive) &#123;
+        if (isCounting) &#123;
             interval = setInterval(() =&gt; &#123;
                 setSeconds(seconds =&gt; &#123;
                     if (seconds &gt; 1) &#123;
                         return seconds - 1;
                     &#125; else &#123;
                         interval &amp;&amp; clearInterval(interval);
-                        setIsActive(false);
+                        setIsCounting(false);
                         return TIME_INTERVAL;
                     &#125;
                 &#125; );
@@ -305,7 +305,7 @@ export default const TimerModal = () =&gt; &#123;
         &#125;
         // unsubscription
         return () =&gt; interval &amp;&amp; clearInterval(interval);
-    &#125;, [ isActive, seconds ])
+    &#125;, [ isCounting, seconds ])
 
     const clickHandler = () =&gt; &#123;
         sendCode();
@@ -314,11 +314,11 @@ export default const TimerModal = () =&gt; &#123;
 
     return (
         &lt;Input /&gt;
-        &lt;Button onClick=&#123;clickHandler&#125; /&gt;
+        &lt;Button onClick=&#123;clickHandler&#125; disabled=&#123;isCounting&#125; /&gt;
     );
 &#125;
 </code></pre>
-<p>Another takeaway from this case is that when we update the state which depends on the previous state, we can use a callback function inside useState() hook.<br>the setState() function provided by useState hook accepts either a new state value or a callback function as an updater which returns a new state to set state based on the previous state.</p>
+<p>Another takeaway from this case is that when we update the state which depends on the previous state, we can use a callback function inside <code>useState()</code> hook.<br>the <code>setState()</code> function provided by useState hook accepts either a new state value or a callback function as an updater which returns a new state to set state based on the previous state.</p>
 <pre><code class="jsx">const App = () =&gt; &#123;
   const [num, setNum] = useState(0); // same API as useState
 
@@ -328,7 +328,7 @@ export default const TimerModal = () =&gt; &#123;
   return &lt;button onClick=&#123;handleClick&#125;&gt;Increment&lt;/button&gt;;
 &#125;
 </code></pre>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>This is a real-world use case that I encountered during development and I think this would be a perfect example to learn and demonstrate the concept of useEffect hook in React.js. When functional component started to take over class-based component, I firstly use the <code>useEffect</code> hook the way that I use <code>componentDidMount()</code>, <code>componentDidUpdate()</code> and <code>componentDidUnmount()</code> function. After a while, I started to learn that they may share most of the use cases, but the conception is different and <code>useEffect</code> hooks tends to be a much cleaner way to implement and manage a single logic at one place instead of having to use multiple lifecycle functions to trigger&#x2F;subscribe&#x2F;unsubscribe an event.</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>This is a use case that I encountered during development and I think this would be a perfect example to learn and demonstrate the concept of <code>useEffect</code> and <code>useState</code> hooks in React.js. When functional component started to take over class-based component, I firstly use the <code>useEffect</code> hook the way that I use <code>componentDidMount()</code>, <code>componentDidUpdate()</code> and <code>componentDidUnmount()</code> function. After a while, I started to learn that they may share most of the use cases, but the conception is different and <code>useEffect</code> hooks tends to be a much cleaner way to implement and manage a single logic at one place instead of having to use multiple lifecycle functions to trigger&#x2F;subscribe&#x2F;unsubscribe side effects.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>React docs: <a class="link"   target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-effect.html" >https://reactjs.org/docs/hooks-effect.html<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
