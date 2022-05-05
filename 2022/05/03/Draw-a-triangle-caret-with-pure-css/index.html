@@ -10,7 +10,7 @@
     
     <title>
         
-            Archive |
+            Draw a triangle caret with pure CSS |
         
         Aaron&#39;s Dev Dairy
     </title>
@@ -76,7 +76,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -123,7 +123,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -148,45 +148,230 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Draw a triangle caret with pure CSS</span>
+        </div>
+
         
-<div class="archive-list-container">
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar1.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Aaron Zhang</span>
+                        
+                            <span class="author-label">Author</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-03 01:24:09</span>
+        <span class="mobile">2022-05-03 01:24</span>
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/05/03/Draw-a-triangle-caret-with-pure-css/"
-                        >Draw a triangle caret with pure CSS</a>
-                        <span class="article-date">05-03</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/04/02/Implement-a-countdown-timer-in-React-Hooks/"
-                        >Implement a countdown timer in React Hooks</a>
-                        <span class="article-date">04-02</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/03/12/hello-world/"
-                        >About Me</a>
-                        <span class="article-date">03-12</span>
-                    </li>
-                
-            </ul>
-        </section>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><hr>
+<p>It is very common that we need a triangle caret on a web page to display as an arrow or other similar symbols. It can be achieved by using a png or svg file, or importing from third-party icon library such as <a class="link"   target="_blank" rel="noopener" href="https://fontawesome.com/icons/caret-up?s=solid" >Font Awesome<i class="fas fa-external-link-alt"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-post-caret.jpg"
+                      alt="Caret icon"
+                ></p>
+<p>However, a more efficient low-carbon way is to draw it using CSS <code>border</code> attribute.</p>
+<h1 id="A-normal-border"><a href="#A-normal-border" class="headerlink" title="A normal border"></a>A normal border</h1><hr>
+<p>The most common use case of a border would be this:</p>
+<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  .box &#123;
+    height: 100px;
+    width: 100px;
+    border: 5px solid #000;
+  &#125;
+&lt;/style&gt;
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-caret-plain-border1.jpg"
+                      alt="plain border"
+                ></p>
+<p>If we take a look at the border shape by giving a wider width of it, we will see it looks like this:</p>
+<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  .box &#123;
+    width: 200px;
+    height: 200px;
+    border-color: red blue yellow green;
+    border-style: solid;
+    border-width: 50px 50px 50px 50px;
+  &#125;
+&lt;/style&gt;
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-colored-boder.jpg"
+                      alt="bold border"
+                ></p>
+<h1 id="Border-with-zero-height-and-width"><a href="#Border-with-zero-height-and-width" class="headerlink" title="Border with zero height and width"></a>Border with zero height and width</h1><hr>
+<p>Instead of giving height and width to the box, when we set the width and height of the outer box to 0, the width of the border will stretch out the outer box, four sides of the borders will collapse together and each side of the border will be a triangle of 100px wide and 50px height, just like this:</p>
+<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  .box &#123;
+    width: 0;
+    height: 0;
+    border-color: red blue yellow green;
+    border-style: solid;
+    border-width: 50px 50px 50px 50px;
+  &#125;
+&lt;/style&gt;
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-border-triangle.jpg"
+                      alt="triangle border"
+                ></p>
+<h1 id="Display-as-a-triangle"><a href="#Display-as-a-triangle" class="headerlink" title="Display as a triangle"></a>Display as a triangle</h1><hr>
+<p>Now what we need to do is to hide three other sides of the border and only show one of it:</p>
+<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  .box &#123;
+    width: 0;
+    height: 0;
+    border-color: red transparent transparent transparent;
+    border-style: solid;
+    border-width: 50px 50px 50px 50px;
+  &#125;
+&lt;/style&gt;
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-border-single-caret.jpg"
+                      alt="single triangle border"
+                ></p>
+<p>#Other cases<br>If we try to set one side of the border width to be zero, we’ll get and rectangle with three triangles:</p>
+<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  .box &#123;
+    width: 0;
+    height: 0;
+    border-color: red blue yellow green;
+    border-style: solid;
+    border-width: 50px 50px 0 50px;
+  &#125;
+&lt;/style&gt;
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-caret-3-sides.jpg"
+                      alt="rectangle box"
+                ></p>
+<h1 id="Use-cases"><a href="#Use-cases" class="headerlink" title="Use cases"></a>Use cases</h1><p>This can be useful if we need a ribbon icon on page just like this:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/20220506025424.png"
+                      alt="ribbon"
+                ></p>
+<p>The solution is to draw a rectangle on top and add a sudo class <code>:after</code> below it to implement 3 sides of the border:</p>
+<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  .box &#123;
+    width: 50px;
+    height: 70px;
+    background: red;
+    position: relative;
+  &#125;
+
+  .box:after &#123;
+    position: absolute;
+    left: 0;
+    top: 70px;
+    content: &#39;&#39;;
+    border-width: 12px 25px;
+    border-style: solid;
+    border-color: green green transparent green;
+  &#125;
+&lt;/style&gt;
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-ribbon.jpg"
+                      alt="ribbon"
+                ></p>
+<p>And we just need to set the color all red, and maybe add some text to make it a perfect ribbon.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-red-ribbon.jpg"
+                      alt="red ribbon"
+                ></p>
+
+        </div>
+
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/04/02/Implement-a-countdown-timer-in-React-Hooks/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Implement a countdown timer in React Hooks</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
     </div>
 </div>
+
 
                 
             </div>
@@ -235,6 +420,23 @@
     </div>
 
     
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
@@ -280,6 +482,14 @@
 
     </div>
 
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-normal-border"><span class="nav-text">A normal border</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Border-with-zero-height-and-width"><span class="nav-text">Border with zero height and width</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Display-as-a-triangle"><span class="nav-text">Display as a triangle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-cases"><span class="nav-text">Use cases</span></a></li></ol>
+    </div>
+</div>
+        </aside>
     
 
     <div class="image-viewer-container">
@@ -337,6 +547,8 @@
 
 
 <div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
     
 </div>
 

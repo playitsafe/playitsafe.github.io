@@ -1,0 +1,20 @@
+.projects__display {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.projects__display__item {
+  width: 260px;
+  margin-top: 20px;
+}
+
+.projects__display__item__img {
+  height: 210px;
+  width: 100%;
+}
+
+.link {
+  display: inline-block;
+  margin: 15px 0;
+}
