@@ -3,7 +3,7 @@ name: Deploy Site
 on:
   push:
     branches:
-      - gh-pages # only run this workflow when there's a new commit pushed to the gh-pages branch
+      - master # only run this workflow when there's a new commit pushed to the master branch
 
 jobs:
   deploy: # job_id
