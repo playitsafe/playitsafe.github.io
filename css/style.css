@@ -2476,6 +2476,9 @@ pre .javascript .function {
     border-radius: 3px;
   }
 }
+.utterances {
+  max-width: 100%;
+}
 .article-content-container {
   padding: 30px;
   border-radius: 5px;
