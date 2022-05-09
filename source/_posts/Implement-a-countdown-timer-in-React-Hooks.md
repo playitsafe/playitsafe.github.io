@@ -1,7 +1,11 @@
 ---
 title: Implement a countdown timer in React Hooks
 date: 2022-04-02 04:10:12
+categories: "Backend"
 tags:
+- Hooks
+- React
+- Web
 ---
 # Prefix
 ---

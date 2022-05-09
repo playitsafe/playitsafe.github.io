@@ -1,7 +1,10 @@
 ---
 title: Draw a triangle caret with pure CSS
 date: 2022-05-03 01:24:09
+categories: "Front-end"
 tags:
+- CSS
+- Web
 ---
 # Prefix
 ---
