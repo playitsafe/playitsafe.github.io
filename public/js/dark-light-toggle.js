@@ -29,11 +29,10 @@ KEEP.initModeToggle = () => {
 
     initModeStatus() {
       const styleStatus = KEEP.getStyleStatus();
-
       if (styleStatus) {
         styleStatus.isDark ? this.enableDarkMode() : this.enableLightMode();
       } else {
-        this.isDarkPrefersColorScheme().matches ? this.enableDarkMode() : this.enableLightMode();
+        KEEP.theme_config.style.prefer_mode === 'dark' ? this.enableDarkMode() : this.enableLightMode();
       }
     },
 
@@ -44,15 +43,15 @@ KEEP.initModeToggle = () => {
       });
     },
 
-    initModeAutoTrigger() {
-      const isDarkMode = this.isDarkPrefersColorScheme();
-      isDarkMode.addEventListener('change', e => {
-        e.matches ? this.enableDarkMode() : this.enableLightMode();
-      });
-    }
+    // initModeAutoTrigger() {
+    //   const isDarkMode = this.isDarkPrefersColorScheme();
+    //   isDarkMode.addEventListener('change', e => {
+    //     e.matches ? this.enableDarkMode() : this.enableLightMode();
+    //   });
+    // }
   }
 
   KEEP.utils.modeToggle.initModeStatus();
   KEEP.utils.modeToggle.initModeToggleButton();
-  KEEP.utils.modeToggle.initModeAutoTrigger();
+  // KEEP.utils.modeToggle.initModeAutoTrigger();
 };
