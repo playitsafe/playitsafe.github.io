@@ -21,6 +21,8 @@ KEEP.initUtils = () => {
     isHasScrollProgressBar: KEEP.theme_config.style.scroll.progress_bar.enable === true,
     isHasScrollPercent: KEEP.theme_config.style.scroll.percent.enable === true,
 
+    enableDarkMode: KEEP.theme_config.style.dark_mode === true,
+
     // Scroll Style Handle
     styleHandleWhenScroll() {
       const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -161,8 +163,6 @@ KEEP.initUtils = () => {
         isExpand = !isExpand;
         setPageWidth(isExpand)
       });
-
-
     },
 
     // go comment anchor

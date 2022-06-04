@@ -10,7 +10,7 @@
     
     <title>
         
-            Implement a countdown timer in React Hooks |
+            Deploy A Static Website via AWS S3, CloudFront and More |
         
         Aaron&#39;s Dev Dairy
     </title>
@@ -153,7 +153,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Implement a countdown timer in React Hooks</span>
+            <span class="title-hover-animation">Deploy A Static Website via AWS S3, CloudFront and More</span>
         </div>
 
         
@@ -172,8 +172,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-04-02 04:10:12</span>
-        <span class="mobile">2022-04-02 04:10</span>
+        <span class="pc">2022-06-04 13:48:43</span>
+        <span class="mobile">2022-06-04 13:48</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -181,7 +181,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/Backend/">Backend</a>&nbsp;
+                        <a href="/categories/DevOps/">DevOps</a>&nbsp;
                     </li>
                 
             </ul>
@@ -193,15 +193,19 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Hooks/">Hooks</a>&nbsp;
+                        <a href="/tags/AWS/">AWS</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/React/">React</a>&nbsp;
+                        | <a href="/tags/S3/">S3</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/Web/">Web</a>&nbsp;
+                        | <a href="/tags/CloudFront/">CloudFront</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ACM/">ACM</a>&nbsp;
                     </li>
                 
             </ul>
@@ -224,157 +228,94 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><hr>
-<p>From time to time we will see timers in the world of frontend, of which the use cases could be a count-down function, or a disabled button which will be released active after a certain amount of time to force users to read through site T&amp;C, or a button to send mobile code which is restricted to be clickable within a time interval after last click. Many front-end frameworks have already provided an out-of-box component of that such as <a class="link"   target="_blank" rel="noopener" href="https://procomponents.ant.design/en-US/components/field-set#proformcaptcha" >ProFormCaptcha<i class="fas fa-external-link-alt"></i></a> which to support common CAPTCHA functionality in the middle and backend.</p>
-<p>However, we will run into some cases that we need to customize the function as we wish and the provided function from the framework may have limitations. In this case we will need to implement this function by ourself.</p>
-<h1 id="Requirements-Analysis"><a href="#Requirements-Analysis" class="headerlink" title="Requirements Analysis"></a>Requirements Analysis</h1><hr>
-<p>Ideally, we need to implement a button that behaves like this:</p>
-<ul>
-<li>First sms will be sent at the time the modal pops up, and the button start to count down util it reaches the time interval.</li>
-<li>After each count down, the button will be clickable and will start counting down after each click.</li>
+            <p>There are many different ways to deploy a website online. A dedicated server with Nginx or Apache, Github Pages and cloud service such as AWS or GCP can all do the trick. However, for a static website, a dedicated server might be a bit overkill as cloud service provides us a cheap, easy and sustainable way to deploy a static website. In this post, I will deploy a commercial website on AWS S3 bucket.</p>
+<h1 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h1><ul>
+<li>A domain name purchased from domain provider such as Godaddy or AWS Route53.</li>
+<li>A built static website.</li>
 </ul>
+<h1 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h1><p>The overview of the project architecture will be like this:</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2022/04/02/Implement-a-countdown-timer-in-React-Hooks/captcha.gif"
-                      alt="captcha button gif"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/20220604-static-website-architecture.jpg"
+                      alt="architecture diagram"
                 ></p>
-<h1 id="Implementation-in-a-React-component"><a href="#Implementation-in-a-React-component" class="headerlink" title="Implementation in a React component"></a>Implementation in a React component</h1><h2 id="Basic-setup"><a href="#Basic-setup" class="headerlink" title="Basic setup:"></a>Basic setup:</h2><hr>
-<p>From the perspective of code, will need two states to manage this timer:</p>
-<ul>
-<li>A state to record the status of the button(disabled or active).</li>
-<li>A state to record time left after each seconds</li>
+<h1 id="Create-an-S3-bucket"><a href="#Create-an-S3-bucket" class="headerlink" title="Create an S3 bucket"></a>Create an S3 bucket</h1><p>Create an S3 bucket on AWS and de-select <em>Block Public Access settings</em> to make it accessible by the public.<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-06-04-s3-enable-public-access.jpg"
+                      alt="S3 bucket settings"
+                ></p>
+<p>And then, upload website resources to S3 bucket. Make sure an entry html is included.</p>
+<p>Also, we’ll need to create a bucket policy to allow <code>PublicReadGetObject</code> permission. Under the permission tab of the bucket, edit bucket policy to add this rule:</p>
+<pre><code class="json">&#123;
+    &quot;Version&quot;: &quot;2012-10-17&quot;,
+    &quot;Statement&quot;: [
+        &#123;
+            &quot;Sid&quot;: &quot;PublicReadGetObject&quot;,
+            &quot;Effect&quot;: &quot;Allow&quot;,
+            &quot;Principal&quot;: &quot;*&quot;,
+            &quot;Action&quot;: &quot;s3:GetObject&quot;,
+            &quot;Resource&quot;: &quot;arn:aws:s3:::myexample.com/*&quot;
+        &#125;
+    ]
+&#125;
+</code></pre>
+<h1 id="Request-an-SSL-certificate-from-Amazon-Certificate-Manager-ACM"><a href="#Request-an-SSL-certificate-from-Amazon-Certificate-Manager-ACM" class="headerlink" title="Request an SSL certificate from Amazon Certificate Manager(ACM):"></a>Request an SSL certificate from Amazon Certificate Manager(ACM):</h1><p>To use an ACM certificate with Amazon CloudFront, you must request or import the certificate in the US East (N. Virginia) region.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-06-04-request-acm.jpg"
+                      alt="Request a certificate"
+                ></p>
+<p>You will have CNAME key-value pairs generated for you to verify your domain. If you are using Route53 as a domain provider, simply click <em>Create records in Route53</em>. If you are using other providers such as godaddy, you will need to create these CNAME records so it can be verified.<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/20220604_cname_record.jpg"
+                      alt="CNAME records"
+                ></p>
+<h1 id="Create-a-CloudFront-distribution"><a href="#Create-a-CloudFront-distribution" class="headerlink" title="Create a CloudFront distribution"></a>Create a CloudFront distribution</h1><ul>
+<li><p>Select the bucket for the Origin Domain. If your entry file is in a subfolder, you’ll need to put it in the <em>Origin Path</em> field.</p>
+</li>
+<li><p>Under the view settings, you you’d only allow https requests, you can select the <em>Redirect HTTP to HTTPS</em> option.</p>
+</li>
+<li><p>Add your domain name as alias in the <em>Alternate domain name</em> field.</p>
+</li>
+<li><p>Select the SSL certificate we just requested in the <em>Custom SSL certificate</em> field.</p>
+</li>
+<li><p>Put your default entry file(ex. index.html) in the <em>Default root object</em> field.</p>
+</li>
 </ul>
-<p>So the basic code structure looks like this:</p>
-<pre><code class="tsx">import React, &#123; useEffect, useState &#125; from &#39;react&#39;;
-import &#123; Input, Button &#125; from &#39;@/my/components&#39;;
-
-const TIME_INTERVAL = 59;
-
-export default const TimerModal = () =&gt; &#123;
-    const [seconds, setSeconds] = useState&lt;number&gt;(TIME_INTERVAL);
-    const [isCounting, setIsCounting] = useState&lt;boolean&gt;(false);
-
-    const clickHandler = () =&gt; &#123;
-        sendCode();
-        // reset timer
-    &#125;
-    
-    return (
-        &lt;Input /&gt;
-        &lt;Button onClick=&#123;clickHandler&#125; disabled=&#123;isCounting&#125; /&gt;
-    );
-&#125;
-</code></pre>
-<h2 id="Add-timer-logic"><a href="#Add-timer-logic" class="headerlink" title="Add timer logic"></a>Add timer logic</h2><p>From the requirement above we would know that the <code>TimerModal</code> will pop up and a first SMS has already been sent and the Timer button is disabled and start to count down. In this situation <code>useEffect</code> hook will be a perfect function to host the timer logic.</p>
-<h3 id="useEffect-dependency-list"><a href="#useEffect-dependency-list" class="headerlink" title="useEffect() dependency list"></a><code>useEffect()</code> dependency list</h3><p>To listen to the change of the timer button and ensure timer works as we expected, we need to put two of the states(<code>seconds</code> and <code>isCounting</code>) to the dependency list of <code>useEffect</code>. </p>
-<h3 id="Inside-of-the-timer-logic"><a href="#Inside-of-the-timer-logic" class="headerlink" title="Inside of the timer logic"></a>Inside of the timer logic</h3><p>We achieve the expected result by updating the <code>seconds</code>(minus 1 in each call) inside a <code>setInterval</code> function. The initial seconds right after the Timer component is mounted is 59s, in the meanwhile, <code>setInterval</code> function inside <code>useEffect</code> hook will update seconds by deducting 1, and this will also trigger useEffect hook again and clear previous setInterval function and start a new session of <code>setInterval()</code> to minus seconds by 1 util it counts down to 1 second, which means the setInterval function is cleared and the countdown session status is reset to inactive(to set <code>isCounting</code> to false and <code>seconds</code> set to initial time interval) and the button will be clickable.</p>
-<p>After the button is clicked, the timer will be reset and a new cycle of the useEffect hook will start again.</p>
-<pre><code class="tsx">import React, &#123; useEffect, useState &#125; from &#39;react&#39;;
-import &#123; Input, Button &#125; from &#39;@/my/components&#39;;
-
-const TIME_INTERVAL = 59;
-
-export default const TimerModal = () =&gt; &#123;
-    const [seconds, setSeconds] = useState&lt;number&gt;(TIME_INTERVAL);
-    const [isCounting, setIsCounting] = useState&lt;boolean&gt;(true);
-
-    const resetTimer = () =&gt; &#123;
-        setSeconds(TIME_INTERVAL);
-        setIsCounting(true);
-    &#125;
-
-    useEffect((): () =&gt; void =&gt; &#123;
-        //setInterval Type would be number if uses window.setInterval()
-        let interval: null | NodeJS.Timer = null;
-        if (isCounting) &#123;
-            interval = setInterval(() =&gt; &#123;
-                setSeconds(seconds =&gt; &#123;
-                    if (seconds &gt; 1) &#123;
-                        return seconds - 1;
-                    &#125; else &#123;
-                        interval &amp;&amp; clearInterval(interval);
-                        setIsCounting(false);
-                        return TIME_INTERVAL;
-                    &#125;
-                &#125; );
-            &#125;, 1000);
-        &#125; else &#123;
-            interval &amp;&amp; clearInterval(interval);
-        &#125;
-    &#125;, [ isCounting, seconds ])
-
-    const clickHandler = () =&gt; &#123;
-        sendCode();
-        resetTimer();
-    &#125;
-
-    return (
-        &lt;Input /&gt;
-        &lt;Button onClick=&#123;clickHandler&#125; disabled=&#123;isCounting&#125; /&gt;
-    );
-&#125;
-</code></pre>
-<h1 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h1><p>The implementation above seems to perfectly fit the use case, one problem still hides under the hood and will cause memory leakage. If you are on the halfway during countdown session and the Timer component is unmounted(since it’s a modal and will be unmounted after it’s closed), the <code>setInterval</code> function is still there in the background. Luckily, the <code>useEffect</code> hook provides a return callback function to allow us unsubscribe any side effects outside of the React lifecycle, which will be called before the component is unmounted.<br>In this case, we need to return a housekeeping function at the end of the <code>useEffect</code> callback function to clear the <code>setInterval</code> function. So the final code looks like this:</p>
-<pre><code class="tsx">import React, &#123; useEffect, useState &#125; from &#39;react&#39;;
-import &#123; Input, Button &#125; from &#39;@/my/components&#39;;
-
-const TIME_INTERVAL = 59;
-
-export default const TimerModal = () =&gt; &#123;
-    const [seconds, setSeconds] = useState&lt;number&gt;(TIME_INTERVAL);
-    const [isCounting, setIsCounting] = useState&lt;boolean&gt;(false);
-
-    const resetTimer = () =&gt; &#123;
-        setSeconds(TIME_INTERVAL);
-        setIsCounting(true);
-    &#125;
-
-    useEffect((): () =&gt; void =&gt; &#123;
-        //setInterval Type would be number if uses window.setInterval()
-        let interval: null | NodeJS.Timer = null;
-        if (isCounting) &#123;
-            interval = setInterval(() =&gt; &#123;
-                setSeconds(seconds =&gt; &#123;
-                    if (seconds &gt; 1) &#123;
-                        return seconds - 1;
-                    &#125; else &#123;
-                        interval &amp;&amp; clearInterval(interval);
-                        setIsCounting(false);
-                        return TIME_INTERVAL;
-                    &#125;
-                &#125; );
-            &#125;, 1000);
-        &#125; else &#123;
-            interval &amp;&amp; clearInterval(interval);
-        &#125;
-        // unsubscription
-        return () =&gt; interval &amp;&amp; clearInterval(interval);
-    &#125;, [ isCounting, seconds ])
-
-    const clickHandler = () =&gt; &#123;
-        sendCode();
-        resetTimer();
-    &#125;
-
-    return (
-        &lt;Input /&gt;
-        &lt;Button onClick=&#123;clickHandler&#125; disabled=&#123;isCounting&#125; /&gt;
-    );
-&#125;
-</code></pre>
-<p>Another takeaway from this case is that when we update the state which depends on the previous state, we can use a callback function inside <code>useState()</code> hook.<br>the <code>setState()</code> function provided by useState hook accepts either a new state value or a callback function as an updater which returns a new state to set state based on the previous state.</p>
-<pre><code class="jsx">const App = () =&gt; &#123;
-  const [num, setNum] = useState(0); // same API as useState
-
-  const handleClick = () =&gt; &#123;
-    setNum(prevState =&gt; prevState + 1);
-  &#125;;
-  return &lt;button onClick=&#123;handleClick&#125;&gt;Increment&lt;/button&gt;;
-&#125;
-</code></pre>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>This is a use case that I encountered during development and I think this would be a perfect example to learn and demonstrate the concept of <code>useEffect</code> and <code>useState</code> hooks in React.js. When functional component started to take over class-based component, I firstly use the <code>useEffect</code> hook the way that I use <code>componentDidMount()</code>, <code>componentDidUpdate()</code> and <code>componentDidUnmount()</code> function. After a while, I started to learn that they may share most of the use cases, but the conception is different and <code>useEffect</code> hooks tends to be a much cleaner way to implement and manage a single logic at one place instead of having to use multiple lifecycle functions to trigger&#x2F;subscribe&#x2F;unsubscribe side effects.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>React docs: <a class="link"   target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-effect.html" >https://reactjs.org/docs/hooks-effect.html<i class="fas fa-external-link-alt"></i></a></p>
+<p>Once the distribution is created and enabled, click into the distribution from console and you’ll get the distribution domain name. You can configure your DNS using this domain name in Route53 or Godaddy.<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-06-04-domain-distribution-cname.jpg"
+                      alt="Distribution domain name"
+                ></p>
+<p>I’m using Godaddy so it would be like this:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-06-04-domain-name-config.jpg"
+                      alt="Domain name config"
+                ></p>
+<h1 id="Redirect-domain"><a href="#Redirect-domain" class="headerlink" title="Redirect domain"></a>Redirect domain</h1><p>If you want to redirect myexample.com to <a class="link"   target="_blank" rel="noopener" href="http://www.myexample.com/" >www.myexample.com<i class="fas fa-external-link-alt"></i></a> which is just configured with CloudFront distribution domain, in Godaddy, you can create a Forwarding rule:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-06-04_forwarding-in-godaddy.jpg"
+                      alt="Forwarding in Godaddy"
+                ></p>
+<h1 id="Invalidate-CloudFront-cache"><a href="#Invalidate-CloudFront-cache" class="headerlink" title="Invalidate CloudFront cache"></a>Invalidate CloudFront cache</h1><p>Under <em>Invalidation</em> tab, click Create Invalidation and add object path into it:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-06-04-create-invalidation.jpg"
+                      alt="Create CloudFront Invalidation"
+                ></p>
+<h1 id="Summarize"><a href="#Summarize" class="headerlink" title="Summarize"></a>Summarize</h1><p>This basic deployment with AWS stack includes AWS S3, CloudFront and ACM to enable SSL encryption. What is worth noticing is the S3 bucket policy definition and the region of ACM certificate should be requested in N. Virginia to make it work with CloudFront.</p>
+<h1 id="What’s-Next"><a href="#What’s-Next" class="headerlink" title="What’s Next?"></a>What’s Next?</h1><p>After we deploy the website online, we need to make it visible in search engines which is out of this post’s scope. I’ll be having another post relevant to that in the feature.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a class="link"   target="_blank" rel="noopener" href="https://docs.aws.amazon.com/acm/latest/userguide/acm-regions.html" >https://docs.aws.amazon.com/acm/latest/userguide/acm-regions.html<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://dale-bingham-soteriasoftware.medium.com/creating-a-static-website-using-godaddy-github-aws-s3-codedeploy-and-aws-cloudfront-1990a8f4ddd8" >https://dale-bingham-soteriasoftware.medium.com/creating-a-static-website-using-godaddy-github-aws-s3-codedeploy-and-aws-cloudfront-1990a8f4ddd8<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://tecadmin.net/remove-cloudfront-cache/" >https://tecadmin.net/remove-cloudfront-cache/<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -384,15 +325,19 @@ export default const TimerModal = () =&gt; &#123;
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/Hooks/">#Hooks</a>&nbsp;
+                        <a href="/tags/AWS/">#AWS</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/React/">#React</a>&nbsp;
+                        <a href="/tags/S3/">#S3</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/Web/">#Web</a>&nbsp;
+                        <a href="/tags/CloudFront/">#CloudFront</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/ACM/">#ACM</a>&nbsp;
                     </li>
                 
             </ul>
@@ -401,29 +346,14 @@ export default const TimerModal = () =&gt; &#123;
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/05/02/Draw-a-triangle-caret-with-pure-css/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">Draw a triangle caret with pure CSS</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/12/hello-world/"
+                           href="/2022/05/02/Draw-a-triangle-caret-with-pure-css/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">About Me</span>
+                                <span class="post-nav-title-item">Draw a triangle caret with pure CSS</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -580,7 +510,7 @@ export default const TimerModal = () =&gt; &#123;
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Requirements-Analysis"><span class="nav-text">Requirements Analysis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Implementation-in-a-React-component"><span class="nav-text">Implementation in a React component</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-setup"><span class="nav-text">Basic setup:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add-timer-logic"><span class="nav-text">Add timer logic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#useEffect-dependency-list"><span class="nav-text">useEffect() dependency list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inside-of-the-timer-logic"><span class="nav-text">Inside of the timer logic</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Review"><span class="nav-text">Review</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-text">References</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prerequisite"><span class="nav-text">Prerequisite</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Architecture"><span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Create-an-S3-bucket"><span class="nav-text">Create an S3 bucket</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Request-an-SSL-certificate-from-Amazon-Certificate-Manager-ACM"><span class="nav-text">Request an SSL certificate from Amazon Certificate Manager(ACM):</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Create-a-CloudFront-distribution"><span class="nav-text">Create a CloudFront distribution</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redirect-domain"><span class="nav-text">Redirect domain</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Invalidate-CloudFront-cache"><span class="nav-text">Invalidate CloudFront cache</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summarize"><span class="nav-text">Summarize</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#What%E2%80%99s-Next"><span class="nav-text">What’s Next?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol>
     </div>
 </div>
         </aside>
