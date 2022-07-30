@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Full-stack,JavaScript,CSS,React,Vue,Java,PHP,Developer">
+    <meta name="description" content="A full stack web development note of Aaron Zhang. Tech stack including JavaScript, CSS, React, Vue, Java, PHP, Python">
+    <meta name="author" content="Aaron Zhang">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <title>
+        
+            A Peek at useRequest hook |
+        
+        Aaron&#39;s Dev Dairy
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/fav.jpg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"<dev>Keep loving, keep coding</dev>"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Aaron&#39;s Dev Dairy
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/projects"
+                            >
+                                PROJECTS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT ME
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/projects">PROJECTS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT ME</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">A Peek at useRequest hook</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar1.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Aaron Zhang</span>
+                        
+                            <span class="author-label">Author</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-07-30 19:44:06</span>
+        <span class="mobile">2022-07-30 19:44</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Front-end/">Front-end</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Hooks/">Hooks</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/React/">React</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Web/">Web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><hr>
+<p><code>useRequest</code> is a powerful, well-encapsulated hook from a hook library ahooks to manage async data fetching. When there is multiple async logic in a single component in React, we will deal with a bunch of useState and useEffect hooks, which makes it complicated to call APIs.</p>
+<p>What it probably looks like:</p>
+<pre><code class="tsx">// Component.ts
+const [ data, setData ] = useState&lt;object&gt;(defaultData)
+const [ isLoading, setIsloading ] = useState&lt;boolean&gt;(false)
+
+useEffect(() =&gt; &#123;
+    setIsloading(true)
+  request = service.fetchData(...)
+  setData(...)
+  handlerError(...)
+    setIsloading(false)
+&#125;, [])
+</code></pre>
+<p>With the help of <code>useRequest</code>, we can simplify our code:</p>
+<pre><code class="tsx">import &#123; useRequest &#125; from &#39;ahooks&#39;
+
+const &#123; data, run: request, loading, error &#125; = useRequest(service.serviceA, options)
+</code></pre>
+<h1 id="Main-features"><a href="#Main-features" class="headerlink" title="Main features"></a>Main features</h1><hr>
+<p><code>useRequest</code>  provides sufficient enough functionalities for network request scenarios in React projects including:</p>
+<ul>
+<li>Automatic&#x2F;manual request</li>
+<li>Polling</li>
+<li>Debounce</li>
+<li>Throttling</li>
+<li>Refresh on window focus</li>
+<li>Error retry</li>
+<li>Loading delay</li>
+<li>SWR(stale-while-revalidate)</li>
+<li>Caching</li>
+</ul>
+<h1 id="A-Glance-on-Basic-Usage"><a href="#A-Glance-on-Basic-Usage" class="headerlink" title="A Glance on Basic Usage"></a>A Glance on Basic Usage</h1><hr>
+<h2 id="Loading-delay"><a href="#Loading-delay" class="headerlink" title="Loading delay"></a>Loading delay</h2><p>Set the delay time for loading to become <code>true</code></p>
+<pre><code class="tsx">const &#123; loading, data &#125; = useRequest(getUsername, &#123;
+  loadingDelay: 300 //Set the delay time for loading to become true
+&#125;);
+
+return &lt;div&gt;&#123; loading ? &#39;Loading...&#39; : data &#125;&lt;/div&gt;
+</code></pre>
+<h2 id="Polling"><a href="#Polling" class="headerlink" title="Polling"></a>Polling</h2><p>By setting <code>options.pollingInterval</code> , enter the polling mode, <code>useRequest</code>  will periodically trigger service execution.</p>
+<pre><code class="tsx">const &#123; data, run, cancel &#125; = useRequest(getUsername, &#123;
+  pollingInterval: 3000,//will periodically trigger service execution.
+&#125;);
+</code></pre>
+<h2 id="Refresh-on-window-focus"><a href="#Refresh-on-window-focus" class="headerlink" title="Refresh on window focus"></a>Refresh on window focus</h2><p>the request will be refreshed when the browser is <code>refocus</code>  and <code>revisible</code>.</p>
+<pre><code class="tsx">const &#123; data &#125; = useRequest(getUsername, &#123;
+  refreshOnWindowFocus: true,
+&#125;);
+</code></pre>
+<h2 id="Debounce-amp-Throttling"><a href="#Debounce-amp-Throttling" class="headerlink" title="Debounce &amp; Throttling"></a>Debounce &amp; Throttling</h2><p>Enter the debounce mode by setting <code>options.debounceWait</code> &#x2F; <code>options.throttleWait</code>. At this time, if <code>run</code> or <code>runAsync</code> is triggered frequently, the request will be executed with the debounce&#x2F;throttle strategy.</p>
+<pre><code class="tsx">const &#123; data, run &#125; = useRequest(getUsername, &#123;
+  debounceWait: 300,
+    throttleWait: 300,
+  manual: true
+&#125;);
+</code></pre>
+<h2 id="Cache-amp-SWR"><a href="#Cache-amp-SWR" class="headerlink" title="Cache &amp; SWR"></a>Cache &amp; SWR</h2><p>If <code>options.cacheKey</code>  is set, <code>useRequest</code>  will cache the successful data . The next time the component is initialized, if there is cached data, it will return the cached data first, and then send a new request in background, which is the ability of SWR.</p>
+<pre><code class="tsx">async function getArticle(): Promise&lt;&#123; data: string; time: number &#125;&gt; &#123;
+  console.log(&#39;cacheKey&#39;);
+  return new Promise((resolve) =&gt; &#123;
+    setTimeout(() =&gt; &#123;
+      resolve(&#123;
+        data: Mock.mock(&#39;@paragraph&#39;),
+        time: new Date().getTime(),
+      &#125;);
+    &#125;, 1000);
+  &#125;);
+&#125;
+
+const Article = () =&gt; &#123;
+  const &#123; data, loading &#125; = useRequest(getArticle, &#123;
+    cacheKey: &#39;cacheKey-demo&#39;,
+  &#125;);
+  if (!data &amp;&amp; loading) &#123;
+    return &lt;p&gt;Loading&lt;/p&gt;;
+  &#125;
+    return (
+    &lt;&gt;
+      &lt;p&gt;Background loading: &#123;loading ? &#39;true&#39; : &#39;false&#39;&#125;&lt;/p&gt;
+      &lt;p&gt;Latest request time: &#123;data?.time&#125;&lt;/p&gt;
+      &lt;p&gt;&#123;data?.data&#125;&lt;/p&gt;
+    &lt;/&gt;
+  );
+&#125;
+</code></pre>
+<h2 id="Error-retry"><a href="#Error-retry" class="headerlink" title="Error retry"></a>Error retry</h2><p>By setting <code>options.retryCount</code> , set the number of error retries, useRequest will retry after it fails.</p>
+<pre><code class="tsx">const &#123; data, run &#125; = useRequest(getUsername, &#123;
+  retryCount: 3,
+&#125;);
+</code></pre>
+<h1 id="Design-Pattern"><a href="#Design-Pattern" class="headerlink" title="Design Pattern"></a>Design Pattern</h1><p><code>useRequest</code> has two main modules that work together to serve its functionality: the main <code>Fetch</code> class and plugins</p>
+<p>The <strong>Plugin</strong> module uses varieties of different plugins, each of which only works for a specific function.</p>
+<p>Fetch module on the other hand is even more simple - to implement the <code>Fetch</code> class which aggregates all plugins to this hook to make it robust and easy to maintain.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-07-30-useRequest-diagram.png"
+                      alt="useRequest diagram"
+                ></p>
+<h1 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h1><hr>
+<h2 id="Fetch-the-core"><a href="#Fetch-the-core" class="headerlink" title="Fetch - the core"></a><code>Fetch</code> - the core</h2><p>Structure of <code>Fetch</code> class:</p>
+<pre><code class="tsx">export default class Fetch&lt;TData, TParams extends any[]&gt; &#123;
+  pluginImpls: PluginReturn&lt;TData, TParams&gt;[];
+
+  count: number = 0;
+
+  state: FetchState&lt;TData, TParams&gt; = &#123;
+    loading: false,
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  &#125;;
+
+  constructor(
+    public serviceRef: MutableRefObject&lt;Service&lt;TData, TParams&gt;&gt;,
+    public options: Options&lt;TData, TParams&gt;,
+    public subscribe: Subscribe,
+    public initState: Partial&lt;FetchState&lt;TData, TParams&gt;&gt; = &#123;&#125;,
+  ) &#123;
+    this.state = &#123;
+      ...this.state,
+      loading: !options.manual,
+      ...initState,
+    &#125;;
+  &#125;
+
+  setState(s: Partial&lt;FetchState&lt;TData, TParams&gt;&gt; = &#123;&#125;) &#123;...&#125;
+
+  runPluginHandler(event: keyof PluginReturn&lt;TData, TParams&gt;, ...rest: any[]) &#123;...&#125;
+
+  async runAsync(...params: TParams): Promise&lt;TData&gt; &#123;...&#125;
+
+  run(...params: TParams) &#123;...&#125;
+
+  cancel() &#123;...&#125;
+
+  refresh() &#123;...&#125;
+
+  refreshAsync() &#123;...&#125;
+
+  mutate(data?: TData | ((oldData?: TData) =&gt; TData | undefined)) &#123;...&#125;
+</code></pre>
+<p>Most of its API is provided for the user to call such as <code>run</code>、<code>runAsync</code>、<code>cancel</code>、<code>refresh</code>、<code>refreshAsync</code>、<code>mutate</code>, while <code>runPluginHandler</code>、<code>setState</code> are for internal use.</p>
+<h3 id="pluginImpls"><a href="#pluginImpls" class="headerlink" title="pluginImpls"></a><code>pluginImpls</code></h3><p>As per its properties, we can see it has a <code>pluginImpls</code> property, from its type <code>PluginReturn&lt;TData, TParams&gt;[]</code> it seems to contain results of all plugins after execution.</p>
+<pre><code class="tsx">export interface PluginReturn&lt;TData, TParams extends any[]&gt; &#123;
+  onBefore?: (params: TParams) =&gt;
+    | (&#123;
+        stopNow?: boolean;
+        returnNow?: boolean;
+      &#125; &amp; Partial&lt;FetchState&lt;TData, TParams&gt;&gt;)
+    | void;
+
+  onRequest?: (
+    service: Service&lt;TData, TParams&gt;,
+    params: TParams,
+  ) =&gt; &#123;
+    servicePromise?: Promise&lt;TData&gt;;
+  &#125;;
+
+  onSuccess?: (data: TData, params: TParams) =&gt; void;
+  onError?: (e: Error, params: TParams) =&gt; void;
+  onFinally?: (params: TParams, data?: TData, e?: Error) =&gt; void;
+  onCancel?: () =&gt; void;
+  onMutate?: (data: TData) =&gt; void;
+&#125;
+</code></pre>
+<p>Inside the <code>PluginReturn&lt;TData, TParams&gt;</code> type, it stores some lifecycle callback hooks which will be called at a certain phase of the request.</p>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a><code>state</code></h3><p>There’s also a <code>state</code> property of <code>FetchState&lt;TData, TParams&gt;</code> type. The type definition below shows it stores the context of the request. <code>loading</code> ,<code>data</code>, <code>errors</code> are the results we’d like to get from <code>useRequest</code></p>
+<pre><code class="tsx">export interface FetchState&lt;TData, TParams extends any[]&gt; &#123;
+  loading: boolean;
+  params?: TParams;
+  data?: TData;
+  error?: Error;
+&#125;
+</code></pre>
+<pre><code class="tsx">const &#123; data, error, loading &#125; = useRequest(service);
+</code></pre>
+<p>And the <code>setState</code>  API is used to update the state.</p>
+<p>Two main APIs of the <code>Fetch</code> class are <code>runPluginHandler</code> and <code>runAsync</code> , which are called by all of the other APIs to do some extra work.</p>
+<h3 id="runPluginHandler"><a href="#runPluginHandler" class="headerlink" title="runPluginHandler"></a><code>runPluginHandler</code></h3><pre><code class="tsx">runPluginHandler(event: keyof PluginReturn&lt;TData, TParams&gt;, ...rest: any[]) &#123;
+    // @ts-ignore
+  const r = this.pluginImpls.map((i) =&gt; i[event]?.(...rest)).filter(Boolean);
+  return Object.assign(&#123;&#125;, ...r);
+&#125;
+</code></pre>
+<p>This function accepts an event parameter which is of the union type <code>onBefore | onRequest | onSuccess | onError | onFinally | onCancel | onMutate</code>  and other extra parameters. What this handler does is to call the relevant lifecycle hook from <code>pluginImpls</code> and return its result.</p>
+<h3 id="runAsync"><a href="#runAsync" class="headerlink" title="runAsync"></a><code>runAsync</code></h3><pre><code class="tsx">async runAsync(...params: TParams): Promise&lt;TData&gt; &#123;
+    this.count += 1;
+    const currentCount = this.count;
+
+    const &#123;
+      stopNow = false,
+      returnNow = false,
+      ...state
+    &#125; = this.runPluginHandler(&#39;onBefore&#39;, params);
+
+    // stop request
+    if (stopNow) &#123;
+      return new Promise(() =&gt; &#123;&#125;);
+    &#125;
+
+    this.setState(&#123;
+      loading: true,
+      params,
+      ...state,
+    &#125;);
+
+    // return now
+    if (returnNow) &#123;
+      return Promise.resolve(state.data);
+    &#125;
+
+    this.options.onBefore?.(params);
+
+    try &#123;
+      // replace service
+      let &#123; servicePromise &#125; = this.runPluginHandler(&#39;onRequest&#39;, this.serviceRef.current, params);
+
+      if (!servicePromise) &#123;
+        servicePromise = this.serviceRef.current(...params);
+      &#125;
+
+      const res = await servicePromise;
+
+      if (currentCount !== this.count) &#123;
+        // prevent run.then when request is canceled
+        return new Promise(() =&gt; &#123;&#125;);
+      &#125;
+
+      // const formattedResult = this.options.formatResultRef.current ? this.options.formatResultRef.current(res) : res;
+
+      this.setState(&#123;
+        data: res,
+        error: undefined,
+        loading: false,
+      &#125;);
+
+      this.options.onSuccess?.(res, params);
+      this.runPluginHandler(&#39;onSuccess&#39;, res, params);
+
+      this.options.onFinally?.(params, res, undefined);
+
+      if (currentCount === this.count) &#123;
+        this.runPluginHandler(&#39;onFinally&#39;, params, res, undefined);
+      &#125;
+
+      return res;
+    &#125; catch (error) &#123;
+      if (currentCount !== this.count) &#123;
+        // prevent run.then when request is canceled
+        return new Promise(() =&gt; &#123;&#125;);
+      &#125;
+
+      this.setState(&#123;
+        error,
+        loading: false,
+      &#125;);
+
+      this.options.onError?.(error, params);
+      this.runPluginHandler(&#39;onError&#39;, error, params);
+
+      this.options.onFinally?.(params, undefined, error);
+
+      if (currentCount === this.count) &#123;
+        this.runPluginHandler(&#39;onFinally&#39;, params, undefined, error);
+      &#125;
+
+      throw error;
+    &#125;
+  &#125;
+</code></pre>
+<p>What this long function does is to implement callbacks that are passed in to give users the opportunity to process the result of the request instead of handling it automatically. </p>
+<p>For example, In an <code>onBefore</code> hook, user can cancel a request before it’s been sent out ; In an <code>onRequest</code> hook, the function to fetch data can be overwritten, etc.</p>
+<h3 id="Other-APIs"><a href="#Other-APIs" class="headerlink" title="Other APIs"></a>Other APIs</h3><p>Other APIs such as <code>run</code>、<code>cancel</code>、<code>refresh</code> will eventually call <code>runPluginHandler</code><br> and <code>runAsync</code> .</p>
+<p>The main responsibility of this <code>Fetch</code> class is to run callbacks in different phases of a request lifecycle and update the state.</p>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>The implementation of <code>useRequest</code> separates the core logic and the complicity of each different functionality by the plugin mechanism. <code>Fetch</code> only care about when to call those plugin hooks and each plugin itself will only focus on customizing and  doing its own logic.</p>
+<p>Take <code>usePollingPlugin</code> as an example, the main logic of this plugin is to set a timeout in <code>onFinally</code> callback after each request using <code>pollingInterval</code> passed by users and run <code>refresh</code> function of the <code>Fetch</code> instance.</p>
+<pre><code class="tsx">const usePollingPlugin: Plugin&lt;any, any[]&gt; = (
+  fetchInstance,
+  &#123; pollingInterval, pollingWhenHidden = true &#125;,
+) =&gt; &#123;
+  const timerRef = useRef&lt;NodeJS.Timeout&gt;();
+  const unsubscribeRef = useRef&lt;() =&gt; void&gt;();
+
+  const stopPolling = () =&gt; &#123;
+    if (timerRef.current) &#123;
+      clearTimeout(timerRef.current);
+    &#125;
+    unsubscribeRef.current?.();
+  &#125;;
+
+  useUpdateEffect(() =&gt; &#123;
+    if (!pollingInterval) &#123;
+      stopPolling();
+    &#125;
+  &#125;, [pollingInterval]);
+
+  if (!pollingInterval) &#123;
+    return &#123;&#125;;
+  &#125;
+
+  return &#123;
+    onBefore: () =&gt; &#123;
+      stopPolling();
+    &#125;,
+    onFinally: () =&gt; &#123;
+      // if pollingWhenHidden = false &amp;&amp; document is hidden, then stop polling and subscribe revisible
+      if (!pollingWhenHidden &amp;&amp; !isDocumentVisible()) &#123;
+        unsubscribeRef.current = subscribeReVisible(() =&gt; &#123;
+          fetchInstance.refresh();
+        &#125;);
+        return;
+      &#125;
+
+      timerRef.current = setTimeout(() =&gt; &#123;
+        fetchInstance.refresh();
+      &#125;, pollingInterval);
+    &#125;,
+    onCancel: () =&gt; &#123;
+      stopPolling();
+    &#125;,
+  &#125;;
+&#125;;
+</code></pre>
+<h2 id="Adding-up"><a href="#Adding-up" class="headerlink" title="Adding up"></a>Adding up</h2><p>To hook up the core <code>Fetch</code> class and plugins together to make this hook work, <code>useRequestImplement</code> is called and accepts request options and plugins from a higher level and <code>Fetch</code> will be instantiated inside the function.</p>
+<pre><code class="tsx">function useRequestImplement&lt;TData, TParams extends any[]&gt;(
+  service: Service&lt;TData, TParams&gt;,
+  options: Options&lt;TData, TParams&gt; = &#123;&#125;,
+  plugins: Plugin&lt;TData, TParams&gt;[] = [],
+) &#123;
+  const &#123; manual = false, ...rest &#125; = options;
+
+  const fetchOptions = &#123;
+    manual,
+    ...rest,
+  &#125;;
+
+  const serviceRef = useLatest(service);
+
+  const update = useUpdate();
+
+  const fetchInstance = useCreation(() =&gt; &#123;
+    const initState = plugins.map((p) =&gt; p?.onInit?.(fetchOptions)).filter(Boolean);
+
+    return new Fetch&lt;TData, TParams&gt;(
+      serviceRef,
+      fetchOptions,
+      update,
+      Object.assign(&#123;&#125;, ...initState),
+    );
+  &#125;, []);
+  fetchInstance.options = fetchOptions;
+  // run all plugins hooks
+  fetchInstance.pluginImpls = plugins.map((p) =&gt; p(fetchInstance, fetchOptions));
+
+  useMount(() =&gt; &#123;
+    if (!manual) &#123;
+      // useCachePlugin can set fetchInstance.state.params from cache when init
+      const params = fetchInstance.state.params || options.defaultParams || [];
+      // @ts-ignore
+      fetchInstance.run(...params);
+    &#125;
+  &#125;);
+
+  useUnmount(() =&gt; &#123;
+    fetchInstance.cancel();
+  &#125;);
+
+  return &#123;
+    loading: fetchInstance.state.loading,
+    data: fetchInstance.state.data,
+    error: fetchInstance.state.error,
+    params: fetchInstance.state.params || [],
+    cancel: useMemoizedFn(fetchInstance.cancel.bind(fetchInstance)),
+    refresh: useMemoizedFn(fetchInstance.refresh.bind(fetchInstance)),
+    refreshAsync: useMemoizedFn(fetchInstance.refreshAsync.bind(fetchInstance)),
+    run: useMemoizedFn(fetchInstance.run.bind(fetchInstance)),
+    runAsync: useMemoizedFn(fetchInstance.runAsync.bind(fetchInstance)),
+    mutate: useMemoizedFn(fetchInstance.mutate.bind(fetchInstance)),
+  &#125; as Result&lt;TData, TParams&gt;;
+&#125;
+
+export default useRequestImplement;
+</code></pre>
+<p>Finally, this function will be returned in a <code>useRequest</code> function with custom plugins along with its native plugins passed in.</p>
+<pre><code class="tsx">function useRequest&lt;TData, TParams extends any[]&gt;(
+  service: Service&lt;TData, TParams&gt;,
+  options?: Options&lt;TData, TParams&gt;,
+  plugins?: Plugin&lt;TData, TParams&gt;[],
+) &#123;
+  return useRequestImplement&lt;TData, TParams&gt;(service, options, [
+    ...(plugins || []),
+    useDebouncePlugin,
+    useLoadingDelayPlugin,
+    usePollingPlugin,
+    useRefreshOnWindowFocusPlugin,
+    useThrottlePlugin,
+    useRefreshDeps,
+    useCachePlugin,
+    useRetryPlugin,
+    useReadyPlugin,
+  ] as Plugin&lt;TData, TParams&gt;[]);
+&#125;
+</code></pre>
+<h1 id="Summarise"><a href="#Summarise" class="headerlink" title="Summarise"></a>Summarise</h1><p>The main idea of implementing a plugin is to find out the appropriate phase of the request lifecycle and plug in the core logic of the hook. The most important takeaway from the exploration of the hook’s source code is the approach of separating its core <code>Fetch</code> function and its plugins, which makes it more reusable and maintainable. Users are able to extend the plugins easily as they wish and each of the plugins works independently. I believe it’s a great example of the single responsibility principle and that’s something I could borrow from when customizing a hook or implementing complicated logic.</p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Hooks/">#Hooks</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/React/">#React</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Web/">#Web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/06/04/Deploy-A-Website-via-AWS-S3-CloudFront-and-More/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Deploy A Static Website via AWS S3, CloudFront and More</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+    
+</div>
+
+            </div>
+        
+        <!-- Config for comment using utterance -->
+        
+            <script src="https://utteranc.es/client.js"
+                    repo="playitsafe/my-blog-comments"
+                    issue-term="pathname"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Aaron Zhang</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        
+        
+        <!-- Highlight.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js" integrity="sha512-BNc7saQYlxCL10lykUYhFBcnzdKMnjx5fp5s5wPucDyZ7rKNwCoqJh1GwEAIhuePEK4WM9askJBRsu7ma0Rzvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css" integrity="sha512-zcatBMvxa7rT7dDklfjauWsfiSFParF+hRfCdf4Zr40/MmA1gkFcBRbop0zMpvYF3FmznYFgcL8wlcuO/GwHoA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+            hljs.highlightAll();
+        </script>
+
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-features"><span class="nav-text">Main features</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-Glance-on-Basic-Usage"><span class="nav-text">A Glance on Basic Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Loading-delay"><span class="nav-text">Loading delay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Polling"><span class="nav-text">Polling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Refresh-on-window-focus"><span class="nav-text">Refresh on window focus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debounce-amp-Throttling"><span class="nav-text">Debounce &amp; Throttling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache-amp-SWR"><span class="nav-text">Cache &amp; SWR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-retry"><span class="nav-text">Error retry</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Pattern"><span class="nav-text">Design Pattern</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source-code"><span class="nav-text">Source code</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fetch-the-core"><span class="nav-text">Fetch - the core</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pluginImpls"><span class="nav-text">pluginImpls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#state"><span class="nav-text">state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runPluginHandler"><span class="nav-text">runPluginHandler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runAsync"><span class="nav-text">runAsync</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Other-APIs"><span class="nav-text">Other APIs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Plugins"><span class="nav-text">Plugins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adding-up"><span class="nav-text">Adding up</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summarise"><span class="nav-text">Summarise</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
