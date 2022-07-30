@@ -19,11 +19,19 @@ $ hexo s
 $ hexo new post "<Post Name>"
 ```
 
-## 🔧 Deploy
+## 🔧 Deploy to github-pages
 To implement an auto deployment on `Github Pages`, add your repo info in `_config.yml`:
 ```yml
 deploy:
   type: git
   repo: <git repo url>
   branch: <branch name>
+```
+Run command `npm run publish` to trigger a deployment to github pages.
+
+## ☁️ Deploy to remote server
+Build up and update to master branch, will automatically deploy on aws
+https://doubleslash.me
+```
+npm run build
 ```
