@@ -509,3 +509,8 @@ function useRequest<TData, TParams extends any[]>(
 # Summarise
 
 The main idea of implementing a plugin is to find out the appropriate phase of the request lifecycle and plug in the core logic of the hook. The most important takeaway from the exploration of the hook’s source code is the approach of separating its core `Fetch` function and its plugins, which makes it more reusable and maintainable. Users are able to extend the plugins easily as they wish and each of the plugins works independently. I believe it’s a great example of the single responsibility principle and that’s something I could borrow from when customizing a hook or implementing complicated logic.
+
+## Reference
+https://ahooks.js.org/hooks/use-request/basic
+https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useRequest/src
+https://qdmana.com/2022/02/202202020201538966.html
