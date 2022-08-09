@@ -279,7 +279,44 @@ interface Expected2 &#123;
 &#125;
 </code></pre>
 <p>At this stage, all test cases should pass with no complaining errors.</p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>👉 <code>keyof T</code> Operator</p>
+<h1 id="00007-Easy-Readonly"><a href="#00007-Easy-Readonly" class="headerlink" title="00007 Easy Readonly"></a>00007 Easy Readonly</h1><p>Implement the built-in <code>Readonly&lt;T&gt;</code> generic without using it.</p>
+<p>Constructs a type with all properties of T set to readonly, meaning the properties of the constructed type cannot be reassigned.</p>
+<p>For example:</p>
+<pre><code class="ts">interface Todo &#123;
+  title: string
+  description: string
+&#125;
+
+const todo: MyReadonly&lt;Todo&gt; = &#123;
+  title: &quot;Hey&quot;,
+  description: &quot;foobar&quot;
+&#125;
+
+todo.title = &quot;Hello&quot; // Error: cannot reassign a readonly property
+todo.description = &quot;barFoo&quot; // Error: cannot reassign a readonly property
+</code></pre>
+<h2 id="Tests-1"><a href="#Tests-1" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+type cases = [
+  Expect&lt;Equal&lt;MyReadonly&lt;Todo1&gt;, Readonly&lt;Todo1&gt;&gt;&gt;,
+]
+
+interface Todo1 &#123;
+  title: string
+  description: string
+  completed: boolean
+  meta: &#123;
+    author: string
+  &#125;
+&#125;
+</code></pre>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h2><p>This is a simple one. The solution is to use mapped type to iterate through <code>Todo</code> and add <code>readonly</code> to each of its keys.</p>
+<pre><code class="ts">type MyReadonly&lt;T&gt; = &#123;
+  readonly [KEY in keyof T]: T[KEY]
+&#125;
+</code></pre>
+<p>This shall make its tests all pass.</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>👉 <code>keyof T</code> Operator</p>
 <p>To get all keys as a union type from a type or interface, we can use mapped types <code>in</code>.</p>
 <pre><code class="ts">type Point = &#123; x: number; y: number &#125;;
 type P = keyof Point;
@@ -302,6 +339,24 @@ type TLength = arr[&#39;length&#39;]
 </code></pre>
 <p>More on this: <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content" >https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content<i class="fas fa-external-link-alt"></i></a></p>
 <p>👉 <code>extends</code>:<br>The keyword <code>extends</code> stands for constraints when defining a generic type.</p>
+<p>👉 Native <code>ReadOnly</code> type will do as the following:</p>
+<pre><code class="ts"> interface Todo &#123;
+   title: string
+   description: string
+ &#125;
+ 
+ const todo: Readonly&lt;Todo&gt; = &#123;
+   title: &quot;Hey&quot;,
+   description: &quot;foobar&quot;
+ &#125;
+
+ // will make `todo` as a readonly object:
+  const todo: &lt;Todo&gt; = &#123;
+   readonly title: &quot;Hey&quot;,
+   readonly description: &quot;foobar&quot;
+ &#125;
+</code></pre>
+<p> More on <code>ReadOnly</code>: <a class="link"   target="_blank" rel="noopener" href="https://www.tutorialsteacher.com/typescript/typescript-readonly" >https://www.tutorialsteacher.com/typescript/typescript-readonly<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -488,7 +543,7 @@ type TLength = arr[&#39;length&#39;]
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0004-easy-pick"><span class="nav-text">0004-easy-pick</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0004-easy-pick"><span class="nav-text">0004-easy-pick</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00007-Easy-Readonly"><span class="nav-text">00007 Easy Readonly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol>
     </div>
 </div>
         </aside>

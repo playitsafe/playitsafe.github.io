@@ -83,7 +83,57 @@ type MyPick<T, KEYS extends keyof T> = {
 
 At this stage, all test cases should pass with no complaining errors.
 
-## Summary
+# 00007 Easy Readonly
+Implement the built-in `Readonly<T>` generic without using it.
+
+Constructs a type with all properties of T set to readonly, meaning the properties of the constructed type cannot be reassigned.
+
+For example:
+
+```ts
+interface Todo {
+  title: string
+  description: string
+}
+
+const todo: MyReadonly<Todo> = {
+  title: "Hey",
+  description: "foobar"
+}
+
+todo.title = "Hello" // Error: cannot reassign a readonly property
+todo.description = "barFoo" // Error: cannot reassign a readonly property
+```
+
+## Tests
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<MyReadonly<Todo1>, Readonly<Todo1>>>,
+]
+
+interface Todo1 {
+  title: string
+  description: string
+  completed: boolean
+  meta: {
+    author: string
+  }
+}
+```
+
+## Solution
+This is a simple one. The solution is to use mapped type to iterate through `Todo` and add `readonly` to each of its keys.
+
+```ts
+type MyReadonly<T> = {
+  readonly [KEY in keyof T]: T[KEY]
+}
+```
+This shall make its tests all pass.
+
+# Summary
 
 👉 `keyof T` Operator
 
@@ -125,3 +175,23 @@ More on this: https://www.typescriptlang.org/docs/handbook/2/indexed-access-type
 
 👉 `extends`:
 The keyword `extends` stands for constraints when defining a generic type.
+
+👉 Native `ReadOnly` type will do as the following:
+```ts
+ interface Todo {
+   title: string
+   description: string
+ }
+ 
+ const todo: Readonly<Todo> = {
+   title: "Hey",
+   description: "foobar"
+ }
+
+ // will make `todo` as a readonly object:
+  const todo: <Todo> = {
+   readonly title: "Hey",
+   readonly description: "foobar"
+ }
+ ```
+ More on `ReadOnly`: https://www.tutorialsteacher.com/typescript/typescript-readonly
