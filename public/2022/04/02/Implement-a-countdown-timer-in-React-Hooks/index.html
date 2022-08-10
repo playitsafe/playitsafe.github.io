@@ -232,13 +232,13 @@
 <ul>
 <li>First sms will be sent at the time the modal pops up, and the button start to count down util it reaches the time interval.</li>
 <li>After each count down, the button will be clickable and will start counting down after each click.</li>
-</ul>
-<p><img  
+<li><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/sigma-captcha.gif"
-                      alt="captcha button gif"
-                ></p>
+                      alt="captcha demo"
+                ></li>
+</ul>
 <h1 id="Implementation-in-a-React-component"><a href="#Implementation-in-a-React-component" class="headerlink" title="Implementation in a React component"></a>Implementation in a React component</h1><h2 id="Basic-setup"><a href="#Basic-setup" class="headerlink" title="Basic setup:"></a>Basic setup:</h2><hr>
 <p>From the perspective of code, will need two states to manage this timer:</p>
 <ul>
@@ -586,43 +586,9 @@ export default const TimerModal = () =&gt; &#123;
         </aside>
     
 
-    .image-viewer-container {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0);
-  visibility: hidden;
-  z-index: $z-index-8;
-  padding: 6%;
-  box-sizing: border-box;
-  transition-t("visibility, background", "0, 0", "0.3, 0.3", "ease, ease");
-
-  &.active {
-    background: rgba(0, 0, 0, 0.5);
-    visibility: visible;
-
-    img {
-      cursor: zoom-out;
-      transform: scale(1);
-      padding: 2px;
-      background: var(--background-color);
-    }
-  }
-
-  img {
-    max-width: 100%;
-    max-height: 100%;
-    transform: scale(0);
-    transition-t("transform", "0", "0.3", "ease");
-  }
-}
-
-
+    <div class="image-viewer-container">
+    <img src="">
+</div>
 
 
     

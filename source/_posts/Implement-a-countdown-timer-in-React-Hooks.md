@@ -19,8 +19,8 @@ However, we will run into some cases that we need to customize the function as w
 Ideally, we need to implement a button that behaves like this:
 - First sms will be sent at the time the modal pops up, and the button start to count down util it reaches the time interval.
 - After each count down, the button will be clickable and will start counting down after each click.
-
-![captcha button gif](https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/sigma-captcha.gif)
+- 
+![captcha demo](https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/sigma-captcha.gif)
 
 # Implementation in a React component
 ## Basic setup:
