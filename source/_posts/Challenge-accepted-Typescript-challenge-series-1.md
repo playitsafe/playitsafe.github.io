@@ -16,7 +16,7 @@ There are questions of different levels in the `questions` directory, each of wh
 
 Let's get started from the easy ones!
 
-# 0004-easy-pick
+# 00004 Easy Pick
 
 Implement the built-in `Pick<T, K>` generic without using it.
 
@@ -133,9 +133,70 @@ type MyReadonly<T> = {
 ```
 This shall make its tests all pass.
 
+# 00007 Easy Tuple
+
+Give an array, transform into an object type and the key/value must in the given array.
+
+For example:
+
+```ts
+const tuple = ['tesla', 'model 3', 'model X', 'model Y'] as const
+
+type result = TupleToObject<typeof tuple> // expected { tesla: 'tesla', 'model 3': 'model 3', 'model X': 'model X', 'model Y': 'model Y'}
+```
+
+## Tests
+
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+const tuple = ['tesla', 'model 3', 'model X', 'model Y'] as const
+const tupleNumber = [1, 2, 3, 4] as const
+const tupleMix = [1, '2', 3, '4'] as const
+
+type cases = [
+  Expect<Equal<TupleToObject<typeof tuple>, { tesla: 'tesla'; 'model 3': 'model 3'; 'model X': 'model X'; 'model Y': 'model Y' }>>,
+  Expect<Equal<TupleToObject<typeof tupleNumber>, { 1: 1; 2: 2; 3: 3; 4: 4 }>>,
+  Expect<Equal<TupleToObject<typeof tupleMix>, { 1: 1; '2': '2'; 3: 3; '4': '4' }>>,
+]
+
+// @ts-expect-errorr
+type error = TupleToObject<[[1, 2], {}]>
+```
+
+## Solution
+
+First we need to ensure that this type accepts `const` arrays(tuples):
+```ts
+type TupleToObject<T extends readonly any[]> = any
+```
+
+Next, we want to get all of the value inside of it as a union type to iterate through the tuple just like we use mapped type to iterate through an object type.
+In array/tuple, we cannot use `keypf T` operator, instead we can treat array as an object-like type that has `number` as key of each of its element - we can do `T[number]` to get all of its values. So it's going to be like this:
+
+```ts
+type TupleToObject<T extends readonly any[]> = {
+  [VAL in T[number]]: VAL
+}
+```
+
+Till now we solve most of the test cases, except for the error handling case:
+```ts
+type error = TupleToObject<[[1, 2], {}]>
+```
+We can see it doesn't like empty object or array/tuple element to be inside. So the  simplest way is to use `extends` to constrain the type to be `number` or `string`
+
+```ts
+type TupleToObject<T extends readonly (number | string)[]> = {
+  [VAL in T[number]]: VAL
+}
+```
+
+No it's all good!
+
 # Summary
 
-👉 `keyof T` Operator
+## 👉 `keyof T` Operator
 
 To get all keys as a union type from a type or interface, we can use mapped types `in`.
 ```ts
@@ -147,13 +208,13 @@ type P = keyof Point;
 More on this: https://www.typescriptlang.org/docs/handbook/2/keyof-types.html#handbook-content
 
 
-👉 `[KEY in KTYPES]`
+## 👉 `[KEY in KTYPES]`
 A mapped type is a generic type which uses a union of PropertyKeys (frequently created via a keyof) to iterate through keys to create a type.
 
 More on this: 
 https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#handbook-content
 
-👉 `TODO[KEY]`
+## 👉 `TODO[KEY]`
 
 Indexed access type. We can use an indexed access type to look up a specific property on another type:
 
@@ -173,7 +234,7 @@ type TLength = arr['length']
 More on this: https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content
 
 
-👉 `extends`:
+## 👉 `extends`
 The keyword `extends` stands for constraints when defining a generic type.
 
 👉 Native `ReadOnly` type will do as the following:
@@ -195,3 +256,16 @@ The keyword `extends` stands for constraints when defining a generic type.
  }
  ```
  More on `ReadOnly`: https://www.tutorialsteacher.com/typescript/typescript-readonly
+
+## 👉 `as const` operator
+```ts
+const tuple = ['tesla', 'model 3'] as const
+
+// will be equivalent to 
+
+typeof tuple = readonly ['tesla', 'model 3']`
+```
+
+## 👉 To get all values from an array type:
+
+We can do `ARR[number]` to get all values as an union type of the array type `ARR` and use `E in ARR[number]` to iterate through.

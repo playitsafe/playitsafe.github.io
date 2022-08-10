@@ -229,7 +229,7 @@
 <h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>I found a <a class="link"   target="_blank" rel="noopener" href="https://procomponents.ant.design/en-US/components/field-set#proformcaptcha" >repo<i class="fas fa-external-link-alt"></i></a> on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I’ll go with those challenges.</p>
 <h1 id="How-to-play-around-with-it"><a href="#How-to-play-around-with-it" class="headerlink" title="How to play around with it?"></a>How to play around with it?</h1><p>There are questions of different levels in the <code>questions</code> directory, each of which has a <code>README</code>, <code>test-cases</code> and <code>template</code>. The challenge is to modify the type in <code>template</code> to make test cases all pass in <code>test-cases</code> .</p>
 <p>Let’s get started from the easy ones!</p>
-<h1 id="0004-easy-pick"><a href="#0004-easy-pick" class="headerlink" title="0004-easy-pick"></a>0004-easy-pick</h1><p>Implement the built-in <code>Pick&lt;T, K&gt;</code> generic without using it.</p>
+<h1 id="00004-Easy-Pick"><a href="#00004-Easy-Pick" class="headerlink" title="00004 Easy Pick"></a>00004 Easy Pick</h1><p>Implement the built-in <code>Pick&lt;T, K&gt;</code> generic without using it.</p>
 <p>Constructs a type by picking the set of properties <code>K</code> from <code>T</code></p>
 <p>For example:</p>
 <pre><code class="ts">interface Todo &#123;
@@ -316,18 +316,54 @@ interface Todo1 &#123;
 &#125;
 </code></pre>
 <p>This shall make its tests all pass.</p>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>👉 <code>keyof T</code> Operator</p>
-<p>To get all keys as a union type from a type or interface, we can use mapped types <code>in</code>.</p>
+<h1 id="00007-Easy-Tuple"><a href="#00007-Easy-Tuple" class="headerlink" title="00007 Easy Tuple"></a>00007 Easy Tuple</h1><p>Give an array, transform into an object type and the key&#x2F;value must in the given array.</p>
+<p>For example:</p>
+<pre><code class="ts">const tuple = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;] as const
+
+type result = TupleToObject&lt;typeof tuple&gt; // expected &#123; tesla: &#39;tesla&#39;, &#39;model 3&#39;: &#39;model 3&#39;, &#39;model X&#39;: &#39;model X&#39;, &#39;model Y&#39;: &#39;model Y&#39;&#125;
+</code></pre>
+<h2 id="Tests-2"><a href="#Tests-2" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+const tuple = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;] as const
+const tupleNumber = [1, 2, 3, 4] as const
+const tupleMix = [1, &#39;2&#39;, 3, &#39;4&#39;] as const
+
+type cases = [
+  Expect&lt;Equal&lt;TupleToObject&lt;typeof tuple&gt;, &#123; tesla: &#39;tesla&#39;; &#39;model 3&#39;: &#39;model 3&#39;; &#39;model X&#39;: &#39;model X&#39;; &#39;model Y&#39;: &#39;model Y&#39; &#125;&gt;&gt;,
+  Expect&lt;Equal&lt;TupleToObject&lt;typeof tupleNumber&gt;, &#123; 1: 1; 2: 2; 3: 3; 4: 4 &#125;&gt;&gt;,
+  Expect&lt;Equal&lt;TupleToObject&lt;typeof tupleMix&gt;, &#123; 1: 1; &#39;2&#39;: &#39;2&#39;; 3: 3; &#39;4&#39;: &#39;4&#39; &#125;&gt;&gt;,
+]
+
+// @ts-expect-errorr
+type error = TupleToObject&lt;[[1, 2], &#123;&#125;]&gt;
+</code></pre>
+<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h2><p>First we need to ensure that this type accepts <code>const</code> arrays(tuples):</p>
+<pre><code class="ts">type TupleToObject&lt;T extends readonly any[]&gt; = any
+</code></pre>
+<p>Next, we want to get all of the value inside of it as a union type to iterate through the tuple just like we use mapped type to iterate through an object type.<br>In array&#x2F;tuple, we cannot use <code>keypf T</code> operator, instead we can treat array as an object-like type that has <code>number</code> as key of each of its element - we can do <code>T[number]</code> to get all of its values. So it’s going to be like this:</p>
+<pre><code class="ts">type TupleToObject&lt;T extends readonly any[]&gt; = &#123;
+  [VAL in T[number]]: VAL
+&#125;
+</code></pre>
+<p>Till now we solve most of the test cases, except for the error handling case:</p>
+<pre><code class="ts">type error = TupleToObject&lt;[[1, 2], &#123;&#125;]&gt;
+</code></pre>
+<p>We can see it doesn’t like empty object or array&#x2F;tuple element to be inside. So the  simplest way is to use <code>extends</code> to constrain the type to be <code>number</code> or <code>string</code></p>
+<pre><code class="ts">type TupleToObject&lt;T extends readonly (number | string)[]&gt; = &#123;
+  [VAL in T[number]]: VAL
+&#125;
+</code></pre>
+<p>No it’s all good!</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><h2 id="👉-keyof-T-Operator"><a href="#👉-keyof-T-Operator" class="headerlink" title="👉 keyof T Operator"></a>👉 <code>keyof T</code> Operator</h2><p>To get all keys as a union type from a type or interface, we can use mapped types <code>in</code>.</p>
 <pre><code class="ts">type Point = &#123; x: number; y: number &#125;;
 type P = keyof Point;
 
 // P is the same type as “x” | “y”
 </code></pre>
 <p>More on this: <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/keyof-types.html#handbook-content" >https://www.typescriptlang.org/docs/handbook/2/keyof-types.html#handbook-content<i class="fas fa-external-link-alt"></i></a></p>
-<p>👉 <code>[KEY in KTYPES]</code><br>A mapped type is a generic type which uses a union of PropertyKeys (frequently created via a keyof) to iterate through keys to create a type.</p>
+<h2 id="👉-KEY-in-KTYPES"><a href="#👉-KEY-in-KTYPES" class="headerlink" title="👉 [KEY in KTYPES]"></a>👉 <code>[KEY in KTYPES]</code></h2><p>A mapped type is a generic type which uses a union of PropertyKeys (frequently created via a keyof) to iterate through keys to create a type.</p>
 <p>More on this:<br><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#handbook-content" >https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#handbook-content<i class="fas fa-external-link-alt"></i></a></p>
-<p>👉 <code>TODO[KEY]</code></p>
-<p>Indexed access type. We can use an indexed access type to look up a specific property on another type:</p>
+<h2 id="👉-TODO-KEY"><a href="#👉-TODO-KEY" class="headerlink" title="👉 TODO[KEY]"></a>👉 <code>TODO[KEY]</code></h2><p>Indexed access type. We can use an indexed access type to look up a specific property on another type:</p>
 <pre><code class="ts">type Person = &#123; age: number; name: string; alive: boolean &#125;;
 type Age = Person[&quot;age&quot;];
 
@@ -338,7 +374,7 @@ type Age = Person[&quot;age&quot;];
 type TLength = arr[&#39;length&#39;]
 </code></pre>
 <p>More on this: <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content" >https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content<i class="fas fa-external-link-alt"></i></a></p>
-<p>👉 <code>extends</code>:<br>The keyword <code>extends</code> stands for constraints when defining a generic type.</p>
+<h2 id="👉-extends"><a href="#👉-extends" class="headerlink" title="👉 extends"></a>👉 <code>extends</code></h2><p>The keyword <code>extends</code> stands for constraints when defining a generic type.</p>
 <p>👉 Native <code>ReadOnly</code> type will do as the following:</p>
 <pre><code class="ts"> interface Todo &#123;
    title: string
@@ -357,6 +393,13 @@ type TLength = arr[&#39;length&#39;]
  &#125;
 </code></pre>
 <p> More on <code>ReadOnly</code>: <a class="link"   target="_blank" rel="noopener" href="https://www.tutorialsteacher.com/typescript/typescript-readonly" >https://www.tutorialsteacher.com/typescript/typescript-readonly<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="👉-as-const-operator"><a href="#👉-as-const-operator" class="headerlink" title="👉 as const operator"></a>👉 <code>as const</code> operator</h2><pre><code class="ts">const tuple = [&#39;tesla&#39;, &#39;model 3&#39;] as const
+
+// will be equivalent to 
+
+typeof tuple = readonly [&#39;tesla&#39;, &#39;model 3&#39;]`
+</code></pre>
+<h2 id="👉-To-get-all-values-from-an-array-type"><a href="#👉-To-get-all-values-from-an-array-type" class="headerlink" title="👉 To get all values from an array type:"></a>👉 To get all values from an array type:</h2><p>We can do <code>ARR[number]</code> to get all values as an union type of the array type <code>ARR</code> and use <code>E in ARR[number]</code> to iterate through.</p>
 
         </div>
 
@@ -543,15 +586,49 @@ type TLength = arr[&#39;length&#39;]
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0004-easy-pick"><span class="nav-text">0004-easy-pick</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00007-Easy-Readonly"><span class="nav-text">00007 Easy Readonly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00004-Easy-Pick"><span class="nav-text">00004 Easy Pick</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00007-Easy-Readonly"><span class="nav-text">00007 Easy Readonly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00007-Easy-Tuple"><span class="nav-text">00007 Easy Tuple</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-keyof-T-Operator"><span class="nav-text">👉 keyof T Operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-KEY-in-KTYPES"><span class="nav-text">👉 [KEY in KTYPES]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-TODO-KEY"><span class="nav-text">👉 TODO[KEY]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-extends"><span class="nav-text">👉 extends</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-as-const-operator"><span class="nav-text">👉 as const operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-To-get-all-values-from-an-array-type"><span class="nav-text">👉 To get all values from an array type:</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
     
 
-    <div class="image-viewer-container">
-    <img src="">
-</div>
+    .image-viewer-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  visibility: hidden;
+  z-index: $z-index-8;
+  padding: 6%;
+  box-sizing: border-box;
+  transition-t("visibility, background", "0, 0", "0.3, 0.3", "ease, ease");
+
+  &.active {
+    background: rgba(0, 0, 0, 0.5);
+    visibility: visible;
+
+    img {
+      cursor: zoom-out;
+      transform: scale(1);
+      padding: 2px;
+      background: var(--background-color);
+    }
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    transform: scale(0);
+    transition-t("transform", "0", "0.3", "ease");
+  }
+}
+
+
 
 
     
