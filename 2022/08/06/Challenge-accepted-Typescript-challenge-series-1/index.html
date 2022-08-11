@@ -316,7 +316,7 @@ interface Todo1 &#123;
 &#125;
 </code></pre>
 <p>This shall make its tests all pass.</p>
-<h1 id="00007-Easy-Tuple"><a href="#00007-Easy-Tuple" class="headerlink" title="00007 Easy Tuple"></a>00007 Easy Tuple</h1><p>Give an array, transform into an object type and the key&#x2F;value must in the given array.</p>
+<h1 id="00011-Easy-Tuple"><a href="#00011-Easy-Tuple" class="headerlink" title="00011 Easy Tuple"></a>00011 Easy Tuple</h1><p>Give an array, transform into an object type and the key&#x2F;value must in the given array.</p>
 <p>For example:</p>
 <pre><code class="ts">const tuple = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;] as const
 
@@ -354,6 +354,44 @@ type error = TupleToObject&lt;[[1, 2], &#123;&#125;]&gt;
 &#125;
 </code></pre>
 <p>No it’s all good!</p>
+<h1 id="00014-Easy-First-of-Array"><a href="#00014-Easy-First-of-Array" class="headerlink" title="00014 Easy First of Array"></a>00014 Easy First of Array</h1><p>Implement a generic <code>First&lt;T&gt;</code> that takes an Array <code>T</code> and returns it’s first element’s type.<br>For example:</p>
+<pre><code class="ts">type arr1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+type arr2 = [3, 2, 1]
+
+type head1 = First&lt;arr1&gt; // expected to be &#39;a&#39;
+type head2 = First&lt;arr2&gt; // expected to be 3
+</code></pre>
+<h2 id="Tests-3"><a href="#Tests-3" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+type cases = [
+  Expect&lt;Equal&lt;First&lt;[3, 2, 1]&gt;, 3&gt;&gt;,
+  Expect&lt;Equal&lt;First&lt;[() =&gt; 123, &#123; a: string &#125;]&gt;, () =&gt; 123&gt;&gt;,
+  Expect&lt;Equal&lt;First&lt;[]&gt;, never&gt;&gt;,
+  Expect&lt;Equal&lt;First&lt;[undefined]&gt;, undefined&gt;&gt;,
+]
+
+type errors = [
+  // @ts-expect-error
+  First&lt;&#39;notArray&#39;&gt;,
+  // @ts-expect-error
+  First&lt;&#123; 0: &#39;arrayLike&#39; &#125;&gt;,
+]
+</code></pre>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h2><p>Our first thought was like this:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T[0]
+</code></pre>
+<p>This will solve most of test cases, but failed when <code>T</code> is an empty array. So we can add a conditional return:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T extends [] ? never : T[0]
+</code></pre>
+<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution 2"></a>Solution 2</h2><p>Instead of checking <code>T extends []</code>, we can check its length type. From previous tests we know there’s a <code>length</code> property on array&#x2F;tuple type, so we can do:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T[&#39;length&#39;] extends 0 ? never : T[0]
+</code></pre>
+<h2 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution 3"></a>Solution 3</h2><p>We can also check if <code>T[0]</code> is in array:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T[0] extends T[number] ? T[0] : never
+</code></pre>
+<h2 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution 4"></a>Solution 4</h2><p>We can also use <code>infer</code> to get the type of the first element of the array:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T extends [infer FIRST, ...infer REST] ? FIRST : never
+</code></pre>
 <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><h2 id="👉-keyof-T-Operator"><a href="#👉-keyof-T-Operator" class="headerlink" title="👉 keyof T Operator"></a>👉 <code>keyof T</code> Operator</h2><p>To get all keys as a union type from a type or interface, we can use mapped types <code>in</code>.</p>
 <pre><code class="ts">type Point = &#123; x: number; y: number &#125;;
 type P = keyof Point;
@@ -400,6 +438,18 @@ type TLength = arr[&#39;length&#39;]
 typeof tuple = readonly [&#39;tesla&#39;, &#39;model 3&#39;]`
 </code></pre>
 <h2 id="👉-To-get-all-values-from-an-array-type"><a href="#👉-To-get-all-values-from-an-array-type" class="headerlink" title="👉 To get all values from an array type:"></a>👉 To get all values from an array type:</h2><p>We can do <code>ARR[number]</code> to get all values as an union type of the array type <code>ARR</code> and use <code>E in ARR[number]</code> to iterate through.</p>
+<h2 id="👉-To-get-type-of-the-first-element-in-an-array"><a href="#👉-To-get-type-of-the-first-element-in-an-array" class="headerlink" title="👉 To get type of the first element in an array"></a>👉 To get type of the first element in an array</h2><p><code>T[0]</code></p>
+<h2 id="👉-Get-length-of-an-array"><a href="#👉-Get-length-of-an-array" class="headerlink" title="👉 Get length of an array"></a>👉 Get length of an array</h2><p><code>T[&#39;length&#39;]</code> &#x2F;&#x2F;also known as indexed</p>
+<h2 id="👉-extends-union-type"><a href="#👉-extends-union-type" class="headerlink" title="👉 extends union type"></a>👉 extends union type</h2><p>If we check if <code>a</code> extends <code>a|2|3</code>, will check every type in union type to see if they match.</p>
+<h2 id="👉-infer-in-array-destruction"><a href="#👉-infer-in-array-destruction" class="headerlink" title="👉 infer in array destruction"></a>👉 <code>infer</code> in array destruction</h2><pre><code class="ts">T extends [infer FIRST, ...infer REST] ? FIRST : never
+</code></pre>
+<p>if <code>FIRST</code> can be successfully destructed, then return <code>FIRST</code></p>
+<pre><code class="ts">const arr: any[] = []
+const [a, ...b] = arr
+
+a ==&gt; undefined
+b ==&gt; []
+</code></pre>
 
         </div>
 
@@ -586,7 +636,7 @@ typeof tuple = readonly [&#39;tesla&#39;, &#39;model 3&#39;]`
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00004-Easy-Pick"><span class="nav-text">00004 Easy Pick</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00007-Easy-Readonly"><span class="nav-text">00007 Easy Readonly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00007-Easy-Tuple"><span class="nav-text">00007 Easy Tuple</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-keyof-T-Operator"><span class="nav-text">👉 keyof T Operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-KEY-in-KTYPES"><span class="nav-text">👉 [KEY in KTYPES]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-TODO-KEY"><span class="nav-text">👉 TODO[KEY]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-extends"><span class="nav-text">👉 extends</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-as-const-operator"><span class="nav-text">👉 as const operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-To-get-all-values-from-an-array-type"><span class="nav-text">👉 To get all values from an array type:</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00004-Easy-Pick"><span class="nav-text">00004 Easy Pick</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00007-Easy-Readonly"><span class="nav-text">00007 Easy Readonly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00011-Easy-Tuple"><span class="nav-text">00011 Easy Tuple</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00014-Easy-First-of-Array"><span class="nav-text">00014 Easy First of Array</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-3"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-3"><span class="nav-text">Solution 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-4"><span class="nav-text">Solution 4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-keyof-T-Operator"><span class="nav-text">👉 keyof T Operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-KEY-in-KTYPES"><span class="nav-text">👉 [KEY in KTYPES]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-TODO-KEY"><span class="nav-text">👉 TODO[KEY]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-extends"><span class="nav-text">👉 extends</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-as-const-operator"><span class="nav-text">👉 as const operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-To-get-all-values-from-an-array-type"><span class="nav-text">👉 To get all values from an array type:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-To-get-type-of-the-first-element-in-an-array"><span class="nav-text">👉 To get type of the first element in an array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-Get-length-of-an-array"><span class="nav-text">👉 Get length of an array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-extends-union-type"><span class="nav-text">👉 extends union type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-infer-in-array-destruction"><span class="nav-text">👉 infer in array destruction</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
