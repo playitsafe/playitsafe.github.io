@@ -133,7 +133,7 @@ type MyReadonly<T> = {
 ```
 This shall make its tests all pass.
 
-# 00007 Easy Tuple
+# 00011 Easy Tuple
 
 Give an array, transform into an object type and the key/value must in the given array.
 
@@ -193,6 +193,71 @@ type TupleToObject<T extends readonly (number | string)[]> = {
 ```
 
 No it's all good!
+
+# 00014 Easy First of Array
+
+Implement a generic `First<T>` that takes an Array `T` and returns it's first element's type.
+For example:
+
+```ts
+type arr1 = ['a', 'b', 'c']
+type arr2 = [3, 2, 1]
+
+type head1 = First<arr1> // expected to be 'a'
+type head2 = First<arr2> // expected to be 3
+```
+
+## Tests
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<First<[3, 2, 1]>, 3>>,
+  Expect<Equal<First<[() => 123, { a: string }]>, () => 123>>,
+  Expect<Equal<First<[]>, never>>,
+  Expect<Equal<First<[undefined]>, undefined>>,
+]
+
+type errors = [
+  // @ts-expect-error
+  First<'notArray'>,
+  // @ts-expect-error
+  First<{ 0: 'arrayLike' }>,
+]
+```
+
+## Solution 1
+
+Our first thought was like this:
+```ts
+type First<T extends any[]> = T[0]
+```
+This will solve most of test cases, but failed when `T` is an empty array. So we can add a conditional return:
+```ts
+type First<T extends any[]> = T extends [] ? never : T[0]
+```
+
+## Solution 2
+Instead of checking `T extends []`, we can check its length type. From previous tests we know there's a `length` property on array/tuple type, so we can do:
+
+```ts 
+type First<T extends any[]> = T['length'] extends 0 ? never : T[0]
+```
+
+## Solution 3
+We can also check if `T[0]` is in array:
+
+```ts
+type First<T extends any[]> = T[0] extends T[number] ? T[0] : never
+```
+
+## Solution 4
+We can also use `infer` to get the type of the first element of the array:
+
+```ts
+type First<T extends any[]> = T extends [infer FIRST, ...infer REST] ? FIRST : never
+```
+
 
 # Summary
 
@@ -269,3 +334,29 @@ typeof tuple = readonly ['tesla', 'model 3']`
 ## 👉 To get all values from an array type:
 
 We can do `ARR[number]` to get all values as an union type of the array type `ARR` and use `E in ARR[number]` to iterate through.
+
+## 👉 To get type of the first element in an array
+`T[0]`
+
+## 👉 Get length of an array
+
+`T['length']` //also known as indexed
+
+## 👉 extends union type
+
+If we check if `a` extends `a|2|3`, will check every type in union type to see if they match.
+
+## 👉 `infer` in array destruction
+
+```ts
+T extends [infer FIRST, ...infer REST] ? FIRST : never
+```
+if `FIRST` can be successfully destructed, then return `FIRST`
+
+```ts
+const arr: any[] = []
+const [a, ...b] = arr
+
+a ==> undefined
+b ==> []
+```
