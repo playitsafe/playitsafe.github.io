@@ -52,16 +52,7 @@ type Length<T extends readonly any[]> = T['length']
 
 # Summary
 
-## 👉 `keyof T` Operator
+## 👉 Array/Tuple's length type:
 
-To get all keys as a union type from a type or interface, we can use mapped types `in`.
-```ts
-type Point = { x: number; y: number };
-type P = keyof Point;
-
-// P is the same type as “x” | “y”
-```
-More on this: https://www.typescriptlang.org/docs/handbook/2/keyof-types.html#handbook-content
-
-
+`T['length']`
 
