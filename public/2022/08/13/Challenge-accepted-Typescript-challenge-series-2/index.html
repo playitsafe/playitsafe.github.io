@@ -226,32 +226,22 @@
                      data-src="https://tsch.js.org/logo.svg"
                       alt="logo"
                 ></p>
-<h1 id="00018-Easy-Tuple-Length"><a href="#00018-Easy-Tuple-Length" class="headerlink" title="00018 Easy Tuple Length"></a>00018 Easy Tuple Length</h1><p>Create a generic Length, pick the length of the tuple.</p>
-<p>For example:</p>
-<pre><code class="ts">type tesla = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;]
-type spaceX = [&#39;FALCON 9&#39;, &#39;FALCON HEAVY&#39;, &#39;DRAGON&#39;, &#39;STARSHIP&#39;, &#39;HUMAN SPACEFLIGHT&#39;]
-
-type teslaLength = Length&lt;tesla&gt;  // expected 4
-type spaceXLength = Length&lt;spaceX&gt; // expected 5
+<h1 id="00043-Easy-Exclude"><a href="#00043-Easy-Exclude" class="headerlink" title="00043 Easy Exclude"></a>00043 Easy Exclude</h1><p>Implement the built-in <code>Exclude&lt;T, U&gt;</code></p>
+<pre><code class="ts">type Result = MyExclude&lt;&#39;a&#39; | &#39;b&#39; | &#39;c&#39;, &#39;a&#39;&gt;
+// &#39;b&#39; | &#39;c&#39;
 </code></pre>
 <h2 id="Tests"><a href="#Tests" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
 
-const tesla = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;] as const
-const spaceX = [&#39;FALCON 9&#39;, &#39;FALCON HEAVY&#39;, &#39;DRAGON&#39;, &#39;STARSHIP&#39;, &#39;HUMAN SPACEFLIGHT&#39;] as const
-
 type cases = [
-  Expect&lt;Equal&lt;Length&lt;typeof tesla&gt;, 4&gt;&gt;,
-  Expect&lt;Equal&lt;Length&lt;typeof spaceX&gt;, 5&gt;&gt;,
-  // @ts-expect-error
-  Length&lt;5&gt;,
-  // @ts-expect-error
-  Length&lt;&#39;hello world&#39;&gt;,
+  Expect&lt;Equal&lt;MyExclude&lt;&#39;a&#39; | &#39;b&#39; | &#39;c&#39;, &#39;a&#39;&gt;, &#39;b&#39; | &#39;c&#39;&gt;&gt;,
+  Expect&lt;Equal&lt;MyExclude&lt;&#39;a&#39; | &#39;b&#39; | &#39;c&#39;, &#39;a&#39; | &#39;b&#39;&gt;, &#39;c&#39;&gt;&gt;,
+  Expect&lt;Equal&lt;MyExclude&lt;string | number | (() =&gt; void), Function&gt;, string | number&gt;&gt;,
 ]
 </code></pre>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>This is an easy one. From the examples and tests we can see <code>Length</code> accepts constant tuple. and we can use <code>length</code> property of array&#x2F;tuple type to get the length. So it’ll be like this:</p>
-<pre><code class="ts">type Length&lt;T extends readonly any[]&gt; = T[&#39;length&#39;]
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>When both sides of <code>extends</code> are union types, <code>extends</code> will iterate through each type inside to check.</p>
+<pre><code class="ts">type MyExclude&lt;T, U&gt; = T extends U ? never : T
 </code></pre>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><h2 id="👉-Array-x2F-Tuple’s-length-type"><a href="#👉-Array-x2F-Tuple’s-length-type" class="headerlink" title="👉 Array&#x2F;Tuple’s length type:"></a>👉 Array&#x2F;Tuple’s length type:</h2><p><code>T[&#39;length&#39;]</code></p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><h2 id="👉-T-extends-U"><a href="#👉-T-extends-U" class="headerlink" title="👉 T extends U"></a>👉 <code>T extends U</code></h2><p>Union type will iterate through each union type to check if a type in <code>T</code> exists in a type in <code>U</code>. It works like a <code>for</code> loop in javascript.</p>
 
         </div>
 
@@ -438,7 +428,7 @@ type cases = [
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00018-Easy-Tuple-Length"><span class="nav-text">00018 Easy Tuple Length</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-Array-x2F-Tuple%E2%80%99s-length-type"><span class="nav-text">👉 Array&#x2F;Tuple’s length type:</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

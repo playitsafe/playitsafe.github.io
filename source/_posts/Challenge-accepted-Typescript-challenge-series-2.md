@@ -9,50 +9,37 @@ tags:
 
 ![logo](https://tsch.js.org/logo.svg)
 
-# 00018 Easy Tuple Length
+# 00043 Easy Exclude
 
-Create a generic Length, pick the length of the tuple.
-
-For example:
+Implement the built-in `Exclude<T, U>`
 
 ```ts
-type tesla = ['tesla', 'model 3', 'model X', 'model Y']
-type spaceX = ['FALCON 9', 'FALCON HEAVY', 'DRAGON', 'STARSHIP', 'HUMAN SPACEFLIGHT']
-
-type teslaLength = Length<tesla>  // expected 4
-type spaceXLength = Length<spaceX> // expected 5
+type Result = MyExclude<'a' | 'b' | 'c', 'a'>
+// 'b' | 'c'
 ```
 
 ## Tests
 ```ts
 import type { Equal, Expect } from '@type-challenges/utils'
 
-const tesla = ['tesla', 'model 3', 'model X', 'model Y'] as const
-const spaceX = ['FALCON 9', 'FALCON HEAVY', 'DRAGON', 'STARSHIP', 'HUMAN SPACEFLIGHT'] as const
-
 type cases = [
-  Expect<Equal<Length<typeof tesla>, 4>>,
-  Expect<Equal<Length<typeof spaceX>, 5>>,
-  // @ts-expect-error
-  Length<5>,
-  // @ts-expect-error
-  Length<'hello world'>,
+  Expect<Equal<MyExclude<'a' | 'b' | 'c', 'a'>, 'b' | 'c'>>,
+  Expect<Equal<MyExclude<'a' | 'b' | 'c', 'a' | 'b'>, 'c'>>,
+  Expect<Equal<MyExclude<string | number | (() => void), Function>, string | number>>,
 ]
-
 ```
 
 ## Solution
 
-This is an easy one. From the examples and tests we can see `Length` accepts constant tuple. and we can use `length` property of array/tuple type to get the length. So it'll be like this:
+When both sides of `extends` are union types, `extends` will iterate through each type inside to check.
+
 
 ```ts
-type Length<T extends readonly any[]> = T['length']
+type MyExclude<T, U> = T extends U ? never : T
 ```
-
 
 # Summary
 
-## 👉 Array/Tuple's length type:
-
-`T['length']`
+## 👉 `T extends U`
+Union type will iterate through each union type to check if a type in `T` exists in a type in `U`. It works like a `for` loop in javascript.
 

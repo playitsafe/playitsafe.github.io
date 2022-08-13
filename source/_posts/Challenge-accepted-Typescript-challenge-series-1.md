@@ -258,6 +258,46 @@ We can also use `infer` to get the type of the first element of the array:
 type First<T extends any[]> = T extends [infer FIRST, ...infer REST] ? FIRST : never
 ```
 
+# 00018 Easy Tuple Length
+
+Create a generic Length, pick the length of the tuple.
+
+For example:
+
+```ts
+type tesla = ['tesla', 'model 3', 'model X', 'model Y']
+type spaceX = ['FALCON 9', 'FALCON HEAVY', 'DRAGON', 'STARSHIP', 'HUMAN SPACEFLIGHT']
+
+type teslaLength = Length<tesla>  // expected 4
+type spaceXLength = Length<spaceX> // expected 5
+```
+
+## Tests
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+const tesla = ['tesla', 'model 3', 'model X', 'model Y'] as const
+const spaceX = ['FALCON 9', 'FALCON HEAVY', 'DRAGON', 'STARSHIP', 'HUMAN SPACEFLIGHT'] as const
+
+type cases = [
+  Expect<Equal<Length<typeof tesla>, 4>>,
+  Expect<Equal<Length<typeof spaceX>, 5>>,
+  // @ts-expect-error
+  Length<5>,
+  // @ts-expect-error
+  Length<'hello world'>,
+]
+
+```
+
+## Solution
+
+This is an easy one. From the examples and tests we can see `Length` accepts constant tuple. and we can use `length` property of array/tuple type to get the length. So it'll be like this:
+
+```ts
+type Length<T extends readonly any[]> = T['length']
+```
+
 
 # Summary
 
@@ -360,3 +400,5 @@ const [a, ...b] = arr
 a ==> undefined
 b ==> []
 ```
+
+To be continued...
