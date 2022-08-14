@@ -241,7 +241,22 @@ type cases = [
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>When both sides of <code>extends</code> are union types, <code>extends</code> will iterate through each type inside to check.</p>
 <pre><code class="ts">type MyExclude&lt;T, U&gt; = T extends U ? never : T
 </code></pre>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><h2 id="👉-T-extends-U"><a href="#👉-T-extends-U" class="headerlink" title="👉 T extends U"></a>👉 <code>T extends U</code></h2><p>Union type will iterate through each union type to check if a type in <code>T</code> exists in a type in <code>U</code>. It works like a <code>for</code> loop in javascript.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="👉-T-extends-U"><a href="#👉-T-extends-U" class="headerlink" title="👉 T extends U"></a>👉 <code>T extends U</code></h3><p>Union type will iterate through each union type to check if every type in <code>T</code> exists in a type in <code>U</code>. It works like a <code>for</code> loop in javascript. And it will return the result as a union type as well.</p>
+<h1 id="00043-Easy-Concat"><a href="#00043-Easy-Concat" class="headerlink" title="00043 Easy Concat"></a>00043 Easy Concat</h1><p>Implement the JavaScript <code>Array.concat</code> function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order.</p>
+<p>For example:</p>
+<pre><code class="ts">type Result = Concat&lt;[1], [2]&gt; // expected to be [1, 2]
+</code></pre>
+<h2 id="Tests-1"><a href="#Tests-1" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">type cases = [
+  Expect&lt;Equal&lt;Concat&lt;[], []&gt;, []&gt;&gt;,
+  Expect&lt;Equal&lt;Concat&lt;[], [1]&gt;, [1]&gt;&gt;,
+  Expect&lt;Equal&lt;Concat&lt;[1, 2], [3, 4]&gt;, [1, 2, 3, 4]&gt;&gt;,
+  Expect&lt;Equal&lt;Concat&lt;[&#39;1&#39;, 2, &#39;3&#39;], [false, boolean, &#39;4&#39;]&gt;, [&#39;1&#39;, 2, &#39;3&#39;, false, boolean, &#39;4&#39;]&gt;&gt;,
+]
+</code></pre>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h2><p>This one can be easily done by using spread operator:</p>
+<pre><code class="ts">type Concat&lt;T extends any[], U extends any[]&gt; = [...T, ...U]
+</code></pre>
+<h2 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h2><h3 id="👉-Spread-operator"><a href="#👉-Spread-operator" class="headerlink" title="👉 Spread operator ..."></a>👉 Spread operator <code>...</code></h3><p>Spread operator can also be used in Typescript.</p>
 
         </div>
 
@@ -428,7 +443,7 @@ type cases = [
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Concat"><span class="nav-text">00043 Easy Concat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Spread-operator"><span class="nav-text">👉 Spread operator ...</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
