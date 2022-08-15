@@ -246,7 +246,7 @@ type cases = [
 <pre><code class="ts">type MyExclude&lt;T, U&gt; = T extends U ? never : T
 </code></pre>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="👉-T-extends-U"><a href="#👉-T-extends-U" class="headerlink" title="👉 T extends U"></a>👉 <code>T extends U</code></h3><p>Union type will iterate through each union type to check if every type in <code>T</code> exists in a type in <code>U</code>. It works like a <code>for</code> loop in javascript. And it will return the result as a union type as well.</p>
-<h1 id="00043-Easy-Concat"><a href="#00043-Easy-Concat" class="headerlink" title="00043 Easy Concat"></a>00043 Easy Concat</h1><p>Implement the JavaScript <code>Array.concat</code> function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order.</p>
+<h1 id="00533-Easy-Concat"><a href="#00533-Easy-Concat" class="headerlink" title="00533 Easy Concat"></a>00533 Easy Concat</h1><p>Implement the JavaScript <code>Array.concat</code> function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order.</p>
 <p>For example:</p>
 <pre><code class="ts">type Result = Concat&lt;[1], [2]&gt; // expected to be [1, 2]
 </code></pre>
@@ -261,6 +261,44 @@ type cases = [
 <pre><code class="ts">type Concat&lt;T extends any[], U extends any[]&gt; = [...T, ...U]
 </code></pre>
 <h2 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h2><h3 id="👉-Spread-operator"><a href="#👉-Spread-operator" class="headerlink" title="👉 Spread operator ..."></a>👉 Spread operator <code>...</code></h3><p>Spread operator can also be used in Typescript.</p>
+<h1 id="00189-Easy-Awaited"><a href="#00189-Easy-Awaited" class="headerlink" title="00189 Easy Awaited"></a>00189 Easy Awaited</h1><p>We need to get a type which is inside the wrapped type.</p>
+<pre><code class="ts">type ExampleType = Promise&lt;string&gt;
+
+type Result = MyAwaited&lt;ExampleType&gt; // string
+</code></pre>
+<h2 id="Tests-2"><a href="#Tests-2" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+type X = Promise&lt;string&gt;
+type Y = Promise&lt;&#123; field: number &#125;&gt;
+type Z = Promise&lt;Promise&lt;string | number&gt;&gt;
+type Z1 = Promise&lt;Promise&lt;Promise&lt;string | boolean&gt;&gt;&gt;
+
+type cases = [
+  Expect&lt;Equal&lt;MyAwaited&lt;X&gt;, string&gt;&gt;,
+  Expect&lt;Equal&lt;MyAwaited&lt;Y&gt;, &#123; field: number &#125;&gt;&gt;,
+  Expect&lt;Equal&lt;MyAwaited&lt;Z&gt;, string | number&gt;&gt;,
+  Expect&lt;Equal&lt;MyAwaited&lt;Z1&gt;, string | boolean&gt;&gt;,
+]
+
+// @ts-expect-error
+type error = MyAwaited&lt;number&gt;
+</code></pre>
+<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h2><p>First of all, we can see <code>MyAwaited</code> only accepts <code>Promise</code> type as its generic type, so we can do this first:</p>
+<pre><code class="ts">type MyAwaited&lt;T extends Promise&lt;any&gt;&gt; = any
+</code></pre>
+<p>Then, we can use <code>infer</code> to get the type inside the <code>Promise</code></p>
+<pre><code class="ts">type MyAwaited&lt;T extends Promise&lt;any&gt;&gt; = T extends Promise&lt;infer INSIDE&gt; ? INSIDE : never
+</code></pre>
+<p>At this stage, we have solved first two of the test cases. Remaining test cases required us to get the type inside the nested <code>Promise</code> type. So we need to check the <code>INSIDE</code> type is a <code>Promise</code> type as well. If so, we can recursively use <code>MyAwaited</code> type.</p>
+<pre><code class="ts">type MyAwaited&lt;T extends Promise&lt;any&gt;&gt; 
+    = T extends Promise&lt;infer INSIDE&gt;
+    ? (INSIDE extends Promise&lt;any&gt; ? MyAwaited&lt;INSIDE&gt; : INSIDE)
+    : never
+</code></pre>
+<p>By using <code>MyAwaited</code> recursively, we can eventually get the type inside.</p>
+<h2 id="Summary-2"><a href="#Summary-2" class="headerlink" title="Summary"></a>Summary</h2><h3 id="👉-infer-can-only-be-used-in-conditional-type"><a href="#👉-infer-can-only-be-used-in-conditional-type" class="headerlink" title="👉 infer can only be used in conditional type."></a>👉 <code>infer</code> can only be used in conditional type.</h3><p>More info on </p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html" >https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#type-inference-in-conditional-types" >https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#type-inference-in-conditional-types<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -447,7 +485,7 @@ type cases = [
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Concat"><span class="nav-text">00043 Easy Concat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Spread-operator"><span class="nav-text">👉 Spread operator ...</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00533-Easy-Concat"><span class="nav-text">00533 Easy Concat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Spread-operator"><span class="nav-text">👉 Spread operator ...</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00189-Easy-Awaited"><span class="nav-text">00189 Easy Awaited</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-2"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-infer-can-only-be-used-in-conditional-type"><span class="nav-text">👉 infer can only be used in conditional type.</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
