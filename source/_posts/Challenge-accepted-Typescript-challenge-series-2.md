@@ -134,3 +134,43 @@ More info on
 https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html
 
 https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#type-inference-in-conditional-types
+
+# 00268 Easy If
+
+Implement a util `If` which accepts condition `C`, a truthy return type `T`, and a falsy return type `F`. `C` is expected to be either true or false while `T` and `F` can be any type.
+
+For example:
+
+```ts
+type A = If<true, 'a', 'b'>  // expected to be 'a'
+type B = If<false, 'a', 'b'> // expected to be 'b'
+```
+
+## Tests
+
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<If<true, 'a', 'b'>, 'a'>>,
+  Expect<Equal<If<false, 'a', 2>, 2>>,
+]
+
+// @ts-expect-error
+type error = If<null, 'a', 'b'>
+```
+
+## Solution
+
+This is an easy one. From previous questions we know we can restrict `C` to extend `boolean` and use a tertiary expression to return `T` or `F`.
+
+```ts
+type If<C extends boolean, T, F> = C extends true ? T : F
+```
+
+By now we should get all tests pass. If there's still any error in `type error = If<null, 'a', 'b'>`, it is because in TS non-strict mode, `null` can extend `boolean`. We can simple turn on strict mode.
+
+```json
+    "strict": true, // Enable all strict type-checking options.
+    "strictNullChecks": true, // When type checking, take into account 'null' and 'undefined'.
+```
