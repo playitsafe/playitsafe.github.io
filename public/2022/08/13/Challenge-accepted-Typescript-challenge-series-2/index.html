@@ -321,6 +321,43 @@ type error = If&lt;null, &#39;a&#39;, &#39;b&#39;&gt;
 <pre><code class="json">    &quot;strict&quot;: true, // Enable all strict type-checking options.
     &quot;strictNullChecks&quot;: true, // When type checking, take into account &#39;null&#39; and &#39;undefined&#39;.
 </code></pre>
+<h1 id="00898-Easy-includes"><a href="#00898-Easy-includes" class="headerlink" title="00898 Easy includes"></a>00898 Easy includes</h1><p>Implement the JavaScript <code>Array.includes</code> function in the type system. A type takes the two arguments. The output should be a boolean <code>true</code> or <code>false</code>.</p>
+<p>For example:</p>
+<pre><code class="ts">type isPillarMen = Includes&lt;[&#39;Kars&#39;, &#39;Esidisi&#39;, &#39;Wamuu&#39;, &#39;Santana&#39;], &#39;Dio&#39;&gt; // expected to be `false`
+</code></pre>
+<h2 id="Test-cases"><a href="#Test-cases" class="headerlink" title="Test cases"></a>Test cases</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+import &#123; Includes &#125; from &#39;./template&#39;
+
+type cases = [
+  Expect&lt;Equal&lt;Includes&lt;[&#39;Kars&#39;, &#39;Esidisi&#39;, &#39;Wamuu&#39;, &#39;Santana&#39;], &#39;Kars&#39;&gt;, true&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[&#39;Kars&#39;, &#39;Esidisi&#39;, &#39;Wamuu&#39;, &#39;Santana&#39;], &#39;Dio&#39;&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[1, 2, 3, 5, 6, 7], 7&gt;, true&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[1, 2, 3, 5, 6, 7], 4&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[1, 2, 3], 2&gt;, true&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[1, 2, 3], 1&gt;, true&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[&#123;&#125;], &#123; a: &#39;A&#39; &#125;&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[boolean, 2, 3, 5, 6, 7], false&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[true, 2, 3, 5, 6, 7], boolean&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[false, 2, 3, 5, 6, 7], false&gt;, true&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[&#123; a: &#39;A&#39; &#125;], &#123; readonly a: &#39;A&#39; &#125;&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[&#123; readonly a: &#39;A&#39; &#125;], &#123; a: &#39;A&#39; &#125;&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[1], 1 | 2&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[1 | 2], 1&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[null], undefined&gt;, false&gt;&gt;,
+  Expect&lt;Equal&lt;Includes&lt;[undefined], null&gt;, false&gt;&gt;,
+]
+</code></pre>
+<h2 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h2><p>My first thought on this one would be this:</p>
+<pre><code class="ts">type Includes&lt;T extends readonly any[], U&gt; = U extends T[number] ? true : false
+</code></pre>
+<p>Unfortunately, it fails on some tests. The reason is the expression <code>U extends T[number] ? true : false</code> will compare the type of every elements in <code>T</code> with <code>U</code>, and return <code>true</code> or <code>false</code> for each comparison, in the end, the type would be a union type of all <code>true</code>&#x2F;<code>false</code> results.<br><code>true | true</code> would be <code>true</code> and <code>true | false</code> will be <code>boolean</code></p>
+<p>We can use another approach to use <code>infer</code> to get each element of the array and use the provided <code>Equal</code> function to recursively do comparisons.</p>
+<pre><code class="ts">type Includes&lt;T extends readonly any[], U&gt;
+  = T extends [infer FIRST, ...infer REST]
+    ? Equal&lt;FIRST, U&gt; ? true : Includes&lt;REST, U&gt;
+    : false
+</code></pre>
+<h2 id="Summary-3"><a href="#Summary-3" class="headerlink" title="Summary"></a>Summary</h2><p>We can recursively use this <code>Include</code> type by passing <code>REST</code> as a generic type.</p>
 
         </div>
 
@@ -507,7 +544,7 @@ type error = If&lt;null, &#39;a&#39;, &#39;b&#39;&gt;
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00533-Easy-Concat"><span class="nav-text">00533 Easy Concat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Spread-operator"><span class="nav-text">👉 Spread operator ...</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00189-Easy-Awaited"><span class="nav-text">00189 Easy Awaited</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-2"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-infer-can-only-be-used-in-conditional-type"><span class="nav-text">👉 infer can only be used in conditional type.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00268-Easy-If"><span class="nav-text">00268 Easy If</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-3"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-3"><span class="nav-text">Solution</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00533-Easy-Concat"><span class="nav-text">00533 Easy Concat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Spread-operator"><span class="nav-text">👉 Spread operator ...</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00189-Easy-Awaited"><span class="nav-text">00189 Easy Awaited</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-2"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-infer-can-only-be-used-in-conditional-type"><span class="nav-text">👉 infer can only be used in conditional type.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00268-Easy-If"><span class="nav-text">00268 Easy If</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-3"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-3"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00898-Easy-includes"><span class="nav-text">00898 Easy includes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-cases"><span class="nav-text">Test cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-4"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-3"><span class="nav-text">Summary</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

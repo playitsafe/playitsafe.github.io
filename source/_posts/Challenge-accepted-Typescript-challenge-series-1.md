@@ -9,7 +9,7 @@ tags:
 
 ![logo](https://tsch.js.org/logo.svg)
 # Prefix
-I found a [repo](https://procomponents.ant.design/en-US/components/field-set#proformcaptcha) on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I'll go with those challenges.
+I found a [repo](https://github.com/type-challenges/type-challenges) on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I'll go with those challenges.
 
 # How to play around with it?
 There are questions of different levels in the `questions` directory, each of which has a `README`, `test-cases` and `template`. The challenge is to modify the type in `template` to make test cases all pass in `test-cases` .
@@ -384,7 +384,7 @@ We can do `ARR[number]` to get all values as an union type of the array type `AR
 
 ## 👉 extends union type
 
-If we check if `a` extends `a|2|3`, will check every type in union type to see if they match.
+If we check whether `a` extends `a|2|3`, it will check every type in union type to see if they match. 
 
 ## 👉 `infer` in array destruction
 

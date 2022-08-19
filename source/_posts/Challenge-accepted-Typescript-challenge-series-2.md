@@ -174,3 +174,59 @@ By now we should get all tests pass. If there's still any error in `type error =
     "strict": true, // Enable all strict type-checking options.
     "strictNullChecks": true, // When type checking, take into account 'null' and 'undefined'.
 ```
+
+# 00898 Easy includes
+
+Implement the JavaScript `Array.includes` function in the type system. A type takes the two arguments. The output should be a boolean `true` or `false`.
+
+For example:
+
+```ts
+type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // expected to be `false`
+```
+
+## Test cases
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+import { Includes } from './template'
+
+type cases = [
+  Expect<Equal<Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Kars'>, true>>,
+  Expect<Equal<Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'>, false>>,
+  Expect<Equal<Includes<[1, 2, 3, 5, 6, 7], 7>, true>>,
+  Expect<Equal<Includes<[1, 2, 3, 5, 6, 7], 4>, false>>,
+  Expect<Equal<Includes<[1, 2, 3], 2>, true>>,
+  Expect<Equal<Includes<[1, 2, 3], 1>, true>>,
+  Expect<Equal<Includes<[{}], { a: 'A' }>, false>>,
+  Expect<Equal<Includes<[boolean, 2, 3, 5, 6, 7], false>, false>>,
+  Expect<Equal<Includes<[true, 2, 3, 5, 6, 7], boolean>, false>>,
+  Expect<Equal<Includes<[false, 2, 3, 5, 6, 7], false>, true>>,
+  Expect<Equal<Includes<[{ a: 'A' }], { readonly a: 'A' }>, false>>,
+  Expect<Equal<Includes<[{ readonly a: 'A' }], { a: 'A' }>, false>>,
+  Expect<Equal<Includes<[1], 1 | 2>, false>>,
+  Expect<Equal<Includes<[1 | 2], 1>, false>>,
+  Expect<Equal<Includes<[null], undefined>, false>>,
+  Expect<Equal<Includes<[undefined], null>, false>>,
+]
+```
+
+## Solution
+My first thought on this one would be this:
+```ts
+type Includes<T extends readonly any[], U> = U extends T[number] ? true : false
+```
+
+Unfortunately, it fails on some tests. The reason is the expression `U extends T[number] ? true : false` will compare the type of every elements in `T` with `U`, and return `true` or `false` for each comparison, in the end, the type would be a union type of all `true`/`false` results.
+`true | true` would be `true` and `true | false` will be `boolean`
+
+We can use another approach to use `infer` to get each element of the array and use the provided `Equal` function to recursively do comparisons.
+
+```ts
+type Includes<T extends readonly any[], U>
+  = T extends [infer FIRST, ...infer REST]
+    ? Equal<FIRST, U> ? true : Includes<REST, U>
+    : false
+```
+
+## Summary
+We can recursively use this `Include` type by passing `REST` as a generic type.
