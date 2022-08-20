@@ -230,3 +230,72 @@ type Includes<T extends readonly any[], U>
 
 ## Summary
 We can recursively use this `Include` type by passing `REST` as a generic type.
+
+# 03057 Easy Push & 03060 Easy Unshift
+
+Implement the generic version of `Array.push`
+
+For example:
+
+```typescript
+type Result = Push<[1, 2], '3'> // [1, 2, '3']
+```
+
+Implement the type version of `Array.unshift`
+
+For example:
+
+```typescript
+type Result = Unshift<[1, 2], 0> // [0, 1, 2,]
+```
+
+The Solution would be the same as `concat`, which is to use the `spread` operator to create a new array type.
+
+```ts
+// Push
+type Push<T extends any[], U> = [...T, U]
+
+// Unshift
+type Push<T extends any[], U> = [...T, U]
+```
+
+## Summary
+The spread operator can also be used on type.
+
+# 03312 Easy Parameter
+Implement the built-in `Parameters<T>` generic without using it.
+
+For example:
+
+```ts
+const foo = (arg1: string, arg2: number): void => {}
+
+type FunctionParamsType = MyParameters<typeof foo> // [arg1: string, arg2: number]
+```
+
+## Testing
+
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+const foo = (arg1: string, arg2: number): void => {}
+const bar = (arg1: boolean, arg2: { a: 'A' }): void => {}
+const baz = (): void => {}
+
+type cases = [
+  Expect<Equal<MyParameters<typeof foo>, [string, number]>>,
+  Expect<Equal<MyParameters<typeof bar>, [boolean, { a: 'A' }]>>,
+  Expect<Equal<MyParameters<typeof baz>, []>>,
+]
+```
+
+## Solution
+
+We can use `infer` to get the type of function parameter.
+
+```ts
+type MyParameters<T extends (...args: any[]) => any> = T extends (...infer ARGS) => any ? ARGS : never
+
+```
+
+Till now, we have finish all EASY level questions.🎉🎉
