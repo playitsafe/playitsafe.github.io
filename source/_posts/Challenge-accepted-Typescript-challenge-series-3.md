@@ -64,3 +64,69 @@ type MyReturnType<T> = T extends (...args: any) => infer R ? R : never
 
 ## Reference
 https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types
+
+
+# 00003 Medium Omit
+
+Implement the built-in `Omit<T, K>` generic without using it.
+
+Constructs a type by picking all properties from T and then removing K
+
+For example
+```ts
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+type TodoPreview = MyOmit<Todo, 'description' | 'title'>
+
+const todo: TodoPreview = {
+  completed: false,
+}
+```
+
+## Tests
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<Expected1, MyOmit<Todo, 'description'>>>,
+  Expect<Equal<Expected2, MyOmit<Todo, 'description' | 'completed'>>>,
+]
+
+// @ts-expect-error
+type error = MyOmit<Todo, 'description' | 'invalid'>
+
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+interface Expected1 {
+  title: string
+  completed: boolean
+}
+
+interface Expected2 {
+  title: string
+}
+```
+
+## Solution
+To solve this one, we'll need to use `Exclude` to remove the specified keys and get the rest key with their value in type.
+
+```ts
+type MyOmit<T, K extends keyof T> = {
+  [KEY in Exclude<keyof T, K>]: T[KEY]
+}
+```
+
+`Exclude<keyof T, K>` returns the remaining keys, and we can just use mapped types `KEY in TYPES` to get all remaining keys.
+
+## Reference
+https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys
+
+https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers
