@@ -267,6 +267,54 @@ const fn1 = (v: boolean, w: any) =&gt; v ? 1 : 2
 <pre><code class="ts">type MyReturnType&lt;T&gt; = T extends (...args: any) =&gt; infer R ? R : never
 </code></pre>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types" >https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types<i class="fas fa-external-link-alt"></i></a></p>
+<h1 id="00003-Medium-Omit"><a href="#00003-Medium-Omit" class="headerlink" title="00003 Medium Omit"></a>00003 Medium Omit</h1><p>Implement the built-in <code>Omit&lt;T, K&gt;</code> generic without using it.</p>
+<p>Constructs a type by picking all properties from T and then removing K</p>
+<p>For example</p>
+<pre><code class="ts">interface Todo &#123;
+  title: string
+  description: string
+  completed: boolean
+&#125;
+
+type TodoPreview = MyOmit&lt;Todo, &#39;description&#39; | &#39;title&#39;&gt;
+
+const todo: TodoPreview = &#123;
+  completed: false,
+&#125;
+</code></pre>
+<h2 id="Tests-1"><a href="#Tests-1" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+type cases = [
+  Expect&lt;Equal&lt;Expected1, MyOmit&lt;Todo, &#39;description&#39;&gt;&gt;&gt;,
+  Expect&lt;Equal&lt;Expected2, MyOmit&lt;Todo, &#39;description&#39; | &#39;completed&#39;&gt;&gt;&gt;,
+]
+
+// @ts-expect-error
+type error = MyOmit&lt;Todo, &#39;description&#39; | &#39;invalid&#39;&gt;
+
+interface Todo &#123;
+  title: string
+  description: string
+  completed: boolean
+&#125;
+
+interface Expected1 &#123;
+  title: string
+  completed: boolean
+&#125;
+
+interface Expected2 &#123;
+  title: string
+&#125;
+</code></pre>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>To solve this one, we’ll need to use <code>Exclude</code> to remove the specified keys and get the rest key with their value in type.</p>
+<pre><code class="ts">type MyOmit&lt;T, K extends keyof T&gt; = &#123;
+  [KEY in Exclude&lt;keyof T, K&gt;]: T[KEY]
+&#125;
+</code></pre>
+<p><code>Exclude&lt;keyof T, K&gt;</code> returns the remaining keys, and we can just use mapped types <code>KEY in TYPES</code> to get all remaining keys.</p>
+<h2 id="Reference-1"><a href="#Reference-1" class="headerlink" title="Reference"></a>Reference</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys" >https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers" >https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -453,7 +501,7 @@ const fn1 = (v: boolean, w: any) =&gt; v ? 1 : 2
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00002-Medium-Return-Type"><span class="nav-text">00002 Medium Return Type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solutions"><span class="nav-text">Solutions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00002-Medium-Return-Type"><span class="nav-text">00002 Medium Return Type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solutions"><span class="nav-text">Solutions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00003-Medium-Omit"><span class="nav-text">00003 Medium Omit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference-1"><span class="nav-text">Reference</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
