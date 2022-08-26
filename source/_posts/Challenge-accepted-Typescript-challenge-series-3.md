@@ -130,3 +130,86 @@ type MyOmit<T, K extends keyof T> = {
 https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys
 
 https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers
+
+# 00008 Medium Readonly 2
+
+Implement a generic `MyReadonly2<T, K>` which takes two type argument `T` and `K`.
+
+`K` specify the set of properties of `T` that should set to Readonly. When `K` is not provided, it should make all properties readonly just like the normal `Readonly<T>`.
+
+For example
+
+```ts
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+const todo: MyReadonly2<Todo, 'title' | 'description'> = {
+  title: "Hey",
+  description: "foobar",
+  completed: false,
+}
+
+todo.title = "Hello" // Error: cannot reassign a readonly property
+todo.description = "barFoo" // Error: cannot reassign a readonly property
+todo.completed = true // OK
+```
+
+## Tests
+```ts
+import type { Alike, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Alike<MyReadonly2<Todo1>, Readonly<Todo1>>>,
+  Expect<Alike<MyReadonly2<Todo1, 'title' | 'description'>, Expected>>,
+  Expect<Alike<MyReadonly2<Todo2, 'title' | 'description'>, Expected>>,
+]
+
+interface Todo1 {
+  title: string
+  description?: string
+  completed: boolean
+}
+
+interface Todo2 {
+  readonly title: string
+  description?: string
+  completed: boolean
+}
+
+interface Expected {
+  readonly title: string
+  readonly description?: string
+  completed: boolean
+}
+```
+
+## Solution
+From the example we know that we need to implement fields specified in `K` to be readonly. The idea is to separate those specified fields from the others and add `readonly` operator.
+
+We can use omit to get those non-readonly properties via `Omit`
+
+```ts
+type MyReadonly2<T, K extends keyof T> = Omit<T, K> & {
+  readonly [KEY in K]: T[KEY]
+}
+```
+
+This would mostly make tests pass, except for the first one, which hasn't specified any `K`. This case we would make all fields readonly. So it would be equivalent as we specified all of its properties. So we need to give it a default value.
+
+```ts
+type MyReadonly2<T, K extends keyof T = keyof T> = Omit<T, K> & {
+  readonly [KEY in K]: T[KEY]
+}
+```
+
+## Summary
+### 👉 Default generic type
+Generic type can have a default type just like Javascript.
+
+### 👉 Union types via `&`:
+https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#unions
+### 👉 `Omit`: 
+https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys
