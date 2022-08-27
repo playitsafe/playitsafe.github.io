@@ -213,3 +213,109 @@ Generic type can have a default type just like Javascript.
 https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#unions
 ### 👉 `Omit`: 
 https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys
+
+# 00009 Deep Readonly
+Implement a generic `DeepReadonly<T>` which make every parameter of an object - and its sub-objects recursively - readonly.
+
+You can assume that we are only dealing with Objects in this challenge. Arrays, Functions, Classes and so on do not need to be taken into consideration. However, you can still challenge yourself by covering as many different cases as possible.
+
+For example:
+
+```ts
+type X = { 
+  x: { 
+    a: 1
+    b: 'hi'
+  }
+  y: 'hey'
+}
+
+type Expected = { 
+  readonly x: { 
+    readonly a: 1
+    readonly b: 'hi'
+  }
+  readonly y: 'hey' 
+}
+
+type Todo = DeepReadonly<X> // should be same as `Expected`
+```
+
+## Tests
+
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<DeepReadonly<X>, Expected>>,
+]
+
+type X = {
+  a: () => 22
+  b: string
+  c: {
+    d: boolean
+    e: {
+      g: {
+        h: {
+          i: true
+          j: 'string'
+        }
+        k: 'hello'
+      }
+      l: [
+        'hi',
+        {
+          m: ['hey']
+        },
+      ]
+    }
+  }
+}
+
+type Expected = {
+  readonly a: () => 22
+  readonly b: string
+  readonly c: {
+    readonly d: boolean
+    readonly e: {
+      readonly g: {
+        readonly h: {
+          readonly i: true
+          readonly j: 'string'
+        }
+        readonly k: 'hello'
+      }
+      readonly l: readonly [
+        'hi',
+        {
+          readonly m: readonly ['hey']
+        },
+      ]
+    }
+  }
+}
+```
+
+## Solution
+
+This should be an easy one. The trick is to use mapped types and recursively apply this type.
+
+```ts
+type DeepReadonly<T> = {
+  readonly [KEY in keyof T]: T extends object ? DeepReadonly<T[KEY]> : T[KEY]
+}
+```
+
+This won't just make all the test pass as we need to deal with `Function` as it is a type of `object`
+
+```ts
+type DeepReadonly<T> = {
+  readonly [KEY in keyof T]: T[KEY] extends Function
+       ? T[KEY]
+       : T[KEY] extends object ? DeepReadonly<T[KEY]> : T[KEY]
+}
+```
+
+## Summary
+👉 `Function` extends `object`
