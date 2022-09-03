@@ -214,7 +214,7 @@ https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#u
 ### 👉 `Omit`: 
 https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys
 
-# 00009 Deep Readonly
+# 00009 Medium Deep Readonly
 Implement a generic `DeepReadonly<T>` which make every parameter of an object - and its sub-objects recursively - readonly.
 
 You can assume that we are only dealing with Objects in this challenge. Arrays, Functions, Classes and so on do not need to be taken into consideration. However, you can still challenge yourself by covering as many different cases as possible.
@@ -319,3 +319,41 @@ type DeepReadonly<T> = {
 
 ## Summary
 👉 `Function` extends `object`
+
+# 00010 Medium Tuple to Union
+Implement a generic `TupleToUnion<T>` which covers the values of a tuple to its values union.
+
+For example
+
+```ts
+type Arr = ['1', '2', '3']
+
+type Test = TupleToUnion<Arr> // expected to be '1' | '2' | '3'
+```
+
+## Tests
+```ts
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<TupleToUnion<[123, '456', true]>, 123 | '456' | true>>,
+  Expect<Equal<TupleToUnion<[123]>, 123>>,
+]
+```
+
+## Solution 1
+The easiest solution is to use `Indexed Access Type` to iterate through the tuple type. From previous questions we know that we can iterate through an array/tuple to get all its elements as an union type:
+
+```ts
+ type TupleToUnion<T extends any[]> = T[number]
+```
+
+## Solution 2
+Another approach is to use `infer` to recursively get each element from the tuple to form an union type.
+
+```ts
+type TupleToUnion<T> = T extends [infer FIRST, ...infer REST] ? FIRST | TupleToUnion<REST> : never
+```
+
+## Summary
+👉 Array/Tuple type can be iterated by index access type as there is a `number` key on it.
