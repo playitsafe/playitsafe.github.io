@@ -352,7 +352,10 @@ The easiest solution is to use `Indexed Access Type` to iterate through the tupl
 Another approach is to use `infer` to recursively get each element from the tuple to form an union type.
 
 ```ts
-type TupleToUnion<T> = T extends [infer FIRST, ...infer REST] ? FIRST | TupleToUnion<REST> : never
+type TupleToUnion<T> = 
+      T extends [infer FIRST, ...infer REST]
+      ? FIRST | TupleToUnion<REST> 
+      : never
 ```
 
 ## Summary

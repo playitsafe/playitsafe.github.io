@@ -477,7 +477,10 @@ type cases = [
 <pre><code class="ts"> type TupleToUnion&lt;T extends any[]&gt; = T[number]
 </code></pre>
 <h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution 2"></a>Solution 2</h2><p>Another approach is to use <code>infer</code> to recursively get each element from the tuple to form an union type.</p>
-<pre><code class="ts">type TupleToUnion&lt;T&gt; = T extends [infer FIRST, ...infer REST] ? FIRST | TupleToUnion&lt;REST&gt; : never
+<pre><code class="ts">type TupleToUnion&lt;T&gt; = 
+      T extends [infer FIRST, ...infer REST]
+      ? FIRST | TupleToUnion&lt;REST&gt; 
+      : never
 </code></pre>
 <h2 id="Summary-2"><a href="#Summary-2" class="headerlink" title="Summary"></a>Summary</h2><p>👉 Array&#x2F;Tuple type can be iterated by index access type as there is a <code>number</code> key on it.</p>
 
@@ -563,7 +566,7 @@ type cases = [
               <span>2020</span>
               -
             
-            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Aaron Zhang</a>
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Aaron Zhang</a>
         </div>
         
             <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

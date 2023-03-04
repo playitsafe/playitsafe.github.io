@@ -77,6 +77,20 @@ If you want to redirect myexample.com to www.myexample.com which is just configu
 Under *Invalidation* tab, click Create Invalidation and add object path into it:
 ![Create CloudFront Invalidation](https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-06-04-create-invalidation.jpg)
 
+# CORS issues
+If you want to have encountered CORS issue when requesting static resources, you will need to configure the cloudFront distribution to forward the appropriate headers to the origin server - in this case the origin server is the S3 bucket.
+
+So you'll need to go to **Behaviors** tab in CloudFront console, choose *edit* or *create*(if no behavior is added). Under Cache key and origin requests, choose Cache policy and origin request policy.
+
+- For Cache policy, select **CachingOptimized** which is recommended for s3 origins;
+- For Origin request policy, select **CORS-S3Origin**
+- For Response headers policy, select **SimpleCORS**
+
+See https://aws.amazon.com/premiumsupport/knowledge-center/no-access-control-allow-origin-error/ for more information.
+
+![CORS issue](https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2023-03-04-cloudfront-s3-cors.jpg)
+
+
 # Summarize
 This basic deployment with AWS stack includes AWS S3, CloudFront and ACM to enable SSL encryption. What is worth noticing is the S3 bucket policy definition and the region of ACM certificate should be requested in N. Virginia to make it work with CloudFront.
 
