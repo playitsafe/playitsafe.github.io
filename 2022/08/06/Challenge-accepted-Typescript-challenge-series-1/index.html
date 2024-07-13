@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Full-stack,JavaScript,CSS,React,Vue,Java,PHP,Developer">
+    <meta name="description" content="A full stack web development note of Aaron Zhang. Tech stack including JavaScript, CSS, React, Vue, Java, PHP, Python">
+    <meta name="author" content="Aaron Zhang">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <title>
+        
+            Challenge accepted - Typescript challenge series(1) |
+        
+        Aaron&#39;s Dev Dairy
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/fav.jpg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Take Baby Steps"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://us.123rf.com/450wm/get4net/get4net2112/get4net211201501/178384960-double-forward-slash-key-in-computer-keyboard-button.jpg?ver=6">
+                </a>
+            
+            <a class="logo-title" href="/">
+                Aaron&#39;s Dev Dairy
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/projects"
+                            >
+                                PROJECTS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT ME
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/projects">PROJECTS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT ME</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Challenge accepted - Typescript challenge series(1)</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar1.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Aaron Zhang</span>
+                        
+                            <span class="author-label">Author</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-08-06 14:16:03</span>
+        <span class="mobile">2022-08-06 14:16</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Front-end/">Front-end</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Typescript/">Typescript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Javascript/">Javascript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://tsch.js.org/logo.svg"
+                      alt="logo"
+                ></p>
+<h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>I found a <a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges" >repo<i class="fas fa-external-link-alt"></i></a> on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I’ll go with those challenges.</p>
+<h1 id="How-to-play-around-with-it"><a href="#How-to-play-around-with-it" class="headerlink" title="How to play around with it?"></a>How to play around with it?</h1><p>There are questions of different levels in the <code>questions</code> directory, each of which has a <code>README</code>, <code>test-cases</code> and <code>template</code>. The challenge is to modify the type in <code>template</code> to make test cases all pass in <code>test-cases</code> .</p>
+<p>Let’s get started from the easy ones!</p>
+<h1 id="00004-Easy-Pick"><a href="#00004-Easy-Pick" class="headerlink" title="00004 Easy Pick"></a>00004 Easy Pick</h1><p>Implement the built-in <code>Pick&lt;T, K&gt;</code> generic without using it.</p>
+<p>Constructs a type by picking the set of properties <code>K</code> from <code>T</code></p>
+<p>For example:</p>
+<pre><code class="ts">interface Todo &#123;
+  title: string
+  description: string
+  completed: boolean
+&#125;
+
+type TodoPreview = MyPick&lt;Todo, &#39;title&#39; | &#39;completed&#39;&gt;
+
+const todo: TodoPreview = &#123;
+    title: &#39;Clean room&#39;,
+    completed: false,
+&#125;
+</code></pre>
+<h2 id="Tests"><a href="#Tests" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+type cases = [
+  Expect&lt;Equal&lt;Expected1, MyPick&lt;Todo, &#39;title&#39;&gt;&gt;&gt;,
+  Expect&lt;Equal&lt;Expected2, MyPick&lt;Todo, &#39;title&#39; | &#39;completed&#39;&gt;&gt;&gt;,
+  // @ts-expect-error
+  MyPick&lt;Todo, &#39;title&#39; | &#39;completed&#39; | &#39;invalid&#39;&gt;,
+]
+
+interface Todo &#123;
+  title: string
+  description: string
+  completed: boolean
+&#125;
+
+interface Expected1 &#123;
+  title: string
+&#125;
+
+interface Expected2 &#123;
+  title: string
+  completed: boolean
+&#125;
+</code></pre>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>type <code>MyPick</code> should work as the same as the native <code>Pick</code> type in Typescript, which will generated a new type the the picked property keys from the given type&#x2F;interface with same value type of the picked key. See <code>Pick</code> in Typescript docs here: <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys" >https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys<i class="fas fa-external-link-alt"></i></a></p>
+<p>First of all, we need to ensure the second generic type will extend <code>T</code>‘s properties:</p>
+<pre><code class="ts">type MyPick&lt;T, KEYS extends keyof T&gt; = &#123;&#125;
+</code></pre>
+<p>Then, we can use mapped types to specify all key types of <code>KEYS</code>, and use indexed access type to specify the value type:</p>
+<pre><code class="ts">type MyPick&lt;T, KEYS extends keyof T&gt; = &#123;
+  [K in KEYS]: T[K]
+&#125;
+</code></pre>
+<p>At this stage, all test cases should pass with no complaining errors.</p>
+<h1 id="00007-Easy-Readonly"><a href="#00007-Easy-Readonly" class="headerlink" title="00007 Easy Readonly"></a>00007 Easy Readonly</h1><p>Implement the built-in <code>Readonly&lt;T&gt;</code> generic without using it.</p>
+<p>Constructs a type with all properties of T set to readonly, meaning the properties of the constructed type cannot be reassigned.</p>
+<p>For example:</p>
+<pre><code class="ts">interface Todo &#123;
+  title: string
+  description: string
+&#125;
+
+const todo: MyReadonly&lt;Todo&gt; = &#123;
+  title: &quot;Hey&quot;,
+  description: &quot;foobar&quot;
+&#125;
+
+todo.title = &quot;Hello&quot; // Error: cannot reassign a readonly property
+todo.description = &quot;barFoo&quot; // Error: cannot reassign a readonly property
+</code></pre>
+<h2 id="Tests-1"><a href="#Tests-1" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+type cases = [
+  Expect&lt;Equal&lt;MyReadonly&lt;Todo1&gt;, Readonly&lt;Todo1&gt;&gt;&gt;,
+]
+
+interface Todo1 &#123;
+  title: string
+  description: string
+  completed: boolean
+  meta: &#123;
+    author: string
+  &#125;
+&#125;
+</code></pre>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h2><p>This is a simple one. The solution is to use mapped type to iterate through <code>Todo</code> and add <code>readonly</code> to each of its keys.</p>
+<pre><code class="ts">type MyReadonly&lt;T&gt; = &#123;
+  readonly [KEY in keyof T]: T[KEY]
+&#125;
+</code></pre>
+<p>This shall make its tests all pass.</p>
+<h1 id="00011-Easy-Tuple"><a href="#00011-Easy-Tuple" class="headerlink" title="00011 Easy Tuple"></a>00011 Easy Tuple</h1><p>Give an array, transform into an object type and the key&#x2F;value must in the given array.</p>
+<p>For example:</p>
+<pre><code class="ts">const tuple = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;] as const
+
+type result = TupleToObject&lt;typeof tuple&gt; // expected &#123; tesla: &#39;tesla&#39;, &#39;model 3&#39;: &#39;model 3&#39;, &#39;model X&#39;: &#39;model X&#39;, &#39;model Y&#39;: &#39;model Y&#39;&#125;
+</code></pre>
+<h2 id="Tests-2"><a href="#Tests-2" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+const tuple = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;] as const
+const tupleNumber = [1, 2, 3, 4] as const
+const tupleMix = [1, &#39;2&#39;, 3, &#39;4&#39;] as const
+
+type cases = [
+  Expect&lt;Equal&lt;TupleToObject&lt;typeof tuple&gt;, &#123; tesla: &#39;tesla&#39;; &#39;model 3&#39;: &#39;model 3&#39;; &#39;model X&#39;: &#39;model X&#39;; &#39;model Y&#39;: &#39;model Y&#39; &#125;&gt;&gt;,
+  Expect&lt;Equal&lt;TupleToObject&lt;typeof tupleNumber&gt;, &#123; 1: 1; 2: 2; 3: 3; 4: 4 &#125;&gt;&gt;,
+  Expect&lt;Equal&lt;TupleToObject&lt;typeof tupleMix&gt;, &#123; 1: 1; &#39;2&#39;: &#39;2&#39;; 3: 3; &#39;4&#39;: &#39;4&#39; &#125;&gt;&gt;,
+]
+
+// @ts-expect-errorr
+type error = TupleToObject&lt;[[1, 2], &#123;&#125;]&gt;
+</code></pre>
+<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h2><p>First we need to ensure that this type accepts <code>const</code> arrays(tuples):</p>
+<pre><code class="ts">type TupleToObject&lt;T extends readonly any[]&gt; = any
+</code></pre>
+<p>Next, we want to get all of the value inside of it as a union type to iterate through the tuple just like we use mapped type to iterate through an object type.<br>In array&#x2F;tuple, we cannot use <code>keypf T</code> operator, instead we can treat array as an object-like type that has <code>number</code> as key of each of its element - we can do <code>T[number]</code> to get all of its values. So it’s going to be like this:</p>
+<pre><code class="ts">type TupleToObject&lt;T extends readonly any[]&gt; = &#123;
+  [VAL in T[number]]: VAL
+&#125;
+</code></pre>
+<p>Till now we solve most of the test cases, except for the error handling case:</p>
+<pre><code class="ts">type error = TupleToObject&lt;[[1, 2], &#123;&#125;]&gt;
+</code></pre>
+<p>We can see it doesn’t like empty object or array&#x2F;tuple element to be inside. So the  simplest way is to use <code>extends</code> to constrain the type to be <code>number</code> or <code>string</code></p>
+<pre><code class="ts">type TupleToObject&lt;T extends readonly (number | string)[]&gt; = &#123;
+  [VAL in T[number]]: VAL
+&#125;
+</code></pre>
+<p>No it’s all good!</p>
+<h1 id="00014-Easy-First-of-Array"><a href="#00014-Easy-First-of-Array" class="headerlink" title="00014 Easy First of Array"></a>00014 Easy First of Array</h1><p>Implement a generic <code>First&lt;T&gt;</code> that takes an Array <code>T</code> and returns it’s first element’s type.<br>For example:</p>
+<pre><code class="ts">type arr1 = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+type arr2 = [3, 2, 1]
+
+type head1 = First&lt;arr1&gt; // expected to be &#39;a&#39;
+type head2 = First&lt;arr2&gt; // expected to be 3
+</code></pre>
+<h2 id="Tests-3"><a href="#Tests-3" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+type cases = [
+  Expect&lt;Equal&lt;First&lt;[3, 2, 1]&gt;, 3&gt;&gt;,
+  Expect&lt;Equal&lt;First&lt;[() =&gt; 123, &#123; a: string &#125;]&gt;, () =&gt; 123&gt;&gt;,
+  Expect&lt;Equal&lt;First&lt;[]&gt;, never&gt;&gt;,
+  Expect&lt;Equal&lt;First&lt;[undefined]&gt;, undefined&gt;&gt;,
+]
+
+type errors = [
+  // @ts-expect-error
+  First&lt;&#39;notArray&#39;&gt;,
+  // @ts-expect-error
+  First&lt;&#123; 0: &#39;arrayLike&#39; &#125;&gt;,
+]
+</code></pre>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h2><p>Our first thought was like this:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T[0]
+</code></pre>
+<p>This will solve most of test cases, but failed when <code>T</code> is an empty array. So we can add a conditional return:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T extends [] ? never : T[0]
+</code></pre>
+<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution 2"></a>Solution 2</h2><p>Instead of checking <code>T extends []</code>, we can check its length type. From previous tests we know there’s a <code>length</code> property on array&#x2F;tuple type, so we can do:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T[&#39;length&#39;] extends 0 ? never : T[0]
+</code></pre>
+<h2 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution 3"></a>Solution 3</h2><p>We can also check if <code>T[0]</code> is in array:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T[0] extends T[number] ? T[0] : never
+</code></pre>
+<h2 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution 4"></a>Solution 4</h2><p>We can also use <code>infer</code> to get the type of the first element of the array:</p>
+<pre><code class="ts">type First&lt;T extends any[]&gt; = T extends [infer FIRST, ...infer REST] ? FIRST : never
+</code></pre>
+<h1 id="00018-Easy-Tuple-Length"><a href="#00018-Easy-Tuple-Length" class="headerlink" title="00018 Easy Tuple Length"></a>00018 Easy Tuple Length</h1><p>Create a generic Length, pick the length of the tuple.</p>
+<p>For example:</p>
+<pre><code class="ts">type tesla = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;]
+type spaceX = [&#39;FALCON 9&#39;, &#39;FALCON HEAVY&#39;, &#39;DRAGON&#39;, &#39;STARSHIP&#39;, &#39;HUMAN SPACEFLIGHT&#39;]
+
+type teslaLength = Length&lt;tesla&gt;  // expected 4
+type spaceXLength = Length&lt;spaceX&gt; // expected 5
+</code></pre>
+<h2 id="Tests-4"><a href="#Tests-4" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+
+const tesla = [&#39;tesla&#39;, &#39;model 3&#39;, &#39;model X&#39;, &#39;model Y&#39;] as const
+const spaceX = [&#39;FALCON 9&#39;, &#39;FALCON HEAVY&#39;, &#39;DRAGON&#39;, &#39;STARSHIP&#39;, &#39;HUMAN SPACEFLIGHT&#39;] as const
+
+type cases = [
+  Expect&lt;Equal&lt;Length&lt;typeof tesla&gt;, 4&gt;&gt;,
+  Expect&lt;Equal&lt;Length&lt;typeof spaceX&gt;, 5&gt;&gt;,
+  // @ts-expect-error
+  Length&lt;5&gt;,
+  // @ts-expect-error
+  Length&lt;&#39;hello world&#39;&gt;,
+]
+</code></pre>
+<h2 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h2><p>This is an easy one. From the examples and tests we can see <code>Length</code> accepts constant tuple. and we can use <code>length</code> property of array&#x2F;tuple type to get the length. So it’ll be like this:</p>
+<pre><code class="ts">type Length&lt;T extends readonly any[]&gt; = T[&#39;length&#39;]
+</code></pre>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><h2 id="👉-keyof-T-Operator"><a href="#👉-keyof-T-Operator" class="headerlink" title="👉 keyof T Operator"></a>👉 <code>keyof T</code> Operator</h2><p>To get all keys as a union type from a type or interface, we can use mapped types <code>in</code>.</p>
+<pre><code class="ts">type Point = &#123; x: number; y: number &#125;;
+type P = keyof Point;
+
+// P is the same type as “x” | “y”
+</code></pre>
+<p>More on this: <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/keyof-types.html#handbook-content" >https://www.typescriptlang.org/docs/handbook/2/keyof-types.html#handbook-content<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="👉-KEY-in-KTYPES"><a href="#👉-KEY-in-KTYPES" class="headerlink" title="👉 [KEY in KTYPES]"></a>👉 <code>[KEY in KTYPES]</code></h2><p>A mapped type is a generic type which uses a union of PropertyKeys (frequently created via a keyof) to iterate through keys to create a type.</p>
+<p>More on this:<br><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#handbook-content" >https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#handbook-content<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="👉-TODO-KEY"><a href="#👉-TODO-KEY" class="headerlink" title="👉 TODO[KEY]"></a>👉 <code>TODO[KEY]</code></h2><p>Indexed access type. We can use an indexed access type to look up a specific property on another type:</p>
+<pre><code class="ts">type Person = &#123; age: number; name: string; alive: boolean &#125;;
+type Age = Person[&quot;age&quot;];
+
+// type Age = number
+</code></pre>
+<p>Indexed access type can also get the length of an array as a type.</p>
+<pre><code class="ts">const arr = [1, 3, 4]
+type TLength = arr[&#39;length&#39;]
+</code></pre>
+<p>More on this: <a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content" >https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html#handbook-content<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="👉-extends"><a href="#👉-extends" class="headerlink" title="👉 extends"></a>👉 <code>extends</code></h2><p>The keyword <code>extends</code> stands for constraints when defining a generic type.</p>
+<p>👉 Native <code>ReadOnly</code> type will do as the following:</p>
+<pre><code class="ts"> interface Todo &#123;
+   title: string
+   description: string
+ &#125;
+ 
+ const todo: Readonly&lt;Todo&gt; = &#123;
+   title: &quot;Hey&quot;,
+   description: &quot;foobar&quot;
+ &#125;
+
+ // will make `todo` as a readonly object:
+  const todo: &lt;Todo&gt; = &#123;
+   readonly title: &quot;Hey&quot;,
+   readonly description: &quot;foobar&quot;
+ &#125;
+</code></pre>
+<p> More on <code>ReadOnly</code>: <a class="link"   target="_blank" rel="noopener" href="https://www.tutorialsteacher.com/typescript/typescript-readonly" >https://www.tutorialsteacher.com/typescript/typescript-readonly<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="👉-as-const-operator"><a href="#👉-as-const-operator" class="headerlink" title="👉 as const operator"></a>👉 <code>as const</code> operator</h2><pre><code class="ts">const tuple = [&#39;tesla&#39;, &#39;model 3&#39;] as const
+
+// will be equivalent to 
+
+typeof tuple = readonly [&#39;tesla&#39;, &#39;model 3&#39;]`
+</code></pre>
+<h2 id="👉-To-get-all-values-from-an-array-type"><a href="#👉-To-get-all-values-from-an-array-type" class="headerlink" title="👉 To get all values from an array type:"></a>👉 To get all values from an array type:</h2><p>We can do <code>ARR[number]</code> to get all values as an union type of the array type <code>ARR</code> and use <code>E in ARR[number]</code> to iterate through.</p>
+<h2 id="👉-To-get-type-of-the-first-element-in-an-array"><a href="#👉-To-get-type-of-the-first-element-in-an-array" class="headerlink" title="👉 To get type of the first element in an array"></a>👉 To get type of the first element in an array</h2><p><code>T[0]</code></p>
+<h2 id="👉-Get-length-of-an-array"><a href="#👉-Get-length-of-an-array" class="headerlink" title="👉 Get length of an array"></a>👉 Get length of an array</h2><p><code>T[&#39;length&#39;]</code> &#x2F;&#x2F;also known as indexed</p>
+<h2 id="👉-extends-union-type"><a href="#👉-extends-union-type" class="headerlink" title="👉 extends union type"></a>👉 extends union type</h2><p>If we check whether <code>a</code> extends <code>a|2|3</code>, it will check every type in union type to see if they match. </p>
+<h2 id="👉-infer-in-array-destruction"><a href="#👉-infer-in-array-destruction" class="headerlink" title="👉 infer in array destruction"></a>👉 <code>infer</code> in array destruction</h2><pre><code class="ts">T extends [infer FIRST, ...infer REST] ? FIRST : never
+</code></pre>
+<p>if <code>FIRST</code> can be successfully destructed, then return <code>FIRST</code></p>
+<pre><code class="ts">const arr: any[] = []
+const [a, ...b] = arr
+
+a ==&gt; undefined
+b ==&gt; []
+</code></pre>
+<p>To be continued…</p>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Typescript/">#Typescript</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Javascript/">#Javascript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/08/13/Challenge-accepted-Typescript-challenge-series-2/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Challenge accepted - Typescript challenge series(2)</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/07/30/A-Peek-at-useRequest-hook/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">A Peek at useRequest hook</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+    
+</div>
+
+            </div>
+        
+        <!-- Config for comment using utterance -->
+        
+            <script src="https://utteranc.es/client.js"
+                    repo="playitsafe/my-blog-comments"
+                    issue-term="pathname"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Aaron Zhang</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        
+        
+        <!-- Highlight.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js" integrity="sha512-BNc7saQYlxCL10lykUYhFBcnzdKMnjx5fp5s5wPucDyZ7rKNwCoqJh1GwEAIhuePEK4WM9askJBRsu7ma0Rzvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css" integrity="sha512-zcatBMvxa7rT7dDklfjauWsfiSFParF+hRfCdf4Zr40/MmA1gkFcBRbop0zMpvYF3FmznYFgcL8wlcuO/GwHoA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+            hljs.highlightAll();
+        </script>
+
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00004-Easy-Pick"><span class="nav-text">00004 Easy Pick</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00007-Easy-Readonly"><span class="nav-text">00007 Easy Readonly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00011-Easy-Tuple"><span class="nav-text">00011 Easy Tuple</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00014-Easy-First-of-Array"><span class="nav-text">00014 Easy First of Array</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-3"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-3"><span class="nav-text">Solution 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-4"><span class="nav-text">Solution 4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00018-Easy-Tuple-Length"><span class="nav-text">00018 Easy Tuple Length</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-4"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-3"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-keyof-T-Operator"><span class="nav-text">👉 keyof T Operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-KEY-in-KTYPES"><span class="nav-text">👉 [KEY in KTYPES]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-TODO-KEY"><span class="nav-text">👉 TODO[KEY]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-extends"><span class="nav-text">👉 extends</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-as-const-operator"><span class="nav-text">👉 as const operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-To-get-all-values-from-an-array-type"><span class="nav-text">👉 To get all values from an array type:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-To-get-type-of-the-first-element-in-an-array"><span class="nav-text">👉 To get type of the first element in an array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-Get-length-of-an-array"><span class="nav-text">👉 Get length of an array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-extends-union-type"><span class="nav-text">👉 extends union type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%89-infer-in-array-destruction"><span class="nav-text">👉 infer in array destruction</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
