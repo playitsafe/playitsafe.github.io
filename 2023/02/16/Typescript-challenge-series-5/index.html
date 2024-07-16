@@ -10,7 +10,7 @@
     
     <title>
         
-            Challenge accepted - Typescript challenge series(3) |
+            Typescript challenge series(5) |
         
         Aaron&#39;s Dev Dairy
     </title>
@@ -24,7 +24,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Take Baby Steps"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Make little things visible."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 6.1.0"></head>
@@ -75,17 +75,9 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/projects"
-                            >
-                                PROJECTS
-                            </a>
-                        </li>
-                    
-                        <li class="menu-item">
-                            <a class=""
                                href="/archives"
                             >
-                                ARCHIVES
+                                BLOGS
                             </a>
                         </li>
                     
@@ -125,12 +117,7 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/projects">PROJECTS</a>
-                </li>
-            
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/archives">ARCHIVES</a>
+                       href="/archives">BLOGS</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
@@ -157,7 +144,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Challenge accepted - Typescript challenge series(3)</span>
+            <span class="title-hover-animation">Typescript challenge series(5)</span>
         </div>
 
         
@@ -176,8 +163,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-08-21 21:34:06</span>
-        <span class="mobile">2022-08-21 21:34</span>
+        <span class="pc">2023-02-16 22:15:45</span>
+        <span class="mobile">2023-02-16 22:15</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -230,87 +217,88 @@
                      data-src="https://tsch.js.org/logo.svg"
                       alt="logo"
                 ></p>
+<h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>I found a <a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges" >repo<i class="fas fa-external-link-alt"></i></a> on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I’ll go with those challenges.</p>
+<h1 id="How-to-play-around-with-it"><a href="#How-to-play-around-with-it" class="headerlink" title="How to play around with it?"></a>How to play around with it?</h1><p>There are questions of different levels in the <code>questions</code> directory, each of which has a <code>README</code>, <code>test-cases</code> and <code>template</code>. The challenge is to modify the type in <code>template</code> to make test cases all pass in <code>test-cases</code> .</p>
+<p>Let’s get started from the easy ones!</p>
 <h1 id="00002-Medium-Return-Type"><a href="#00002-Medium-Return-Type" class="headerlink" title="00002 Medium Return Type"></a>00002 Medium Return Type</h1><p>Implement the built-in <code>ReturnType&lt;T&gt;</code> generic without using it.</p>
 <p>For example</p>
 <pre><code class="ts">const fn = (v: boolean) =&gt; &#123;
-  if (v)
-    return 1
-  else
-    return 2
-&#125;
+  if (v) return 1;
+  else return 2;
+&#125;;
 
-type a = MyReturnType&lt;typeof fn&gt; // should be &quot;1 | 2&quot;
+type a = MyReturnType&lt;typeof fn&gt;; // should be &quot;1 | 2&quot;
 </code></pre>
 <h2 id="Tests"><a href="#Tests" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">type cases = [
   Expect&lt;Equal&lt;string, MyReturnType&lt;() =&gt; string&gt;&gt;&gt;,
   Expect&lt;Equal&lt;123, MyReturnType&lt;() =&gt; 123&gt;&gt;&gt;,
   Expect&lt;Equal&lt;ComplexObject, MyReturnType&lt;() =&gt; ComplexObject&gt;&gt;&gt;,
   Expect&lt;Equal&lt;Promise&lt;boolean&gt;, MyReturnType&lt;() =&gt; Promise&lt;boolean&gt;&gt;&gt;&gt;,
-  Expect&lt;Equal&lt;() =&gt; &#39;foo&#39;, MyReturnType&lt;() =&gt; () =&gt; &#39;foo&#39;&gt;&gt;&gt;,
+  Expect&lt;Equal&lt;() =&gt; &quot;foo&quot;, MyReturnType&lt;() =&gt; () =&gt; &quot;foo&quot;&gt;&gt;&gt;,
   Expect&lt;Equal&lt;1 | 2, MyReturnType&lt;typeof fn&gt;&gt;&gt;,
-  Expect&lt;Equal&lt;1 | 2, MyReturnType&lt;typeof fn1&gt;&gt;&gt;,
-]
+  Expect&lt;Equal&lt;1 | 2, MyReturnType&lt;typeof fn1&gt;&gt;&gt;
+];
 
 type ComplexObject = &#123;
-  a: [12, &#39;foo&#39;]
-  bar: &#39;hello&#39;
-  prev(): number
-&#125;
+  a: [12, &quot;foo&quot;];
+  bar: &quot;hello&quot;;
+  prev(): number;
+&#125;;
 
-const fn = (v: boolean) =&gt; v ? 1 : 2
-const fn1 = (v: boolean, w: any) =&gt; v ? 1 : 2
+const fn = (v: boolean) =&gt; (v ? 1 : 2);
+const fn1 = (v: boolean, w: any) =&gt; (v ? 1 : 2);
 </code></pre>
 <h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><p>We need to use <code>infer</code> to get the returning type of the function.</p>
-<pre><code class="ts">type MyReturnType&lt;T&gt; = T extends () =&gt; infer R ? R : never
+<pre><code class="ts">type MyReturnType&lt;T&gt; = T extends () =&gt; infer R ? R : never;
 </code></pre>
 <p>This will pass most of the tests, but not for those functions with parameters. So we need to specify parameters for the function type.</p>
-<pre><code class="ts">type MyReturnType&lt;T&gt; = T extends (...args: any) =&gt; infer R ? R : never
+<pre><code class="ts">type MyReturnType&lt;T&gt; = T extends (...args: any) =&gt; infer R ? R : never;
 </code></pre>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types" >https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types<i class="fas fa-external-link-alt"></i></a></p>
 <h1 id="00003-Medium-Omit"><a href="#00003-Medium-Omit" class="headerlink" title="00003 Medium Omit"></a>00003 Medium Omit</h1><p>Implement the built-in <code>Omit&lt;T, K&gt;</code> generic without using it.</p>
 <p>Constructs a type by picking all properties from T and then removing K</p>
 <p>For example</p>
 <pre><code class="ts">interface Todo &#123;
-  title: string
-  description: string
-  completed: boolean
+  title: string;
+  description: string;
+  completed: boolean;
 &#125;
 
-type TodoPreview = MyOmit&lt;Todo, &#39;description&#39; | &#39;title&#39;&gt;
+type TodoPreview = MyOmit&lt;Todo, &quot;description&quot; | &quot;title&quot;&gt;;
 
 const todo: TodoPreview = &#123;
   completed: false,
-&#125;
+&#125;;
 </code></pre>
-<h2 id="Tests-1"><a href="#Tests-1" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
+<h2 id="Tests-1"><a href="#Tests-1" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &quot;@type-challenges/utils&quot;;
 
 type cases = [
-  Expect&lt;Equal&lt;Expected1, MyOmit&lt;Todo, &#39;description&#39;&gt;&gt;&gt;,
-  Expect&lt;Equal&lt;Expected2, MyOmit&lt;Todo, &#39;description&#39; | &#39;completed&#39;&gt;&gt;&gt;,
-]
+  Expect&lt;Equal&lt;Expected1, MyOmit&lt;Todo, &quot;description&quot;&gt;&gt;&gt;,
+  Expect&lt;Equal&lt;Expected2, MyOmit&lt;Todo, &quot;description&quot; | &quot;completed&quot;&gt;&gt;&gt;
+];
 
 // @ts-expect-error
-type error = MyOmit&lt;Todo, &#39;description&#39; | &#39;invalid&#39;&gt;
+type error = MyOmit&lt;Todo, &quot;description&quot; | &quot;invalid&quot;&gt;;
 
 interface Todo &#123;
-  title: string
-  description: string
-  completed: boolean
+  title: string;
+  description: string;
+  completed: boolean;
 &#125;
 
 interface Expected1 &#123;
-  title: string
-  completed: boolean
+  title: string;
+  completed: boolean;
 &#125;
 
 interface Expected2 &#123;
-  title: string
+  title: string;
 &#125;
 </code></pre>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>To solve this one, we’ll need to use <code>Exclude</code> to remove the specified keys and get the rest key with their value in type.</p>
 <pre><code class="ts">type MyOmit&lt;T, K extends keyof T&gt; = &#123;
-  [KEY in Exclude&lt;keyof T, K&gt;]: T[KEY]
-&#125;
+  [KEY in Exclude&lt;keyof T, K&gt;]: T[KEY];
+&#125;;
 </code></pre>
 <p><code>Exclude&lt;keyof T, K&gt;</code> returns the remaining keys, and we can just use mapped types <code>KEY in TYPES</code> to get all remaining keys.</p>
 <h2 id="Reference-1"><a href="#Reference-1" class="headerlink" title="Reference"></a>Reference</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys" >https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys<i class="fas fa-external-link-alt"></i></a></p>
@@ -319,170 +307,61 @@ interface Expected2 &#123;
 <p><code>K</code> specify the set of properties of <code>T</code> that should set to Readonly. When <code>K</code> is not provided, it should make all properties readonly just like the normal <code>Readonly&lt;T&gt;</code>.</p>
 <p>For example</p>
 <pre><code class="ts">interface Todo &#123;
-  title: string
-  description: string
-  completed: boolean
+  title: string;
+  description: string;
+  completed: boolean;
 &#125;
 
-const todo: MyReadonly2&lt;Todo, &#39;title&#39; | &#39;description&#39;&gt; = &#123;
+const todo: MyReadonly2&lt;Todo, &quot;title&quot; | &quot;description&quot;&gt; = &#123;
   title: &quot;Hey&quot;,
   description: &quot;foobar&quot;,
   completed: false,
-&#125;
+&#125;;
 
-todo.title = &quot;Hello&quot; // Error: cannot reassign a readonly property
-todo.description = &quot;barFoo&quot; // Error: cannot reassign a readonly property
-todo.completed = true // OK
+todo.title = &quot;Hello&quot;; // Error: cannot reassign a readonly property
+todo.description = &quot;barFoo&quot;; // Error: cannot reassign a readonly property
+todo.completed = true; // OK
 </code></pre>
-<h2 id="Tests-2"><a href="#Tests-2" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Alike, Expect &#125; from &#39;@type-challenges/utils&#39;
+<h2 id="Tests-2"><a href="#Tests-2" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Alike, Expect &#125; from &quot;@type-challenges/utils&quot;;
 
 type cases = [
   Expect&lt;Alike&lt;MyReadonly2&lt;Todo1&gt;, Readonly&lt;Todo1&gt;&gt;&gt;,
-  Expect&lt;Alike&lt;MyReadonly2&lt;Todo1, &#39;title&#39; | &#39;description&#39;&gt;, Expected&gt;&gt;,
-  Expect&lt;Alike&lt;MyReadonly2&lt;Todo2, &#39;title&#39; | &#39;description&#39;&gt;, Expected&gt;&gt;,
-]
+  Expect&lt;Alike&lt;MyReadonly2&lt;Todo1, &quot;title&quot; | &quot;description&quot;&gt;, Expected&gt;&gt;,
+  Expect&lt;Alike&lt;MyReadonly2&lt;Todo2, &quot;title&quot; | &quot;description&quot;&gt;, Expected&gt;&gt;
+];
 
 interface Todo1 &#123;
-  title: string
-  description?: string
-  completed: boolean
+  title: string;
+  description?: string;
+  completed: boolean;
 &#125;
 
 interface Todo2 &#123;
-  readonly title: string
-  description?: string
-  completed: boolean
+  readonly title: string;
+  description?: string;
+  completed: boolean;
 &#125;
 
 interface Expected &#123;
-  readonly title: string
-  readonly description?: string
-  completed: boolean
+  readonly title: string;
+  readonly description?: string;
+  completed: boolean;
 &#125;
 </code></pre>
 <h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h2><p>From the example we know that we need to implement fields specified in <code>K</code> to be readonly. The idea is to separate those specified fields from the others and add <code>readonly</code> operator.</p>
 <p>We can use omit to get those non-readonly properties via <code>Omit</code></p>
 <pre><code class="ts">type MyReadonly2&lt;T, K extends keyof T&gt; = Omit&lt;T, K&gt; &amp; &#123;
-  readonly [KEY in K]: T[KEY]
-&#125;
+  readonly [KEY in K]: T[KEY];
+&#125;;
 </code></pre>
 <p>This would mostly make tests pass, except for the first one, which hasn’t specified any <code>K</code>. This case we would make all fields readonly. So it would be equivalent as we specified all of its properties. So we need to give it a default value.</p>
 <pre><code class="ts">type MyReadonly2&lt;T, K extends keyof T = keyof T&gt; = Omit&lt;T, K&gt; &amp; &#123;
-  readonly [KEY in K]: T[KEY]
-&#125;
+  readonly [KEY in K]: T[KEY];
+&#125;;
 </code></pre>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="👉-Default-generic-type"><a href="#👉-Default-generic-type" class="headerlink" title="👉 Default generic type"></a>👉 Default generic type</h3><p>Generic type can have a default type just like Javascript.</p>
 <h3 id="👉-Union-types-via-amp"><a href="#👉-Union-types-via-amp" class="headerlink" title="👉 Union types via &amp;:"></a>👉 Union types via <code>&amp;</code>:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#unions" >https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#unions<i class="fas fa-external-link-alt"></i></a></p>
 <h3 id="👉-Omit"><a href="#👉-Omit" class="headerlink" title="👉 Omit:"></a>👉 <code>Omit</code>:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys" >https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys<i class="fas fa-external-link-alt"></i></a></p>
-<h1 id="00009-Medium-Deep-Readonly"><a href="#00009-Medium-Deep-Readonly" class="headerlink" title="00009 Medium Deep Readonly"></a>00009 Medium Deep Readonly</h1><p>Implement a generic <code>DeepReadonly&lt;T&gt;</code> which make every parameter of an object - and its sub-objects recursively - readonly.</p>
-<p>You can assume that we are only dealing with Objects in this challenge. Arrays, Functions, Classes and so on do not need to be taken into consideration. However, you can still challenge yourself by covering as many different cases as possible.</p>
-<p>For example:</p>
-<pre><code class="ts">type X = &#123; 
-  x: &#123; 
-    a: 1
-    b: &#39;hi&#39;
-  &#125;
-  y: &#39;hey&#39;
-&#125;
-
-type Expected = &#123; 
-  readonly x: &#123; 
-    readonly a: 1
-    readonly b: &#39;hi&#39;
-  &#125;
-  readonly y: &#39;hey&#39; 
-&#125;
-
-type Todo = DeepReadonly&lt;X&gt; // should be same as `Expected`
-</code></pre>
-<h2 id="Tests-3"><a href="#Tests-3" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
-
-type cases = [
-  Expect&lt;Equal&lt;DeepReadonly&lt;X&gt;, Expected&gt;&gt;,
-]
-
-type X = &#123;
-  a: () =&gt; 22
-  b: string
-  c: &#123;
-    d: boolean
-    e: &#123;
-      g: &#123;
-        h: &#123;
-          i: true
-          j: &#39;string&#39;
-        &#125;
-        k: &#39;hello&#39;
-      &#125;
-      l: [
-        &#39;hi&#39;,
-        &#123;
-          m: [&#39;hey&#39;]
-        &#125;,
-      ]
-    &#125;
-  &#125;
-&#125;
-
-type Expected = &#123;
-  readonly a: () =&gt; 22
-  readonly b: string
-  readonly c: &#123;
-    readonly d: boolean
-    readonly e: &#123;
-      readonly g: &#123;
-        readonly h: &#123;
-          readonly i: true
-          readonly j: &#39;string&#39;
-        &#125;
-        readonly k: &#39;hello&#39;
-      &#125;
-      readonly l: readonly [
-        &#39;hi&#39;,
-        &#123;
-          readonly m: readonly [&#39;hey&#39;]
-        &#125;,
-      ]
-    &#125;
-  &#125;
-&#125;
-</code></pre>
-<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h2><p>This should be an easy one. The trick is to use mapped types and recursively apply this type.</p>
-<pre><code class="ts">type DeepReadonly&lt;T&gt; = &#123;
-  readonly [KEY in keyof T]: T extends object ? DeepReadonly&lt;T[KEY]&gt; : T[KEY]
-&#125;
-</code></pre>
-<p>This won’t just make all the test pass as we need to deal with <code>Function</code> as it is a type of <code>object</code></p>
-<pre><code class="ts">type DeepReadonly&lt;T&gt; = &#123;
-  readonly [KEY in keyof T]: T[KEY] extends Function
-       ? T[KEY]
-       : T[KEY] extends object ? DeepReadonly&lt;T[KEY]&gt; : T[KEY]
-&#125;
-</code></pre>
-<h2 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h2><p>👉 <code>Function</code> extends <code>object</code></p>
-<h1 id="00010-Medium-Tuple-to-Union"><a href="#00010-Medium-Tuple-to-Union" class="headerlink" title="00010 Medium Tuple to Union"></a>00010 Medium Tuple to Union</h1><p>Implement a generic <code>TupleToUnion&lt;T&gt;</code> which covers the values of a tuple to its values union.</p>
-<p>For example</p>
-<pre><code class="ts">type Arr = [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]
-
-type Test = TupleToUnion&lt;Arr&gt; // expected to be &#39;1&#39; | &#39;2&#39; | &#39;3&#39;
-</code></pre>
-<h2 id="Tests-4"><a href="#Tests-4" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &#39;@type-challenges/utils&#39;
-
-type cases = [
-  Expect&lt;Equal&lt;TupleToUnion&lt;[123, &#39;456&#39;, true]&gt;, 123 | &#39;456&#39; | true&gt;&gt;,
-  Expect&lt;Equal&lt;TupleToUnion&lt;[123]&gt;, 123&gt;&gt;,
-]
-</code></pre>
-<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h2><p>The easiest solution is to use <code>Indexed Access Type</code> to iterate through the tuple type. From previous questions we know that we can iterate through an array&#x2F;tuple to get all its elements as an union type:</p>
-<pre><code class="ts"> type TupleToUnion&lt;T extends any[]&gt; = T[number]
-</code></pre>
-<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution 2"></a>Solution 2</h2><p>Another approach is to use <code>infer</code> to recursively get each element from the tuple to form an union type.</p>
-<pre><code class="ts">type TupleToUnion&lt;T&gt; = 
-      T extends [infer FIRST, ...infer REST]
-      ? FIRST | TupleToUnion&lt;REST&gt; 
-      : never
-</code></pre>
-<h2 id="Summary-2"><a href="#Summary-2" class="headerlink" title="Summary"></a>Summary</h2><p>👉 Array&#x2F;Tuple type can be iterated by index access type as there is a <code>number</code> key on it.</p>
 
         </div>
 
@@ -508,13 +387,13 @@ type cases = [
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2024/07/13/hello-world/"
+                           href="/2023/08/26/Typescript-challenge-series-6/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">About Me</span>
+                                <span class="post-nav-title-item">Typescript challenge series(6)</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -524,10 +403,10 @@ type cases = [
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/08/13/Challenge-accepted-Typescript-challenge-series-2/"
+                           href="/2023/01/05/Typescript-challenge-series-4/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Challenge accepted - Typescript challenge series(2)</span>
+                                <span class="post-nav-title-item">Typescript challenge series(4)</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -684,7 +563,7 @@ type cases = [
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00002-Medium-Return-Type"><span class="nav-text">00002 Medium Return Type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solutions"><span class="nav-text">Solutions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00003-Medium-Omit"><span class="nav-text">00003 Medium Omit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference-1"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00008-Medium-Readonly-2"><span class="nav-text">00008 Medium Readonly 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Default-generic-type"><span class="nav-text">👉 Default generic type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Union-types-via-amp"><span class="nav-text">👉 Union types via &amp;:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Omit"><span class="nav-text">👉 Omit:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00009-Medium-Deep-Readonly"><span class="nav-text">00009 Medium Deep Readonly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-3"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00010-Medium-Tuple-to-Union"><span class="nav-text">00010 Medium Tuple to Union</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-4"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-2"><span class="nav-text">Summary</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00002-Medium-Return-Type"><span class="nav-text">00002 Medium Return Type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solutions"><span class="nav-text">Solutions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00003-Medium-Omit"><span class="nav-text">00003 Medium Omit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference-1"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00008-Medium-Readonly-2"><span class="nav-text">00008 Medium Readonly 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Default-generic-type"><span class="nav-text">👉 Default generic type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Union-types-via-amp"><span class="nav-text">👉 Union types via &amp;:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Omit"><span class="nav-text">👉 Omit:</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

@@ -2116,7 +2116,7 @@ pre .javascript .function {
 }
 .first-screen-container .content .description {
   font-weight: bold;
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   line-height: 1.8;
   text-align: start;
   color: var(--default-text-color);
@@ -2133,21 +2133,25 @@ pre .javascript .function {
 .first-screen-container .content .description__prop {
   color: #1a73e8;
 }
+.first-screen-container .content .description__prop:hover {
+  color: #ef675c;
+  text-decoration: underline;
+}
 .first-screen-container .content .description code {
-  font-size: 2.88rem;
+  font-size: 3.36rem;
   background: transparent;
 }
 @media (max-width: 780px) {
   .first-screen-container .content .description {
-    font-size: 2.16rem;
+    font-size: 2.52rem;
   }
   .first-screen-container .content .description code {
-    font-size: 1.68rem;
+    font-size: 1.96rem;
   }
 }
 @media (max-width: 500px) {
   .first-screen-container .content .description code {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 }
 .first-screen-container .content .s-icon-list {

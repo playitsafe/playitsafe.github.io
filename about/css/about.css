@@ -1,8 +1,8 @@
-.frontend {
+.col-2 {
   display: flex;
   flex-wrap: wrap;
 }
 
-.frontend ul {
+.col-2 ul {
   flex-basis: 300px;
 }

@@ -24,7 +24,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Take Baby Steps"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Make little things visible."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 6.1.0"></head>
@@ -75,17 +75,9 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/projects"
-                            >
-                                PROJECTS
-                            </a>
-                        </li>
-                    
-                        <li class="menu-item">
-                            <a class=""
                                href="/archives"
                             >
-                                ARCHIVES
+                                BLOGS
                             </a>
                         </li>
                     
@@ -125,12 +117,7 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/projects">PROJECTS</a>
-                </li>
-            
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/archives">ARCHIVES</a>
+                       href="/archives">BLOGS</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
@@ -176,8 +163,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-07-30 19:44:06</span>
-        <span class="mobile">2022-07-30 19:44</span>
+        <span class="pc">2022-07-31 19:44:06</span>
+        <span class="mobile">2022-07-31 19:44</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -197,15 +184,15 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Hooks/">Hooks</a>&nbsp;
+                        <a href="/tags/Web/">Web</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Hooks/">Hooks</a>&nbsp;
                     </li>
                 
                     <li>
                         | <a href="/tags/React/">React</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/Web/">Web</a>&nbsp;
                     </li>
                 
             </ul>
@@ -244,12 +231,17 @@ useEffect(() =&gt; &#123;
 &#125;, [])
 </code></pre>
 <p>With the help of <code>useRequest</code>, we can simplify our code:</p>
-<pre><code class="tsx">import &#123; useRequest &#125; from &#39;ahooks&#39;
+<pre><code class="tsx">import &#123; useRequest &#125; from &quot;ahooks&quot;;
 
-const &#123; data, run: request, loading, error &#125; = useRequest(service.serviceA, options)
+const &#123;
+  data,
+  run: request,
+  loading,
+  error,
+&#125; = useRequest(service.serviceA, options);
 </code></pre>
 <h1 id="Main-features"><a href="#Main-features" class="headerlink" title="Main features"></a>Main features</h1><hr>
-<p><code>useRequest</code>  provides sufficient enough functionalities for network request scenarios in React projects including:</p>
+<p><code>useRequest</code> provides sufficient enough functionalities for network request scenarios in React projects including:</p>
 <ul>
 <li>Automatic&#x2F;manual request</li>
 <li>Polling</li>
@@ -264,14 +256,14 @@ const &#123; data, run: request, loading, error &#125; = useRequest(service.serv
 <h1 id="A-Glance-on-Basic-Usage"><a href="#A-Glance-on-Basic-Usage" class="headerlink" title="A Glance on Basic Usage"></a>A Glance on Basic Usage</h1><hr>
 <h2 id="Loading-delay"><a href="#Loading-delay" class="headerlink" title="Loading delay"></a>Loading delay</h2><p>Set the delay time for loading to become <code>true</code></p>
 <pre><code class="tsx">const &#123; loading, data &#125; = useRequest(getUsername, &#123;
-  loadingDelay: 300 //Set the delay time for loading to become true
+  loadingDelay: 300, //Set the delay time for loading to become true
 &#125;);
 
-return &lt;div&gt;&#123; loading ? &#39;Loading...&#39; : data &#125;&lt;/div&gt;
+return &lt;div&gt;&#123;loading ? &quot;Loading...&quot; : data&#125;&lt;/div&gt;;
 </code></pre>
 <h2 id="Polling"><a href="#Polling" class="headerlink" title="Polling"></a>Polling</h2><p>By setting <code>options.pollingInterval</code> , enter the polling mode, <code>useRequest</code>  will periodically trigger service execution.</p>
 <pre><code class="tsx">const &#123; data, run, cancel &#125; = useRequest(getUsername, &#123;
-  pollingInterval: 3000,//will periodically trigger service execution.
+  pollingInterval: 3000, //will periodically trigger service execution.
 &#125;);
 </code></pre>
 <h2 id="Refresh-on-window-focus"><a href="#Refresh-on-window-focus" class="headerlink" title="Refresh on window focus"></a>Refresh on window focus</h2><p>the request will be refreshed when the browser is <code>refocus</code>  and <code>revisible</code>.</p>
@@ -282,17 +274,17 @@ return &lt;div&gt;&#123; loading ? &#39;Loading...&#39; : data &#125;&lt;/div&gt
 <h2 id="Debounce-amp-Throttling"><a href="#Debounce-amp-Throttling" class="headerlink" title="Debounce &amp; Throttling"></a>Debounce &amp; Throttling</h2><p>Enter the debounce mode by setting <code>options.debounceWait</code> &#x2F; <code>options.throttleWait</code>. At this time, if <code>run</code> or <code>runAsync</code> is triggered frequently, the request will be executed with the debounce&#x2F;throttle strategy.</p>
 <pre><code class="tsx">const &#123; data, run &#125; = useRequest(getUsername, &#123;
   debounceWait: 300,
-    throttleWait: 300,
-  manual: true
+  throttleWait: 300,
+  manual: true,
 &#125;);
 </code></pre>
 <h2 id="Cache-amp-SWR"><a href="#Cache-amp-SWR" class="headerlink" title="Cache &amp; SWR"></a>Cache &amp; SWR</h2><p>If <code>options.cacheKey</code>  is set, <code>useRequest</code>  will cache the successful data . The next time the component is initialized, if there is cached data, it will return the cached data first, and then send a new request in background, which is the ability of SWR.</p>
 <pre><code class="tsx">async function getArticle(): Promise&lt;&#123; data: string; time: number &#125;&gt; &#123;
-  console.log(&#39;cacheKey&#39;);
+  console.log(&quot;cacheKey&quot;);
   return new Promise((resolve) =&gt; &#123;
     setTimeout(() =&gt; &#123;
       resolve(&#123;
-        data: Mock.mock(&#39;@paragraph&#39;),
+        data: Mock.mock(&quot;@paragraph&quot;),
         time: new Date().getTime(),
       &#125;);
     &#125;, 1000);
@@ -301,19 +293,19 @@ return &lt;div&gt;&#123; loading ? &#39;Loading...&#39; : data &#125;&lt;/div&gt
 
 const Article = () =&gt; &#123;
   const &#123; data, loading &#125; = useRequest(getArticle, &#123;
-    cacheKey: &#39;cacheKey-demo&#39;,
+    cacheKey: &quot;cacheKey-demo&quot;,
   &#125;);
   if (!data &amp;&amp; loading) &#123;
     return &lt;p&gt;Loading&lt;/p&gt;;
   &#125;
-    return (
+  return (
     &lt;&gt;
-      &lt;p&gt;Background loading: &#123;loading ? &#39;true&#39; : &#39;false&#39;&#125;&lt;/p&gt;
+      &lt;p&gt;Background loading: &#123;loading ? &quot;true&quot; : &quot;false&quot;&#125;&lt;/p&gt;
       &lt;p&gt;Latest request time: &#123;data?.time&#125;&lt;/p&gt;
       &lt;p&gt;&#123;data?.data&#125;&lt;/p&gt;
     &lt;/&gt;
   );
-&#125;
+&#125;;
 </code></pre>
 <h2 id="Error-retry"><a href="#Error-retry" class="headerlink" title="Error retry"></a>Error retry</h2><p>By setting <code>options.retryCount</code> , set the number of error retries, useRequest will retry after it fails.</p>
 <pre><code class="tsx">const &#123; data, run &#125; = useRequest(getUsername, &#123;
@@ -384,7 +376,7 @@ const Article = () =&gt; &#123;
 
   onRequest?: (
     service: Service&lt;TData, TParams&gt;,
-    params: TParams,
+    params: TParams
   ) =&gt; &#123;
     servicePromise?: Promise&lt;TData&gt;;
   &#125;;
@@ -407,7 +399,7 @@ const Article = () =&gt; &#123;
 </code></pre>
 <pre><code class="tsx">const &#123; data, error, loading &#125; = useRequest(service);
 </code></pre>
-<p>And the <code>setState</code>  API is used to update the state.</p>
+<p>And the <code>setState</code> API is used to update the state.</p>
 <p>Two main APIs of the <code>Fetch</code> class are <code>runPluginHandler</code> and <code>runAsync</code> , which are called by all of the other APIs to do some extra work.</p>
 <h3 id="runPluginHandler"><a href="#runPluginHandler" class="headerlink" title="runPluginHandler"></a><code>runPluginHandler</code></h3><pre><code class="tsx">runPluginHandler(event: keyof PluginReturn&lt;TData, TParams&gt;, ...rest: any[]) &#123;
     // @ts-ignore
@@ -415,7 +407,7 @@ const Article = () =&gt; &#123;
   return Object.assign(&#123;&#125;, ...r);
 &#125;
 </code></pre>
-<p>This function accepts an event parameter which is of the union type <code>onBefore | onRequest | onSuccess | onError | onFinally | onCancel | onMutate</code>  and other extra parameters. What this handler does is to call the relevant lifecycle hook from <code>pluginImpls</code> and return its result.</p>
+<p>This function accepts an event parameter which is of the union type <code>onBefore | onRequest | onSuccess | onError | onFinally | onCancel | onMutate</code> and other extra parameters. What this handler does is to call the relevant lifecycle hook from <code>pluginImpls</code> and return its result.</p>
 <h3 id="runAsync"><a href="#runAsync" class="headerlink" title="runAsync"></a><code>runAsync</code></h3><pre><code class="tsx">async runAsync(...params: TParams): Promise&lt;TData&gt; &#123;
     this.count += 1;
     const currentCount = this.count;
@@ -501,15 +493,15 @@ const Article = () =&gt; &#123;
     &#125;
   &#125;
 </code></pre>
-<p>What this long function does is to implement callbacks that are passed in to give users the opportunity to process the result of the request instead of handling it automatically. </p>
+<p>What this long function does is to implement callbacks that are passed in to give users the opportunity to process the result of the request instead of handling it automatically.</p>
 <p>For example, In an <code>onBefore</code> hook, user can cancel a request before it’s been sent out ; In an <code>onRequest</code> hook, the function to fetch data can be overwritten, etc.</p>
 <h3 id="Other-APIs"><a href="#Other-APIs" class="headerlink" title="Other APIs"></a>Other APIs</h3><p>Other APIs such as <code>run</code>、<code>cancel</code>、<code>refresh</code> will eventually call <code>runPluginHandler</code><br> and <code>runAsync</code> .</p>
 <p>The main responsibility of this <code>Fetch</code> class is to run callbacks in different phases of a request lifecycle and update the state.</p>
-<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>The implementation of <code>useRequest</code> separates the core logic and the complicity of each different functionality by the plugin mechanism. <code>Fetch</code> only care about when to call those plugin hooks and each plugin itself will only focus on customizing and  doing its own logic.</p>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>The implementation of <code>useRequest</code> separates the core logic and the complicity of each different functionality by the plugin mechanism. <code>Fetch</code> only care about when to call those plugin hooks and each plugin itself will only focus on customizing and doing its own logic.</p>
 <p>Take <code>usePollingPlugin</code> as an example, the main logic of this plugin is to set a timeout in <code>onFinally</code> callback after each request using <code>pollingInterval</code> passed by users and run <code>refresh</code> function of the <code>Fetch</code> instance.</p>
 <pre><code class="tsx">const usePollingPlugin: Plugin&lt;any, any[]&gt; = (
   fetchInstance,
-  &#123; pollingInterval, pollingWhenHidden = true &#125;,
+  &#123; pollingInterval, pollingWhenHidden = true &#125;
 ) =&gt; &#123;
   const timerRef = useRef&lt;NodeJS.Timeout&gt;();
   const unsubscribeRef = useRef&lt;() =&gt; void&gt;();
@@ -558,7 +550,7 @@ const Article = () =&gt; &#123;
 <pre><code class="tsx">function useRequestImplement&lt;TData, TParams extends any[]&gt;(
   service: Service&lt;TData, TParams&gt;,
   options: Options&lt;TData, TParams&gt; = &#123;&#125;,
-  plugins: Plugin&lt;TData, TParams&gt;[] = [],
+  plugins: Plugin&lt;TData, TParams&gt;[] = []
 ) &#123;
   const &#123; manual = false, ...rest &#125; = options;
 
@@ -572,18 +564,22 @@ const Article = () =&gt; &#123;
   const update = useUpdate();
 
   const fetchInstance = useCreation(() =&gt; &#123;
-    const initState = plugins.map((p) =&gt; p?.onInit?.(fetchOptions)).filter(Boolean);
+    const initState = plugins
+      .map((p) =&gt; p?.onInit?.(fetchOptions))
+      .filter(Boolean);
 
     return new Fetch&lt;TData, TParams&gt;(
       serviceRef,
       fetchOptions,
       update,
-      Object.assign(&#123;&#125;, ...initState),
+      Object.assign(&#123;&#125;, ...initState)
     );
   &#125;, []);
   fetchInstance.options = fetchOptions;
   // run all plugins hooks
-  fetchInstance.pluginImpls = plugins.map((p) =&gt; p(fetchInstance, fetchOptions));
+  fetchInstance.pluginImpls = plugins.map((p) =&gt;
+    p(fetchInstance, fetchOptions)
+  );
 
   useMount(() =&gt; &#123;
     if (!manual) &#123;
@@ -618,7 +614,7 @@ export default useRequestImplement;
 <pre><code class="tsx">function useRequest&lt;TData, TParams extends any[]&gt;(
   service: Service&lt;TData, TParams&gt;,
   options?: Options&lt;TData, TParams&gt;,
-  plugins?: Plugin&lt;TData, TParams&gt;[],
+  plugins?: Plugin&lt;TData, TParams&gt;[]
 ) &#123;
   return useRequestImplement&lt;TData, TParams&gt;(service, options, [
     ...(plugins || []),
@@ -645,15 +641,15 @@ export default useRequestImplement;
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
+                        <a href="/tags/Web/">#Web</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
                         <a href="/tags/Hooks/">#Hooks</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
                         <a href="/tags/React/">#React</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/Web/">#Web</a>&nbsp;
                     </li>
                 
             </ul>
@@ -665,13 +661,13 @@ export default useRequestImplement;
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/08/06/Challenge-accepted-Typescript-challenge-series-1/"
+                           href="/2022/08/06/Typescript-challenge-series-1/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Challenge accepted - Typescript challenge series(1)</span>
+                                <span class="post-nav-title-item">Typescript challenge series(1)</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>

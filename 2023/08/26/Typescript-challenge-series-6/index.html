@@ -10,7 +10,7 @@
     
     <title>
         
-            Draw a triangle caret with pure CSS |
+            Typescript challenge series(6) |
         
         Aaron&#39;s Dev Dairy
     </title>
@@ -144,7 +144,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Draw a triangle caret with pure CSS</span>
+            <span class="title-hover-animation">Typescript challenge series(6)</span>
         </div>
 
         
@@ -163,8 +163,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-03 01:24:09</span>
-        <span class="mobile">2022-05-03 01:24</span>
+        <span class="pc">2023-08-26 20:44:45</span>
+        <span class="mobile">2023-08-26 20:44</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -184,11 +184,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/CSS/">CSS</a>&nbsp;
+                        <a href="/tags/Typescript/">Typescript</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/Web/">Web</a>&nbsp;
+                        | <a href="/tags/Javascript/">Javascript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -211,153 +211,123 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><hr>
-<p>It is very common that we need a triangle caret on a web page to display as an arrow or other similar symbols. It can be achieved by using a png or svg file, or importing from third-party icon library such as <a class="link"   target="_blank" rel="noopener" href="https://fontawesome.com/icons/caret-up?s=solid" >Font Awesome<i class="fas fa-external-link-alt"></i></a></p>
-<p><img  
+            <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-post-caret.jpg"
-                      alt="Caret icon"
+                     data-src="https://tsch.js.org/logo.svg"
+                      alt="logo"
                 ></p>
-<p>However, a more efficient low-carbon way is to draw it using CSS <code>border</code> attribute.</p>
-<h1 id="A-normal-border"><a href="#A-normal-border" class="headerlink" title="A normal border"></a>A normal border</h1><hr>
-<p>The most common use case of a border would be this:</p>
-<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+<h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>I found a <a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges" >repo<i class="fas fa-external-link-alt"></i></a> on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I’ll go with those challenges.</p>
+<h1 id="How-to-play-around-with-it"><a href="#How-to-play-around-with-it" class="headerlink" title="How to play around with it?"></a>How to play around with it?</h1><p>There are questions of different levels in the <code>questions</code> directory, each of which has a <code>README</code>, <code>test-cases</code> and <code>template</code>. The challenge is to modify the type in <code>template</code> to make test cases all pass in <code>test-cases</code> .</p>
+<p>Let’s get started from the easy ones!</p>
+<h1 id="00009-Medium-Deep-Readonly"><a href="#00009-Medium-Deep-Readonly" class="headerlink" title="00009 Medium Deep Readonly"></a>00009 Medium Deep Readonly</h1><p>Implement a generic <code>DeepReadonly&lt;T&gt;</code> which make every parameter of an object - and its sub-objects recursively - readonly.</p>
+<p>You can assume that we are only dealing with Objects in this challenge. Arrays, Functions, Classes and so on do not need to be taken into consideration. However, you can still challenge yourself by covering as many different cases as possible.</p>
+<p>For example:</p>
+<pre><code class="ts">type X = &#123;
+  x: &#123;
+    a: 1;
+    b: &quot;hi&quot;;
+  &#125;;
+  y: &quot;hey&quot;;
+&#125;;
 
-&lt;style&gt;
-  .box &#123;
-    height: 100px;
-    width: 100px;
-    border: 5px solid #000;
-  &#125;
-&lt;/style&gt;
+type Expected = &#123;
+  readonly x: &#123;
+    readonly a: 1;
+    readonly b: &quot;hi&quot;;
+  &#125;;
+  readonly y: &quot;hey&quot;;
+&#125;;
+
+type Todo = DeepReadonly&lt;X&gt;; // should be same as `Expected`
 </code></pre>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-caret-plain-border1.jpg"
-                      alt="plain border"
-                ></p>
-<p>If we take a look at the border shape by giving a wider width of it, we will see it looks like this:</p>
-<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+<h2 id="Tests"><a href="#Tests" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &quot;@type-challenges/utils&quot;;
 
-&lt;style&gt;
-  .box &#123;
-    width: 200px;
-    height: 200px;
-    border-color: red blue yellow green;
-    border-style: solid;
-    border-width: 50px 50px 50px 50px;
-  &#125;
-&lt;/style&gt;
+type cases = [Expect&lt;Equal&lt;DeepReadonly&lt;X&gt;, Expected&gt;&gt;];
+
+type X = &#123;
+  a: () =&gt; 22;
+  b: string;
+  c: &#123;
+    d: boolean;
+    e: &#123;
+      g: &#123;
+        h: &#123;
+          i: true;
+          j: &quot;string&quot;;
+        &#125;;
+        k: &quot;hello&quot;;
+      &#125;;
+      l: [
+        &quot;hi&quot;,
+        &#123;
+          m: [&quot;hey&quot;];
+        &#125;
+      ];
+    &#125;;
+  &#125;;
+&#125;;
+
+type Expected = &#123;
+  readonly a: () =&gt; 22;
+  readonly b: string;
+  readonly c: &#123;
+    readonly d: boolean;
+    readonly e: &#123;
+      readonly g: &#123;
+        readonly h: &#123;
+          readonly i: true;
+          readonly j: &quot;string&quot;;
+        &#125;;
+        readonly k: &quot;hello&quot;;
+      &#125;;
+      readonly l: readonly [
+        &quot;hi&quot;,
+        &#123;
+          readonly m: readonly [&quot;hey&quot;];
+        &#125;
+      ];
+    &#125;;
+  &#125;;
+&#125;;
 </code></pre>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-colored-boder.jpg"
-                      alt="bold border"
-                ></p>
-<h1 id="Border-with-zero-height-and-width"><a href="#Border-with-zero-height-and-width" class="headerlink" title="Border with zero height and width"></a>Border with zero height and width</h1><hr>
-<p>Instead of giving height and width to the box, when we set the width and height of the outer box to 0, the width of the border will stretch out the outer box, four sides of the borders will collapse together and each side of the border will be a triangle of 100px wide and 50px height, just like this:</p>
-<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
-
-&lt;style&gt;
-  .box &#123;
-    width: 0;
-    height: 0;
-    border-color: red blue yellow green;
-    border-style: solid;
-    border-width: 50px 50px 50px 50px;
-  &#125;
-&lt;/style&gt;
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>This should be an easy one. The trick is to use mapped types and recursively apply this type.</p>
+<pre><code class="ts">type DeepReadonly&lt;T&gt; = &#123;
+  readonly [KEY in keyof T]: T extends object ? DeepReadonly&lt;T[KEY]&gt; : T[KEY];
+&#125;;
 </code></pre>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-border-triangle.jpg"
-                      alt="triangle border"
-                ></p>
-<h1 id="Display-as-a-triangle"><a href="#Display-as-a-triangle" class="headerlink" title="Display as a triangle"></a>Display as a triangle</h1><hr>
-<p>Now what we need to do is to hide three other sides of the border and only show one of it:</p>
-<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
-
-&lt;style&gt;
-  .box &#123;
-    width: 0;
-    height: 0;
-    border-color: red transparent transparent transparent;
-    border-style: solid;
-    border-width: 50px 50px 50px 50px;
-  &#125;
-&lt;/style&gt;
+<p>This won’t just make all the test pass as we need to deal with <code>Function</code> as it is a type of <code>object</code></p>
+<pre><code class="ts">type DeepReadonly&lt;T&gt; = &#123;
+  readonly [KEY in keyof T]: T[KEY] extends Function
+    ? T[KEY]
+    : T[KEY] extends object
+    ? DeepReadonly&lt;T[KEY]&gt;
+    : T[KEY];
+&#125;;
 </code></pre>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-border-single-caret.jpg"
-                      alt="single triangle border"
-                ></p>
-<p>#Other cases<br>If we try to set one side of the border width to be zero, we’ll get and rectangle with three triangles:</p>
-<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>👉 <code>Function</code> extends <code>object</code></p>
+<h1 id="00010-Medium-Tuple-to-Union"><a href="#00010-Medium-Tuple-to-Union" class="headerlink" title="00010 Medium Tuple to Union"></a>00010 Medium Tuple to Union</h1><p>Implement a generic <code>TupleToUnion&lt;T&gt;</code> which covers the values of a tuple to its values union.</p>
+<p>For example</p>
+<pre><code class="ts">type Arr = [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;];
 
-&lt;style&gt;
-  .box &#123;
-    width: 0;
-    height: 0;
-    border-color: red blue yellow green;
-    border-style: solid;
-    border-width: 50px 50px 0 50px;
-  &#125;
-&lt;/style&gt;
+type Test = TupleToUnion&lt;Arr&gt;; // expected to be &#39;1&#39; | &#39;2&#39; | &#39;3&#39;
 </code></pre>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-caret-3-sides.jpg"
-                      alt="rectangle box"
-                ></p>
-<h1 id="Use-cases"><a href="#Use-cases" class="headerlink" title="Use cases"></a>Use cases</h1><p>This can be useful if we need a ribbon icon on page just like this:</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/20220506025424.png"
-                      alt="ribbon"
-                ></p>
-<p>The solution is to draw a rectangle on top and add a sudo class <code>:after</code> below it to implement 3 sides of the border:</p>
-<pre><code class="html">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+<h2 id="Tests-1"><a href="#Tests-1" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &quot;@type-challenges/utils&quot;;
 
-&lt;style&gt;
-  .box &#123;
-    width: 50px;
-    height: 70px;
-    background: red;
-    position: relative;
-  &#125;
-
-  .box:after &#123;
-    position: absolute;
-    left: 0;
-    top: 70px;
-    content: &#39;&#39;;
-    border-width: 12px 25px;
-    border-style: solid;
-    border-color: green green transparent green;
-  &#125;
-&lt;/style&gt;
+type cases = [
+  Expect&lt;Equal&lt;TupleToUnion&lt;[123, &quot;456&quot;, true]&gt;, 123 | &quot;456&quot; | true&gt;&gt;,
+  Expect&lt;Equal&lt;TupleToUnion&lt;[123]&gt;, 123&gt;&gt;
+];
 </code></pre>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-ribbon.jpg"
-                      alt="ribbon"
-                ></p>
-<p>And we just need to set the color all red, and maybe add some text to make it a perfect ribbon.</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/hexo-red-ribbon.jpg"
-                      alt="red ribbon"
-                ></p>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h2><p>The easiest solution is to use <code>Indexed Access Type</code> to iterate through the tuple type. From previous questions we know that we can iterate through an array&#x2F;tuple to get all its elements as an union type:</p>
+<pre><code class="ts">type TupleToUnion&lt;T extends any[]&gt; = T[number];
+</code></pre>
+<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution 2"></a>Solution 2</h2><p>Another approach is to use <code>infer</code> to recursively get each element from the tuple to form an union type.</p>
+<pre><code class="ts">type TupleToUnion&lt;T&gt; = T extends [infer FIRST, ...infer REST]
+  ? FIRST | TupleToUnion&lt;REST&gt;
+  : never;
+</code></pre>
+<h2 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h2><p>👉 Array&#x2F;Tuple type can be iterated by index access type as there is a <code>number</code> key on it.</p>
 
         </div>
 
@@ -367,11 +337,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/CSS/">#CSS</a>&nbsp;
+                        <a href="/tags/Typescript/">#Typescript</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/Web/">#Web</a>&nbsp;
+                        <a href="/tags/Javascript/">#Javascript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -380,29 +350,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/06/04/Deploy-A-Website-via-AWS-S3-CloudFront-and-More/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">Deploy A Static Website via AWS S3, CloudFront and More</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/04/02/Implement-a-countdown-timer-in-React-Hooks/"
+                           href="/2023/02/16/Typescript-challenge-series-5/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Implement a countdown timer in React Hooks</span>
+                                <span class="post-nav-title-item">Typescript challenge series(5)</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -559,7 +514,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-normal-border"><span class="nav-text">A normal border</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Border-with-zero-height-and-width"><span class="nav-text">Border with zero height and width</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Display-as-a-triangle"><span class="nav-text">Display as a triangle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-cases"><span class="nav-text">Use cases</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00009-Medium-Deep-Readonly"><span class="nav-text">00009 Medium Deep Readonly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00010-Medium-Tuple-to-Union"><span class="nav-text">00010 Medium Tuple to Union</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
