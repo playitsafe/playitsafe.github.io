@@ -1,14 +1,17 @@
 ---
 title: A Peek at useRequest hook
-date: 2022-07-30 19:44:06
+date: 2022-07-31 19:44:06
 categories: "Front-end"
 tags:
-- Hooks
-- React
-- Web
+  - Hooks
+  - React
+  - Web
 ---
+
 # Introduction
+
 ---
+
 `useRequest` is a powerful, well-encapsulated hook from a hook library ahooks to manage async data fetching. When there is multiple async logic in a single component in React, we will deal with a bunch of useState and useEffect hooks, which makes it complicated to call APIs.
 
 What it probably looks like:
@@ -30,15 +33,21 @@ useEffect(() => {
 With the help of `useRequest`, we can simplify our code:
 
 ```tsx
-import { useRequest } from 'ahooks'
+import { useRequest } from "ahooks";
 
-const { data, run: request, loading, error } = useRequest(service.serviceA, options)
+const {
+  data,
+  run: request,
+  loading,
+  error,
+} = useRequest(service.serviceA, options);
 ```
 
 # Main features
+
 ---
 
-`useRequest`  provides sufficient enough functionalities for network request scenarios in React projects including:
+`useRequest` provides sufficient enough functionalities for network request scenarios in React projects including:
 
 - Automatic/manual request
 - Polling
@@ -51,29 +60,33 @@ const { data, run: request, loading, error } = useRequest(service.serviceA, opti
 - Caching
 
 # A Glance on Basic Usage
+
 ---
 
 ## Loading delay
+
 Set the delay time for loading to become `true`
 
 ```tsx
 const { loading, data } = useRequest(getUsername, {
-  loadingDelay: 300 //Set the delay time for loading to become true
+  loadingDelay: 300, //Set the delay time for loading to become true
 });
 
-return <div>{ loading ? 'Loading...' : data }</div>
+return <div>{loading ? "Loading..." : data}</div>;
 ```
 
 ## Polling
+
 By setting `options.pollingInterval` , enter the polling mode, `useRequest`  will periodically trigger service execution.
 
 ```tsx
 const { data, run, cancel } = useRequest(getUsername, {
-  pollingInterval: 3000,//will periodically trigger service execution.
+  pollingInterval: 3000, //will periodically trigger service execution.
 });
 ```
 
 ## Refresh on window focus
+
 the request will be refreshed when the browser is `refocus`  and `revisible`.
 
 ```tsx
@@ -89,8 +102,8 @@ Enter the debounce mode by setting `options.debounceWait` / `options.throttleWa
 ```tsx
 const { data, run } = useRequest(getUsername, {
   debounceWait: 300,
-	throttleWait: 300,
-  manual: true
+  throttleWait: 300,
+  manual: true,
 });
 ```
 
@@ -100,11 +113,11 @@ If `options.cacheKey`  is set, `useRequest`  will cache the successful data 
 
 ```tsx
 async function getArticle(): Promise<{ data: string; time: number }> {
-  console.log('cacheKey');
+  console.log("cacheKey");
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        data: Mock.mock('@paragraph'),
+        data: Mock.mock("@paragraph"),
         time: new Date().getTime(),
       });
     }, 1000);
@@ -113,19 +126,19 @@ async function getArticle(): Promise<{ data: string; time: number }> {
 
 const Article = () => {
   const { data, loading } = useRequest(getArticle, {
-    cacheKey: 'cacheKey-demo',
+    cacheKey: "cacheKey-demo",
   });
   if (!data && loading) {
     return <p>Loading</p>;
   }
-	return (
+  return (
     <>
-      <p>Background loading: {loading ? 'true' : 'false'}</p>
+      <p>Background loading: {loading ? "true" : "false"}</p>
       <p>Latest request time: {data?.time}</p>
       <p>{data?.data}</p>
     </>
   );
-}
+};
 ```
 
 ## Error retry
@@ -149,6 +162,7 @@ Fetch module on the other hand is even more simple - to implement the `Fetch` cl
 ![useRequest diagram](https://cdn.jsdelivr.net/gh/playitsafe/cdn/img/2022-07-30-useRequest-diagram.png)
 
 # Source code
+
 ---
 
 ## `Fetch` - the core
@@ -215,7 +229,7 @@ export interface PluginReturn<TData, TParams extends any[]> {
 
   onRequest?: (
     service: Service<TData, TParams>,
-    params: TParams,
+    params: TParams
   ) => {
     servicePromise?: Promise<TData>;
   };
@@ -247,7 +261,7 @@ export interface FetchState<TData, TParams extends any[]> {
 const { data, error, loading } = useRequest(service);
 ```
 
-And the `setState`  API is used to update the state.
+And the `setState` API is used to update the state.
 
 Two main APIs of the `Fetch` class are `runPluginHandler` and `runAsync` , which are called by all of the other APIs to do some extra work.
 
@@ -261,7 +275,7 @@ runPluginHandler(event: keyof PluginReturn<TData, TParams>, ...rest: any[]) {
 }
 ```
 
-This function accepts an event parameter which is of the union type `onBefore | onRequest | onSuccess | onError | onFinally | onCancel | onMutate`  and other extra parameters. What this handler does is to call the relevant lifecycle hook from `pluginImpls` and return its result.
+This function accepts an event parameter which is of the union type `onBefore | onRequest | onSuccess | onError | onFinally | onCancel | onMutate` and other extra parameters. What this handler does is to call the relevant lifecycle hook from `pluginImpls` and return its result.
 
 ### `runAsync`
 
@@ -352,7 +366,7 @@ async runAsync(...params: TParams): Promise<TData> {
   }
 ```
 
-What this long function does is to implement callbacks that are passed in to give users the opportunity to process the result of the request instead of handling it automatically. 
+What this long function does is to implement callbacks that are passed in to give users the opportunity to process the result of the request instead of handling it automatically.
 
 For example, In an `onBefore` hook, user can cancel a request before it’s been sent out ; In an `onRequest` hook, the function to fetch data can be overwritten, etc.
 
@@ -365,14 +379,14 @@ The main responsibility of this `Fetch` class is to run callbacks in different p
 
 ## Plugins
 
-The implementation of `useRequest` separates the core logic and the complicity of each different functionality by the plugin mechanism. `Fetch` only care about when to call those plugin hooks and each plugin itself will only focus on customizing and  doing its own logic.
+The implementation of `useRequest` separates the core logic and the complicity of each different functionality by the plugin mechanism. `Fetch` only care about when to call those plugin hooks and each plugin itself will only focus on customizing and doing its own logic.
 
 Take `usePollingPlugin` as an example, the main logic of this plugin is to set a timeout in `onFinally` callback after each request using `pollingInterval` passed by users and run `refresh` function of the `Fetch` instance.
 
 ```tsx
 const usePollingPlugin: Plugin<any, any[]> = (
   fetchInstance,
-  { pollingInterval, pollingWhenHidden = true },
+  { pollingInterval, pollingWhenHidden = true }
 ) => {
   const timerRef = useRef<NodeJS.Timeout>();
   const unsubscribeRef = useRef<() => void>();
@@ -426,7 +440,7 @@ To hook up the core `Fetch` class and plugins together to make this hook work, `
 function useRequestImplement<TData, TParams extends any[]>(
   service: Service<TData, TParams>,
   options: Options<TData, TParams> = {},
-  plugins: Plugin<TData, TParams>[] = [],
+  plugins: Plugin<TData, TParams>[] = []
 ) {
   const { manual = false, ...rest } = options;
 
@@ -440,18 +454,22 @@ function useRequestImplement<TData, TParams extends any[]>(
   const update = useUpdate();
 
   const fetchInstance = useCreation(() => {
-    const initState = plugins.map((p) => p?.onInit?.(fetchOptions)).filter(Boolean);
+    const initState = plugins
+      .map((p) => p?.onInit?.(fetchOptions))
+      .filter(Boolean);
 
     return new Fetch<TData, TParams>(
       serviceRef,
       fetchOptions,
       update,
-      Object.assign({}, ...initState),
+      Object.assign({}, ...initState)
     );
   }, []);
   fetchInstance.options = fetchOptions;
   // run all plugins hooks
-  fetchInstance.pluginImpls = plugins.map((p) => p(fetchInstance, fetchOptions));
+  fetchInstance.pluginImpls = plugins.map((p) =>
+    p(fetchInstance, fetchOptions)
+  );
 
   useMount(() => {
     if (!manual) {
@@ -489,7 +507,7 @@ Finally, this function will be returned in a `useRequest` function with custom p
 function useRequest<TData, TParams extends any[]>(
   service: Service<TData, TParams>,
   options?: Options<TData, TParams>,
-  plugins?: Plugin<TData, TParams>[],
+  plugins?: Plugin<TData, TParams>[]
 ) {
   return useRequestImplement<TData, TParams>(service, options, [
     ...(plugins || []),
@@ -511,6 +529,7 @@ function useRequest<TData, TParams extends any[]>(
 The main idea of implementing a plugin is to find out the appropriate phase of the request lifecycle and plug in the core logic of the hook. The most important takeaway from the exploration of the hook’s source code is the approach of separating its core `Fetch` function and its plugins, which makes it more reusable and maintainable. Users are able to extend the plugins easily as they wish and each of the plugins works independently. I believe it’s a great example of the single responsibility principle and that’s something I could borrow from when customizing a hook or implementing complicated logic.
 
 ## Reference
+
 https://ahooks.js.org/hooks/use-request/basic
 https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useRequest/src
 https://qdmana.com/2022/02/202202020201538966.html
