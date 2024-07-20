@@ -10,7 +10,7 @@
     
     <title>
         
-            Typescript challenge series(4) |
+            Typescript challenge practice series(4) |
         
         Aaron&#39;s Dev Dairy
     </title>
@@ -24,7 +24,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Make little things."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Make little things visible."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 6.1.0"></head>
@@ -75,17 +75,9 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/projects"
-                            >
-                                PROJECTS
-                            </a>
-                        </li>
-                    
-                        <li class="menu-item">
-                            <a class=""
                                href="/archives"
                             >
-                                ARCHIVES
+                                BLOGS
                             </a>
                         </li>
                     
@@ -125,12 +117,7 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/projects">PROJECTS</a>
-                </li>
-            
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/archives">ARCHIVES</a>
+                       href="/archives">BLOGS</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
@@ -157,7 +144,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Typescript challenge series(4)</span>
+            <span class="title-hover-animation">Typescript challenge practice series(4)</span>
         </div>
 
         
@@ -230,10 +217,8 @@
                      data-src="https://tsch.js.org/logo.svg"
                       alt="logo"
                 ></p>
-<h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>I found a <a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges" >repo<i class="fas fa-external-link-alt"></i></a> on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I’ll go with those challenges.</p>
-<h1 id="How-to-play-around-with-it"><a href="#How-to-play-around-with-it" class="headerlink" title="How to play around with it?"></a>How to play around with it?</h1><p>There are questions of different levels in the <code>questions</code> directory, each of which has a <code>README</code>, <code>test-cases</code> and <code>template</code>. The challenge is to modify the type in <code>template</code> to make test cases all pass in <code>test-cases</code> .</p>
-<p>Let’s get started!</p>
-<h1 id="00268-Easy-If"><a href="#00268-Easy-If" class="headerlink" title="00268 Easy If"></a>00268 Easy If</h1><p>Implement a util <code>If</code> which accepts condition <code>C</code>, a truthy return type <code>T</code>, and a falsy return type <code>F</code>. <code>C</code> is expected to be either true or false while <code>T</code> and <code>F</code> can be any type.</p>
+<h1 id="00268-Easy-If"><a href="#00268-Easy-If" class="headerlink" title="00268 Easy If"></a>00268 Easy If</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00268-easy-if" >https://github.com/type-challenges/type-challenges/tree/main/questions/00268-easy-if<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement a util <code>If</code> which accepts condition <code>C</code>, a truthy return type <code>T</code>, and a falsy return type <code>F</code>. <code>C</code> is expected to be either true or false while <code>T</code> and <code>F</code> can be any type.</p>
 <p>For example:</p>
 <pre><code class="ts">type A = If&lt;true, &quot;a&quot;, &quot;b&quot;&gt;; // expected to be &#39;a&#39;
 type B = If&lt;false, &quot;a&quot;, &quot;b&quot;&gt;; // expected to be &#39;b&#39;
@@ -255,7 +240,8 @@ type error = If&lt;null, &quot;a&quot;, &quot;b&quot;&gt;;
 <pre><code class="json">    &quot;strict&quot;: true, // Enable all strict type-checking options.
     &quot;strictNullChecks&quot;: true, // When type checking, take into account &#39;null&#39; and &#39;undefined&#39;.
 </code></pre>
-<h1 id="00898-Easy-includes"><a href="#00898-Easy-includes" class="headerlink" title="00898 Easy includes"></a>00898 Easy includes</h1><p>Implement the JavaScript <code>Array.includes</code> function in the type system. A type takes the two arguments. The output should be a boolean <code>true</code> or <code>false</code>.</p>
+<h1 id="00898-Easy-includes"><a href="#00898-Easy-includes" class="headerlink" title="00898 Easy includes"></a>00898 Easy includes</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00898-easy-includes" >https://github.com/type-challenges/type-challenges/tree/main/questions/00898-easy-includes<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement the JavaScript <code>Array.includes</code> function in the type system. A type takes the two arguments. The output should be a boolean <code>true</code> or <code>false</code>.</p>
 <p>For example:</p>
 <pre><code class="ts">type isPillarMen = Includes&lt;[&quot;Kars&quot;, &quot;Esidisi&quot;, &quot;Wamuu&quot;, &quot;Santana&quot;], &quot;Dio&quot;&gt;; // expected to be `false`
 </code></pre>
@@ -296,7 +282,8 @@ type cases = [
     : false
 </code></pre>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>We can recursively use this <code>Include</code> type by passing <code>REST</code> as a generic type.</p>
-<h1 id="03057-Easy-Push-amp-03060-Easy-Unshift"><a href="#03057-Easy-Push-amp-03060-Easy-Unshift" class="headerlink" title="03057 Easy Push &amp; 03060 Easy Unshift"></a>03057 Easy Push &amp; 03060 Easy Unshift</h1><p>Implement the generic version of <code>Array.push</code></p>
+<h1 id="03057-Easy-Push-amp-03060-Easy-Unshift"><a href="#03057-Easy-Push-amp-03060-Easy-Unshift" class="headerlink" title="03057 Easy Push &amp; 03060 Easy Unshift"></a>03057 Easy Push &amp; 03060 Easy Unshift</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/03057-easy-push" >https://github.com/type-challenges/type-challenges/tree/main/questions/03057-easy-push<i class="fas fa-external-link-alt"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/03060-easy-unshift" >https://github.com/type-challenges/type-challenges/tree/main/questions/03060-easy-unshift<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement the generic version of <code>Array.push</code></p>
 <p>For example:</p>
 <pre><code class="typescript">type Result = Push&lt;[1, 2], &quot;3&quot;&gt;; // [1, 2, &#39;3&#39;]
 </code></pre>
@@ -365,7 +352,7 @@ type cases = [
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Typescript challenge series(5)</span>
+                                <span class="post-nav-title-item">Typescript challenge practice series(5)</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -378,7 +365,7 @@ type cases = [
                            href="/2022/08/13/Typescript-challenge-series-3/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Typescript challenge series(3)</span>
+                                <span class="post-nav-title-item">Typescript challenge practice series(3)</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -535,7 +522,7 @@ type cases = [
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00268-Easy-If"><span class="nav-text">00268 Easy If</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00898-Easy-includes"><span class="nav-text">00898 Easy includes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-cases"><span class="nav-text">Test cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#03057-Easy-Push-amp-03060-Easy-Unshift"><span class="nav-text">03057 Easy Push &amp; 03060 Easy Unshift</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#03312-Easy-Parameter"><span class="nav-text">03312 Easy Parameter</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing"><span class="nav-text">Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00268-Easy-If"><span class="nav-text">00268 Easy If</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00898-Easy-includes"><span class="nav-text">00898 Easy includes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-cases"><span class="nav-text">Test cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#03057-Easy-Push-amp-03060-Easy-Unshift"><span class="nav-text">03057 Easy Push &amp; 03060 Easy Unshift</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#03312-Easy-Parameter"><span class="nav-text">03312 Easy Parameter</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing"><span class="nav-text">Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

@@ -10,7 +10,7 @@
     
     <title>
         
-            Typescript challenge series(5) |
+            Typescript challenge practice series(5) |
         
         Aaron&#39;s Dev Dairy
     </title>
@@ -24,7 +24,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Make little things."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Make little things visible."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 6.1.0"></head>
@@ -75,17 +75,9 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/projects"
-                            >
-                                PROJECTS
-                            </a>
-                        </li>
-                    
-                        <li class="menu-item">
-                            <a class=""
                                href="/archives"
                             >
-                                ARCHIVES
+                                BLOGS
                             </a>
                         </li>
                     
@@ -125,12 +117,7 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/projects">PROJECTS</a>
-                </li>
-            
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/archives">ARCHIVES</a>
+                       href="/archives">BLOGS</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
@@ -157,7 +144,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Typescript challenge series(5)</span>
+            <span class="title-hover-animation">Typescript challenge practice series(5)</span>
         </div>
 
         
@@ -230,10 +217,8 @@
                      data-src="https://tsch.js.org/logo.svg"
                       alt="logo"
                 ></p>
-<h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>I found a <a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges" >repo<i class="fas fa-external-link-alt"></i></a> on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I’ll go with those challenges.</p>
-<h1 id="How-to-play-around-with-it"><a href="#How-to-play-around-with-it" class="headerlink" title="How to play around with it?"></a>How to play around with it?</h1><p>There are questions of different levels in the <code>questions</code> directory, each of which has a <code>README</code>, <code>test-cases</code> and <code>template</code>. The challenge is to modify the type in <code>template</code> to make test cases all pass in <code>test-cases</code> .</p>
-<p>Let’s get started from the easy ones!</p>
-<h1 id="00002-Medium-Return-Type"><a href="#00002-Medium-Return-Type" class="headerlink" title="00002 Medium Return Type"></a>00002 Medium Return Type</h1><p>Implement the built-in <code>ReturnType&lt;T&gt;</code> generic without using it.</p>
+<h1 id="00002-Medium-Return-Type"><a href="#00002-Medium-Return-Type" class="headerlink" title="00002 Medium Return Type"></a>00002 Medium Return Type</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00002-medium-return-type" >https://github.com/type-challenges/type-challenges/tree/main/questions/00002-medium-return-type<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement the built-in <code>ReturnType&lt;T&gt;</code> generic without using it.</p>
 <p>For example</p>
 <pre><code class="ts">const fn = (v: boolean) =&gt; &#123;
   if (v) return 1;
@@ -268,7 +253,8 @@ const fn1 = (v: boolean, w: any) =&gt; (v ? 1 : 2);
 <pre><code class="ts">type MyReturnType&lt;T&gt; = T extends (...args: any) =&gt; infer R ? R : never;
 </code></pre>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types" >https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types<i class="fas fa-external-link-alt"></i></a></p>
-<h1 id="00003-Medium-Omit"><a href="#00003-Medium-Omit" class="headerlink" title="00003 Medium Omit"></a>00003 Medium Omit</h1><p>Implement the built-in <code>Omit&lt;T, K&gt;</code> generic without using it.</p>
+<h1 id="00003-Medium-Omit"><a href="#00003-Medium-Omit" class="headerlink" title="00003 Medium Omit"></a>00003 Medium Omit</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00003-medium-omit" >https://github.com/type-challenges/type-challenges/tree/main/questions/00003-medium-omit<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement the built-in <code>Omit&lt;T, K&gt;</code> generic without using it.</p>
 <p>Constructs a type by picking all properties from T and then removing K</p>
 <p>For example</p>
 <pre><code class="ts">interface Todo &#123;
@@ -316,7 +302,8 @@ interface Expected2 &#123;
 <p><code>Exclude&lt;keyof T, K&gt;</code> returns the remaining keys, and we can just use mapped types <code>KEY in TYPES</code> to get all remaining keys.</p>
 <h2 id="Reference-1"><a href="#Reference-1" class="headerlink" title="Reference"></a>Reference</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys" >https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys<i class="fas fa-external-link-alt"></i></a></p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers" >https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers<i class="fas fa-external-link-alt"></i></a></p>
-<h1 id="00008-Medium-Readonly-2"><a href="#00008-Medium-Readonly-2" class="headerlink" title="00008 Medium Readonly 2"></a>00008 Medium Readonly 2</h1><p>Implement a generic <code>MyReadonly2&lt;T, K&gt;</code> which takes two type argument <code>T</code> and <code>K</code>.</p>
+<h1 id="00008-Medium-Readonly-2"><a href="#00008-Medium-Readonly-2" class="headerlink" title="00008 Medium Readonly 2"></a>00008 Medium Readonly 2</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00008-medium-readonly-2" >https://github.com/type-challenges/type-challenges/tree/main/questions/00008-medium-readonly-2<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement a generic <code>MyReadonly2&lt;T, K&gt;</code> which takes two type argument <code>T</code> and <code>K</code>.</p>
 <p><code>K</code> specify the set of properties of <code>T</code> that should set to Readonly. When <code>K</code> is not provided, it should make all properties readonly just like the normal <code>Readonly&lt;T&gt;</code>.</p>
 <p>For example</p>
 <pre><code class="ts">interface Todo &#123;
@@ -406,7 +393,7 @@ interface Expected &#123;
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Typescript challenge series(6)</span>
+                                <span class="post-nav-title-item">Typescript challenge practice series(6)</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -419,7 +406,7 @@ interface Expected &#123;
                            href="/2023/01/05/Typescript-challenge-series-4/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Typescript challenge series(4)</span>
+                                <span class="post-nav-title-item">Typescript challenge practice series(4)</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -576,7 +563,7 @@ interface Expected &#123;
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00002-Medium-Return-Type"><span class="nav-text">00002 Medium Return Type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solutions"><span class="nav-text">Solutions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00003-Medium-Omit"><span class="nav-text">00003 Medium Omit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference-1"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00008-Medium-Readonly-2"><span class="nav-text">00008 Medium Readonly 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Default-generic-type"><span class="nav-text">👉 Default generic type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Union-types-via-amp"><span class="nav-text">👉 Union types via &amp;:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Omit"><span class="nav-text">👉 Omit:</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00002-Medium-Return-Type"><span class="nav-text">00002 Medium Return Type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solutions"><span class="nav-text">Solutions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00003-Medium-Omit"><span class="nav-text">00003 Medium Omit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference-1"><span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00008-Medium-Readonly-2"><span class="nav-text">00008 Medium Readonly 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Default-generic-type"><span class="nav-text">👉 Default generic type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Union-types-via-amp"><span class="nav-text">👉 Union types via &amp;:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Omit"><span class="nav-text">👉 Omit:</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
