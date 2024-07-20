@@ -1,6 +1,6 @@
 ---
 title: A Peek at useRequest hook
-date: 2022-07-31 19:44:06
+date: 2024-03-04 21:34:11
 categories: "Front-end"
 tags:
   - Hooks
@@ -532,4 +532,3 @@ The main idea of implementing a plugin is to find out the appropriate phase of t
 
 https://ahooks.js.org/hooks/use-request/basic
 https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useRequest/src
-https://qdmana.com/2022/02/202202020201538966.html

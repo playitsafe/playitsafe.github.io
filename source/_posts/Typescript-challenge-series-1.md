@@ -1,5 +1,5 @@
 ---
-title: Typescript challenge series(1)
+title: Typescript challenge practice series(1)
 date: 2022-08-06 14:16:03
 categories: "Front-end"
 tags:
@@ -20,6 +20,8 @@ There are questions of different levels in the `questions` directory, each of wh
 Let's get started from the easy ones!
 
 # 00004 Easy Pick
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00004-easy-pick
 
 Implement the built-in `Pick<T, K>` generic without using it.
 
@@ -92,6 +94,8 @@ At this stage, all test cases should pass with no complaining errors.
 
 # 00007 Easy Readonly
 
+https://github.com/type-challenges/type-challenges/tree/main/questions/00007-easy-readonly
+
 Implement the built-in `Readonly<T>` generic without using it.
 
 Constructs a type with all properties of T set to readonly, meaning the properties of the constructed type cannot be reassigned.
@@ -143,6 +147,8 @@ type MyReadonly<T> = {
 This shall make its tests all pass.
 
 # 00011 Easy Tuple
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00011-easy-tuple-to-object
 
 Give an array, transform into an object type and the key/value must in the given array.
 
@@ -220,6 +226,8 @@ Now it's all good!
 
 # 00014 Easy First of Array
 
+https://github.com/type-challenges/type-challenges/tree/main/questions/00014-easy-first
+
 Implement a generic `First<T>` that takes an Array `T` and returns it's first element's type.
 For example:
 
@@ -292,6 +300,8 @@ type First<T extends any[]> = T extends [infer FIRST, ...infer REST]
 ```
 
 # 00018 Easy Tuple Length
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00018-easy-tuple-length
 
 Create a generic Length, pick the length of the tuple.
 

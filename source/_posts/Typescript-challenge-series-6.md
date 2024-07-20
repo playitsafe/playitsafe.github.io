@@ -1,5 +1,5 @@
 ---
-title: Typescript challenge series(6)
+title: Typescript challenge practice series(6)
 date: 2023-08-26 20:44:45
 categories: "Front-end"
 tags:
@@ -9,17 +9,9 @@ tags:
 
 ![logo](https://tsch.js.org/logo.svg)
 
-# Prefix
-
-I found a [repo](https://github.com/type-challenges/type-challenges) on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I'll go with those challenges.
-
-# How to play around with it?
-
-There are questions of different levels in the `questions` directory, each of which has a `README`, `test-cases` and `template`. The challenge is to modify the type in `template` to make test cases all pass in `test-cases` .
-
-Let's get started from the easy ones!
-
 # 00009 Medium Deep Readonly
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00009-medium-deep-readonly
 
 Implement a generic `DeepReadonly<T>` which make every parameter of an object - and its sub-objects recursively - readonly.
 
@@ -128,6 +120,8 @@ type DeepReadonly<T> = {
 👉 `Function` extends `object`
 
 # 00010 Medium Tuple to Union
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00010-medium-tuple-to-union
 
 Implement a generic `TupleToUnion<T>` which covers the values of a tuple to its values union.
 

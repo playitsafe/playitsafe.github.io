@@ -1,5 +1,5 @@
 ---
-title: Typescript challenge series(3)
+title: Typescript challenge practice series(3)
 date: 2022-08-13 16:12:03
 categories: "Front-end"
 tags:
@@ -9,23 +9,14 @@ tags:
 
 ![logo](https://tsch.js.org/logo.svg)
 
-# Prefix
-
-I found a [repo](https://github.com/type-challenges/type-challenges) on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I'll go with those challenges.
-
-# How to play around with it?
-
-There are questions of different levels in the `questions` directory, each of which has a `README`, `test-cases` and `template`. The challenge is to modify the type in `template` to make test cases all pass in `test-cases` .
-
-Let's get started!
-
 # 00043 Easy Exclude
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00043-easy-exclude
 
 Implement the built-in `Exclude<T, U>`
 
 ```ts
 type Result = MyExclude<"a" | "b" | "c", "a">;
-// 'b' | 'c'
 ```
 
 ## Tests
@@ -57,6 +48,8 @@ type MyExclude<T, U> = T extends U ? never : T;
 Union type will iterate through each union type to check if every type in `T` exists in a type in `U`. It works like a `for` loop in javascript. And it will return the result as a union type as well.
 
 # 00533 Easy Concat
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00533-easy-concat
 
 Implement the JavaScript `Array.concat` function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order.
 

@@ -1,5 +1,5 @@
 ---
-title: Typescript challenge series(5)
+title: Typescript challenge practice series(5)
 date: 2023-02-16 22:15:45
 categories: "Front-end"
 tags:
@@ -9,17 +9,9 @@ tags:
 
 ![logo](https://tsch.js.org/logo.svg)
 
-# Prefix
-
-I found a [repo](https://github.com/type-challenges/type-challenges) on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I'll go with those challenges.
-
-# How to play around with it?
-
-There are questions of different levels in the `questions` directory, each of which has a `README`, `test-cases` and `template`. The challenge is to modify the type in `template` to make test cases all pass in `test-cases` .
-
-Let's get started from the easy ones!
-
 # 00002 Medium Return Type
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00002-medium-return-type
 
 Implement the built-in `ReturnType<T>` generic without using it.
 
@@ -76,6 +68,8 @@ type MyReturnType<T> = T extends (...args: any) => infer R ? R : never;
 https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#inferring-within-conditional-types
 
 # 00003 Medium Omit
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00003-medium-omit
 
 Implement the built-in `Omit<T, K>` generic without using it.
 
@@ -145,6 +139,8 @@ https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys
 https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers
 
 # 00008 Medium Readonly 2
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00008-medium-readonly-2
 
 Implement a generic `MyReadonly2<T, K>` which takes two type argument `T` and `K`.
 

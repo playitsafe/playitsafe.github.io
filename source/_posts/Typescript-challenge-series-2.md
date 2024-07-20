@@ -1,5 +1,5 @@
 ---
-title: Typescript challenge series(2)
+title: Typescript challenge practice series(2)
 date: 2022-08-10 19:25:03
 categories: "Front-end"
 tags:
@@ -9,17 +9,9 @@ tags:
 
 ![logo](https://tsch.js.org/logo.svg)
 
-# Prefix
-
-I found a [repo](https://github.com/type-challenges/type-challenges) on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I'll go with those challenges.
-
-# How to play around with it?
-
-There are questions of different levels in the `questions` directory, each of which has a `README`, `test-cases` and `template`. The challenge is to modify the type in `template` to make test cases all pass in `test-cases` .
-
-Let's get started!
-
 # 00014 Easy First of Array
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00014-easy-first
 
 Implement a generic `First<T>` that takes an Array `T` and returns it's first element's type.
 For example:
@@ -93,6 +85,8 @@ type First<T extends any[]> = T extends [infer FIRST, ...infer REST]
 ```
 
 # 00018 Easy Tuple Length
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00018-easy-tuple-length
 
 Create a generic Length, pick the length of the tuple.
 

@@ -1,5 +1,5 @@
 ---
-title: Typescript challenge series(4)
+title: Typescript challenge practice series(4)
 date: 2023-01-05 19:32:15
 categories: "Front-end"
 tags:
@@ -9,17 +9,9 @@ tags:
 
 ![logo](https://tsch.js.org/logo.svg)
 
-# Prefix
-
-I found a [repo](https://github.com/type-challenges/type-challenges) on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I'll go with those challenges.
-
-# How to play around with it?
-
-There are questions of different levels in the `questions` directory, each of which has a `README`, `test-cases` and `template`. The challenge is to modify the type in `template` to make test cases all pass in `test-cases` .
-
-Let's get started!
-
 # 00268 Easy If
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00268-easy-if
 
 Implement a util `If` which accepts condition `C`, a truthy return type `T`, and a falsy return type `F`. `C` is expected to be either true or false while `T` and `F` can be any type.
 
@@ -60,6 +52,8 @@ By now we should get all tests pass. If there's still any error in `type error =
 ```
 
 # 00898 Easy includes
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/00898-easy-includes
 
 Implement the JavaScript `Array.includes` function in the type system. A type takes the two arguments. The output should be a boolean `true` or `false`.
 
@@ -124,6 +118,9 @@ type Includes<T extends readonly any[], U>
 We can recursively use this `Include` type by passing `REST` as a generic type.
 
 # 03057 Easy Push & 03060 Easy Unshift
+
+https://github.com/type-challenges/type-challenges/tree/main/questions/03057-easy-push
+https://github.com/type-challenges/type-challenges/tree/main/questions/03060-easy-unshift
 
 Implement the generic version of `Array.push`
 
