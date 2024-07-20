@@ -10,7 +10,7 @@
     
     <title>
         
-            Typescript challenge series(1) |
+            Typescript challenge practice series(1) |
         
         Aaron&#39;s Dev Dairy
     </title>
@@ -144,7 +144,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Typescript challenge series(1)</span>
+            <span class="title-hover-animation">Typescript challenge practice series(1)</span>
         </div>
 
         
@@ -220,7 +220,8 @@
 <h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>I found a <a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges" >repo<i class="fas fa-external-link-alt"></i></a> on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I’ll go with those challenges.</p>
 <h1 id="How-to-play-around-with-it"><a href="#How-to-play-around-with-it" class="headerlink" title="How to play around with it?"></a>How to play around with it?</h1><p>There are questions of different levels in the <code>questions</code> directory, each of which has a <code>README</code>, <code>test-cases</code> and <code>template</code>. The challenge is to modify the type in <code>template</code> to make test cases all pass in <code>test-cases</code> .</p>
 <p>Let’s get started from the easy ones!</p>
-<h1 id="00004-Easy-Pick"><a href="#00004-Easy-Pick" class="headerlink" title="00004 Easy Pick"></a>00004 Easy Pick</h1><p>Implement the built-in <code>Pick&lt;T, K&gt;</code> generic without using it.</p>
+<h1 id="00004-Easy-Pick"><a href="#00004-Easy-Pick" class="headerlink" title="00004 Easy Pick"></a>00004 Easy Pick</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00004-easy-pick" >https://github.com/type-challenges/type-challenges/tree/main/questions/00004-easy-pick<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement the built-in <code>Pick&lt;T, K&gt;</code> generic without using it.</p>
 <p>Constructs a type by picking the set of properties <code>K</code> from <code>T</code></p>
 <p>For example:</p>
 <pre><code class="ts">interface Todo &#123;
@@ -270,7 +271,8 @@ interface Expected2 &#123;
 &#125;;
 </code></pre>
 <p>At this stage, all test cases should pass with no complaining errors.</p>
-<h1 id="00007-Easy-Readonly"><a href="#00007-Easy-Readonly" class="headerlink" title="00007 Easy Readonly"></a>00007 Easy Readonly</h1><p>Implement the built-in <code>Readonly&lt;T&gt;</code> generic without using it.</p>
+<h1 id="00007-Easy-Readonly"><a href="#00007-Easy-Readonly" class="headerlink" title="00007 Easy Readonly"></a>00007 Easy Readonly</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00007-easy-readonly" >https://github.com/type-challenges/type-challenges/tree/main/questions/00007-easy-readonly<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement the built-in <code>Readonly&lt;T&gt;</code> generic without using it.</p>
 <p>Constructs a type with all properties of T set to readonly, meaning the properties of the constructed type cannot be reassigned.</p>
 <p>For example:</p>
 <pre><code class="ts">interface Todo &#123;
@@ -305,7 +307,8 @@ interface Todo1 &#123;
 &#125;;
 </code></pre>
 <p>This shall make its tests all pass.</p>
-<h1 id="00011-Easy-Tuple"><a href="#00011-Easy-Tuple" class="headerlink" title="00011 Easy Tuple"></a>00011 Easy Tuple</h1><p>Give an array, transform into an object type and the key&#x2F;value must in the given array.</p>
+<h1 id="00011-Easy-Tuple"><a href="#00011-Easy-Tuple" class="headerlink" title="00011 Easy Tuple"></a>00011 Easy Tuple</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00011-easy-tuple-to-object" >https://github.com/type-challenges/type-challenges/tree/main/questions/00011-easy-tuple-to-object<i class="fas fa-external-link-alt"></i></a></p>
+<p>Give an array, transform into an object type and the key&#x2F;value must in the given array.</p>
 <p>For example:</p>
 <pre><code class="ts">const tuple = [&quot;tesla&quot;, &quot;model 3&quot;, &quot;model X&quot;, &quot;model Y&quot;] as const;
 
@@ -355,7 +358,8 @@ type error = TupleToObject&lt;[[1, 2], &#123;&#125;]&gt;;
 &#125;;
 </code></pre>
 <p>Now it’s all good!</p>
-<h1 id="00014-Easy-First-of-Array"><a href="#00014-Easy-First-of-Array" class="headerlink" title="00014 Easy First of Array"></a>00014 Easy First of Array</h1><p>Implement a generic <code>First&lt;T&gt;</code> that takes an Array <code>T</code> and returns it’s first element’s type.<br>For example:</p>
+<h1 id="00014-Easy-First-of-Array"><a href="#00014-Easy-First-of-Array" class="headerlink" title="00014 Easy First of Array"></a>00014 Easy First of Array</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00014-easy-first" >https://github.com/type-challenges/type-challenges/tree/main/questions/00014-easy-first<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement a generic <code>First&lt;T&gt;</code> that takes an Array <code>T</code> and returns it’s first element’s type.<br>For example:</p>
 <pre><code class="ts">type arr1 = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
 type arr2 = [3, 2, 1];
 
@@ -395,7 +399,8 @@ type errors = [
   ? FIRST
   : never;
 </code></pre>
-<h1 id="00018-Easy-Tuple-Length"><a href="#00018-Easy-Tuple-Length" class="headerlink" title="00018 Easy Tuple Length"></a>00018 Easy Tuple Length</h1><p>Create a generic Length, pick the length of the tuple.</p>
+<h1 id="00018-Easy-Tuple-Length"><a href="#00018-Easy-Tuple-Length" class="headerlink" title="00018 Easy Tuple Length"></a>00018 Easy Tuple Length</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00018-easy-tuple-length" >https://github.com/type-challenges/type-challenges/tree/main/questions/00018-easy-tuple-length<i class="fas fa-external-link-alt"></i></a></p>
+<p>Create a generic Length, pick the length of the tuple.</p>
 <p>For example:</p>
 <pre><code class="ts">type tesla = [&quot;tesla&quot;, &quot;model 3&quot;, &quot;model X&quot;, &quot;model Y&quot;];
 type spaceX = [
@@ -522,7 +527,7 @@ b ==&gt; []
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Typescript challenge series(2)</span>
+                                <span class="post-nav-title-item">Typescript challenge practice series(2)</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -532,10 +537,10 @@ b ==&gt; []
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/07/31/A-Peek-at-useRequest-hook/"
+                           href="/2022/06/04/Deploy-A-Website-via-AWS-S3-CloudFront-and-More/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">A Peek at useRequest hook</span>
+                                <span class="post-nav-title-item">Deploy A Static Website via AWS S3, CloudFront and More</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">

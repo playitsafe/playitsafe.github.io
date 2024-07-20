@@ -10,7 +10,7 @@
     
     <title>
         
-            Typescript challenge series(3) |
+            Typescript challenge practice series(3) |
         
         Aaron&#39;s Dev Dairy
     </title>
@@ -144,7 +144,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Typescript challenge series(3)</span>
+            <span class="title-hover-animation">Typescript challenge practice series(3)</span>
         </div>
 
         
@@ -217,12 +217,9 @@
                      data-src="https://tsch.js.org/logo.svg"
                       alt="logo"
                 ></p>
-<h1 id="Prefix"><a href="#Prefix" class="headerlink" title="Prefix"></a>Prefix</h1><p>I found a <a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges" >repo<i class="fas fa-external-link-alt"></i></a> on Github about Typescript not long ago which provides a bunch of exercises which helps us to understand the fundamental of Typescript. As most of projects nowadays are using Typescript to implement static typing, I decided to follow along and see how I’ll go with those challenges.</p>
-<h1 id="How-to-play-around-with-it"><a href="#How-to-play-around-with-it" class="headerlink" title="How to play around with it?"></a>How to play around with it?</h1><p>There are questions of different levels in the <code>questions</code> directory, each of which has a <code>README</code>, <code>test-cases</code> and <code>template</code>. The challenge is to modify the type in <code>template</code> to make test cases all pass in <code>test-cases</code> .</p>
-<p>Let’s get started!</p>
-<h1 id="00043-Easy-Exclude"><a href="#00043-Easy-Exclude" class="headerlink" title="00043 Easy Exclude"></a>00043 Easy Exclude</h1><p>Implement the built-in <code>Exclude&lt;T, U&gt;</code></p>
+<h1 id="00043-Easy-Exclude"><a href="#00043-Easy-Exclude" class="headerlink" title="00043 Easy Exclude"></a>00043 Easy Exclude</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00043-easy-exclude" >https://github.com/type-challenges/type-challenges/tree/main/questions/00043-easy-exclude<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement the built-in <code>Exclude&lt;T, U&gt;</code></p>
 <pre><code class="ts">type Result = MyExclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot;, &quot;a&quot;&gt;;
-// &#39;b&#39; | &#39;c&#39;
 </code></pre>
 <h2 id="Tests"><a href="#Tests" class="headerlink" title="Tests"></a>Tests</h2><pre><code class="ts">import type &#123; Equal, Expect &#125; from &quot;@type-challenges/utils&quot;;
 
@@ -238,7 +235,8 @@ type cases = [
 <pre><code class="ts">type MyExclude&lt;T, U&gt; = T extends U ? never : T;
 </code></pre>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="👉-T-extends-U"><a href="#👉-T-extends-U" class="headerlink" title="👉 T extends U"></a>👉 <code>T extends U</code></h3><p>Union type will iterate through each union type to check if every type in <code>T</code> exists in a type in <code>U</code>. It works like a <code>for</code> loop in javascript. And it will return the result as a union type as well.</p>
-<h1 id="00533-Easy-Concat"><a href="#00533-Easy-Concat" class="headerlink" title="00533 Easy Concat"></a>00533 Easy Concat</h1><p>Implement the JavaScript <code>Array.concat</code> function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order.</p>
+<h1 id="00533-Easy-Concat"><a href="#00533-Easy-Concat" class="headerlink" title="00533 Easy Concat"></a>00533 Easy Concat</h1><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/type-challenges/type-challenges/tree/main/questions/00533-easy-concat" >https://github.com/type-challenges/type-challenges/tree/main/questions/00533-easy-concat<i class="fas fa-external-link-alt"></i></a></p>
+<p>Implement the JavaScript <code>Array.concat</code> function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order.</p>
 <p>For example:</p>
 <pre><code class="ts">type Result = Concat&lt;[1], [2]&gt;; // expected to be [1, 2]
 </code></pre>
@@ -330,7 +328,7 @@ type error = MyAwaited&lt;number&gt;;
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Typescript challenge series(4)</span>
+                                <span class="post-nav-title-item">Typescript challenge practice series(4)</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -343,7 +341,7 @@ type error = MyAwaited&lt;number&gt;;
                            href="/2022/08/10/Typescript-challenge-series-2/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Typescript challenge series(2)</span>
+                                <span class="post-nav-title-item">Typescript challenge practice series(2)</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -500,7 +498,7 @@ type error = MyAwaited&lt;number&gt;;
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prefix"><span class="nav-text">Prefix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-play-around-with-it"><span class="nav-text">How to play around with it?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00533-Easy-Concat"><span class="nav-text">00533 Easy Concat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Spread-operator"><span class="nav-text">👉 Spread operator ...</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00189-Easy-Awaited"><span class="nav-text">00189 Easy Awaited</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-2"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-infer-can-only-be-used-in-conditional-type"><span class="nav-text">👉 infer can only be used in conditional type.</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#00043-Easy-Exclude"><span class="nav-text">00043 Easy Exclude</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-T-extends-U"><span class="nav-text">👉 T extends U</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00533-Easy-Concat"><span class="nav-text">00533 Easy Concat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-1"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-Spread-operator"><span class="nav-text">👉 Spread operator ...</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#00189-Easy-Awaited"><span class="nav-text">00189 Easy Awaited</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tests-2"><span class="nav-text">Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-2"><span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-2"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%91%89-infer-can-only-be-used-in-conditional-type"><span class="nav-text">👉 infer can only be used in conditional type.</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
