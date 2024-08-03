@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Full-stack,JavaScript,CSS,React,Vue,Java,PHP,Developer">
+    <meta name="description" content="A full stack web development note of Aaron Zhang. Tech stack including JavaScript, CSS, React, Vue, Java, PHP, Python">
+    <meta name="author" content="Aaron Zhang">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <title>
+        
+            A Tech spike on Next.js |
+        
+        Aaron&#39;s Dev Dairy
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/fav.jpg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#ef675c","avatar":"/images/avatar1.jpg","favicon":"/images/fav.jpg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Make little things visible."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}},"prefer_mode":"light"},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://us.123rf.com/450wm/get4net/get4net2112/get4net211201501/178384960-double-forward-slash-key-in-computer-keyboard-button.jpg?ver=6">
+                </a>
+            
+            <a class="logo-title" href="/">
+                Aaron&#39;s Dev Dairy
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                BLOGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT ME
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">BLOGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT ME</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">A Tech spike on Next.js</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar1.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Aaron Zhang</span>
+                        
+                            <span class="author-label">Author</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2024-08-04 21:29:50</span>
+        <span class="mobile">2024-08-04 21:29</span>
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/React/">React</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Web/">Web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>This tech spike is conducted to explore the frameworks that we could potentially use for our current React project. I’ve listed some key points as metrics that could help us to evaluate and compare among other frameworks. Thought it would be good to put here as well as a reference.</p>
+<hr>
+<p>Next.js has emerged as a leading framework for building modern web applications with JavaScript and React. It combines the power of React for building interactive user interfaces with the robust capabilities of server-side rendering (SSR), static site generation (SSG), and dynamic routing, making it a great choice for scalable and performant web projects.</p>
+<p>This tech spike aims to explore and evaluate Next.js as a framework for our upcoming NexGen project. Throughout this tech spike, we will conduct performance benchmarks, analyze deployment strategies, and compare Next.js with other frameworks to determine its suitability for our specific project requirements.</p>
+<h1 id="🚀-Deployment-Metrics"><a href="#🚀-Deployment-Metrics" class="headerlink" title="🚀 Deployment Metrics"></a>🚀 Deployment Metrics</h1><p>Next.js is keen to improve building and compiling performances by applying modern bundling tools and compilers.</p>
+<h2 id="Build-Time"><a href="#Build-Time" class="headerlink" title="Build Time"></a>Build Time</h2><p><strong>Compiler</strong>:<br>From version 12 onwards, Next.js replaces babel with a Rust-based compiler <a href="(https://swc.rs/)">SWC</a> and it’s up to “20x faster than Babel on a single thread and 70x faster on four cores”.</p>
+<p>From version 13 onwards, SWC compiler is used for minification by default which is 7x faster than Terser.</p>
+<p><strong>Bundler</strong>:<br>Option to use Turbopack can be used in Next.js in both the pages and app directories for faster local development(currently only supports <code>next dev</code> and does not support <code>next build</code>, it will be available for prod build in the future).</p>
+<p>It will:</p>
+<ul>
+<li>leverage the <a class="link"   target="_blank" rel="noopener" href="https://nextjs.org/docs/architecture/nextjs-compiler#why-swc" >SWC<i class="fas fa-external-link-alt"></i></a> compiler for all transpilation and optimizations</li>
+<li>use a single compiler that can target multiple environments.</li>
+<li>Optimize dev server’s startup time(<a class="link"   target="_blank" rel="noopener" href="https://turbo.build/pack/docs/why-turbopack" >Why Turbopack?<i class="fas fa-external-link-alt"></i></a>)</li>
+</ul>
+<h2 id="CI-x2F-CD-Integration"><a href="#CI-x2F-CD-Integration" class="headerlink" title="CI &#x2F; CD Integration"></a>CI &#x2F; CD Integration</h2><p><strong>CI Cache:</strong></p>
+<p>To improve build performance, Next.js saves a cache to .next&#x2F;cache that is shared between builds(Our CI workflow will need to be configured to correctly persist the cache between builds.)</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching" >https://nextjs.org/docs/pages/building-your-application/deploying/ci-build-caching<i class="fas fa-external-link-alt"></i></a></p>
+<p><strong>CD:</strong></p>
+<p><code>next build</code> emits a hybrid application which supports deployment to Node.js server and Docker containers in any cloud providers.</p>
+<h1 id="⚡Performance-Metrics"><a href="#⚡Performance-Metrics" class="headerlink" title="⚡Performance Metrics"></a>⚡Performance Metrics</h1><h2 id="Load-time"><a href="#Load-time" class="headerlink" title="Load time"></a>Load time</h2><p><strong>Pre-rendering</strong></p>
+<p>Next.js has two forms of pre-rendering: <strong>Static Generation</strong> and <strong>Server-side Rendering</strong>.</p>
+<p>It allows developers to choose which pre-rendering form to use for each page. It’s possible to create a “hybrid” Next.js app by using both Static Generation and Server-side Rendering.</p>
+<p>It improves web vital metrics through efficient code splitting, pre-rendering strategies (SSG and SSR), optimized image handling, automatic performance optimizations, built-in performance monitoring, and innovative features like Incremental Static Regeneration (ISR). These improvements help developers build fast and responsive web applications that enhance user experience and meet modern performance standards.</p>
+<p>It achieves Incremental Static Regeneration (ISR) by combining its Static Site Generation (SSG) capabilities with a “stale-while-revalidate” strategy. This approach allows for faster page loads by serving static pages immediately while asynchronously updating them with the latest data in the background. ISR is particularly useful for dynamic content that needs to be updated frequently but can benefit from the performance benefits of static pre-rendering.</p>
+<p><strong>SSR</strong></p>
+<p>Caching headers (<code>Cache-Control</code>) inside <code>getServerSideProps</code> can be used to cache dynamic responses.</p>
+<pre><code class="ts">// This value is considered fresh for ten seconds (s-maxage=10).
+// If a request is repeated within the next 10 seconds, the previously
+// cached value will still be fresh. If the request is repeated before 59 seconds,
+// the cached value will be stale but still render (stale-while-revalidate=59).
+//
+// In the background, a revalidation request will be made to populate the cache
+// with a fresh value. If you refresh the page, you will see the new value.
+export async function getServerSideProps(&#123; req, res &#125;) &#123;
+  res.setHeader(
+    &quot;Cache-Control&quot;,
+    &quot;public, s-maxage=10, stale-while-revalidate=59&quot;
+  );
+
+  return &#123;
+    props: &#123;&#125;,
+  &#125;;
+&#125;
+</code></pre>
+<p><strong>ISR</strong></p>
+<p>Next.js is able to create or update static pages after the site is built. Incremental Static Regeneration (ISR) enables it to use static-generation on a per-page basis, <strong>without needing to rebuild the entire site</strong>.</p>
+<p>With ISR, Next.js enables the pre-rendering of pages containing dynamic data during the build time. Subsequently, these pages are incrementally re-rendered in the background when needed, providing an efficient and dynamic user experience.</p>
+<pre><code class="ts">// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// revalidation is enabled and a new request comes in
+export async function getStaticProps() &#123;
+  const res = await fetch(&quot;https://.../posts&quot;);
+  const posts = await res.json();
+
+  return &#123;
+    props: &#123;
+      posts,
+    &#125;,
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 10, // In seconds
+  &#125;;
+&#125;
+</code></pre>
+<p>When a request is made to a page that was pre-rendered at build time, it will initially show the cached page.</p>
+<ul>
+<li>Any requests to the page after the initial request and before 10 seconds are also cached and instantaneous.</li>
+<li>After the 10-second window, the next request will still show the cached (stale) page</li>
+<li>Next.js triggers a regeneration of the page in the background.</li>
+<li>Once the page generates successfully, Next.js will invalidate the cache and show the updated page. If the background regeneration fails, the old page would still be unaltered.</li>
+</ul>
+<p><strong>Partial Pre-render(PPR)</strong>(<a class="link"   target="_blank" rel="noopener" href="https://wanews.atlassian.net/wiki/pages/resumedraft.action?draftId=361070674" >experimental<i class="fas fa-external-link-alt"></i></a>)</p>
+<p>Partial Prerendering is an experimental feature that allows static portions of a route to be prerendered and served from the cache with dynamic holes streamed in, all in a single HTTP request.</p>
+<p>Partial pre-rendering(uses the React Suspense API) allows developers to control which part of a page is pre-rendered or rendered first.</p>
+<p>PPR leverages a combination of static processing, specifically incremental static regeneration (ISR) and full server-side processing (SSR). With ISR, Next.js enables the pre-rendering of pages containing dynamic data during the build time. Subsequently, these pages are incrementally re-rendered in the background when needed, providing an efficient and dynamic user experience.</p>
+<p><strong>ServerComponents</strong></p>
+<p>It allows the server to render and cache the react component. The rendering work is further split by route segments to enable streaming and partial rendering.</p>
+<p>Next.js App Router is built with streaming by default. This helps improve both the initial page loading performance, as well as UI that depends on slower data fetches that would block rendering the whole route.</p>
+<p>Streaming helps to render UI from the server progressively. Work is split into chunks and streamed to the client as it becomes ready. This allows the user to see parts of the page immediately, before the entire content has finished rendering.</p>
+<p><strong>Caching mechanism</strong></p>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>What</th>
+<th>Where</th>
+<th>Purpose</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a class="link"   target="_blank" rel="noopener" href="https://nextjs.org/docs/app/building-your-application/caching#request-memoization" >Request Memoization<i class="fas fa-external-link-alt"></i></a></td>
+<td>Return values of functions</td>
+<td>Server</td>
+<td>Re-use data in a React Component tree</td>
+<td>Per-request lifecycle</td>
+</tr>
+<tr>
+<td><a class="link"   target="_blank" rel="noopener" href="https://nextjs.org/docs/app/building-your-application/caching#data-cache" >Data Cache<i class="fas fa-external-link-alt"></i></a></td>
+<td>Data</td>
+<td>Server</td>
+<td>Store data across user requests and deployments</td>
+<td>Persistent (can be revalidated)</td>
+</tr>
+<tr>
+<td><a class="link"   target="_blank" rel="noopener" href="https://nextjs.org/docs/app/building-your-application/caching#full-route-cache" >Full Route Cache<i class="fas fa-external-link-alt"></i></a></td>
+<td>HTML and RSC payload</td>
+<td>Server</td>
+<td>Reduce rendering cost and improve performance</td>
+<td>Persistent (can be revalidated)</td>
+</tr>
+<tr>
+<td><a class="link"   target="_blank" rel="noopener" href="https://nextjs.org/docs/app/building-your-application/caching#router-cache" >Router Cache<i class="fas fa-external-link-alt"></i></a></td>
+<td>RSC Payload</td>
+<td>Client</td>
+<td>Reduce server requests on navigation</td>
+<td>User session or time-based</td>
+</tr>
+</tbody></table>
+<p><strong>Built-in components</strong></p>
+<p>Next.js has its built-in components that helps to improve the rendering performance and UX.</p>
+<ul>
+<li><p><code>&lt;Script&gt;</code>: To load a third-party script , Next.js will ensure the script will only load once, even if a user navigates between multiple pages.</p>
+</li>
+<li><p><code>&lt;Images&gt;</code>: Built on the native <code>&lt;img&gt;</code> element. The Image Component optimizes images for performance by lazy loading and automatically resizing images based on device size.</p>
+</li>
+<li><p><code>&lt;Link&gt;</code>: Built on the native <code>&lt;a&gt;</code> tags. The Link Component prefetches pages in the background, for faster and smoother page transitions.(prefetch pages when a user hovers over a link, improving the perceived performance by loading resources in advance.)</p>
+</li>
+</ul>
+<h2 id="Bundling"><a href="#Bundling" class="headerlink" title="Bundling"></a>Bundling</h2><ul>
+<li>Splitting by routes</li>
+</ul>
+<p>code splitting is done automatically based on routes. Each page component in the <code>pages</code> directory becomes a separate chunk of JavaScript. When a user navigates to a specific route, only the JavaScript necessary for that route is loaded.</p>
+<ul>
+<li>Dynamic import</li>
+</ul>
+<p>Next.js leverages dynamic imports using <code>import()</code> to split code into smaller bundles. Instead of loading all JavaScript files upfront, dynamic imports allow components or modules to be loaded asynchronously when they are needed.</p>
+<pre><code class="ts">import dynamic from &quot;next/dynamic&quot;;
+
+const DynamicComponent = dynamic(() =&gt; import(&quot;./Component&quot;), &#123;
+  loading: () =&gt; &lt;p&gt;Loading...&lt;/p&gt;,
+&#125;);
+
+function HomePage() &#123;
+  return (
+    &lt;div&gt;
+      &lt;DynamicComponent /&gt;
+    &lt;/div&gt;
+  );
+&#125;
+</code></pre>
+<h1 id="🎚️Scalability-and-Extensibility"><a href="#🎚️Scalability-and-Extensibility" class="headerlink" title="🎚️Scalability and Extensibility"></a>🎚️Scalability and Extensibility</h1><h2 id="State-management"><a href="#State-management" class="headerlink" title="State management"></a>State management</h2><p>Local state management: <code>useState</code></p>
+<p>Global State Management options: redux, React Context API, MobX</p>
+<ul>
+<li><p>Redux:</p>
+<p>Redux is well-suited for large-scale applications with complex state management needs. Its centralized store and consistent handling of state make it easier to manage a large and growing codebase.</p>
+<p>Redux can lead to better performance in large applications due to its optimized handling of state changes and efficient update mechanisms.</p>
+</li>
+<li><p>ContextAPI:</p>
+<p>Context API is useful for smaller applications or specific parts of larger apps.</p>
+</li>
+<li><p>MobX:</p>
+<p>It leverages proxy to create mutable data sources which can be directly written to or reactively read from. Race conditions in asynchronous updates can be an issue for large applications.</p>
+</li>
+</ul>
+<h2 id="SEO"><a href="#SEO" class="headerlink" title="SEO"></a>SEO</h2><p>Next.js is an excellent choice for building SEO-friendly applications due to its server-side rendering (SSR) capabilities, which provide search engines with fully-rendered HTML content. Additionally, Next.js comes with built-in optimizations, such as automatic code splitting and prefetching, that contribute to better SEO performance</p>
+<p>Meta Tags and Title Optimization(Dynamic Meta Tags and Titles):</p>
+<p>By leveraging the <code>next/head</code> component, you can customize these tags based on the page’s content dynamically.</p>
+<p>Next.js is able to dynamically generate meta tags and titles based on the content of each page. Server-side data fetching can be used to pass the required information to the <code>next/head</code> component.</p>
+<h2 id="A11y"><a href="#A11y" class="headerlink" title="A11y"></a>A11y</h2><p><strong>Route Announcements</strong></p>
+<p>Next.js includes a route announcer by default. When transitioning between pages rendered on the server (e.g. using the <code>&lt;a href&gt;</code> tag) screen readers and other assistive technology announce the page title when the page loads so that users understand that the page has changed.</p>
+<p><strong>Linting</strong></p>
+<p>Next.js provides an <a class="link"   target="_blank" rel="noopener" href="https://nextjs.org/docs/pages/building-your-application/configuring/eslint" >integrated ESLint experience<i class="fas fa-external-link-alt"></i></a> out of the box, including custom rules for Next.js.</p>
+<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><p>By implementing SSR and SSG, pages are rendered on the server before being sent to the client. This approach helps mitigate client-side vulnerabilities such as XSS (Cross-Site Scripting) attacks because content is sanitized and controlled on the server. SSG also reduces exposure to runtime attacks since content is pre-rendered and does not execute on the server or client.</p>
+<p>Next.js includes built-in support for setting security headers like X-Frame-Options, X-XSS-Protection, Content-Security-Policy, and others. These headers help protect against common web vulnerabilities such as click jacking, XSS, and data injection attacks.</p>
+<h1 id="🛠️-Developer-experience"><a href="#🛠️-Developer-experience" class="headerlink" title="🛠️ Developer experience"></a>🛠️ Developer experience</h1><h2 id="Community-and-support"><a href="#Community-and-support" class="headerlink" title="Community and support"></a>Community and support</h2><p>With over 6 million weekly downloads(123k stars on Github), Next.js has a large and active community of developers across the world and a pretty mature ecosystem.</p>
+<p>Github repo: <a class="link"   target="_blank" rel="noopener" href="https://github.com/vercel/next.js" >https://github.com/vercel/next.js<i class="fas fa-external-link-alt"></i></a></p>
+<p>Github discussion board: <a class="link"   target="_blank" rel="noopener" href="https://github.com/vercel/next.js/discussions" >https://github.com/vercel/next.js/discussions<i class="fas fa-external-link-alt"></i></a></p>
+<p>Discord: <a class="link"   target="_blank" rel="noopener" href="https://discord.com/invite/bUG2bvbtHy" >https://discord.com/invite/bUG2bvbtHy<i class="fas fa-external-link-alt"></i></a></p>
+<p>Reddit: <a class="link"   target="_blank" rel="noopener" href="https://www.reddit.com/r/nextjs" >https://www.reddit.com/r/nextjs<i class="fas fa-external-link-alt"></i></a></p>
+<p>StackOverflow: <a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/tagged/next.js" >https://stackoverflow.com/questions/tagged/next.js<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="3rd-party-libraries"><a href="#3rd-party-libraries" class="headerlink" title="3rd-party libraries"></a>3rd-party libraries</h2><p>Alongside Next.js, numerous third-party libraries and tools have been developed by the community to complement the framework and provide solutions for various aspects of web development including:</p>
+<ul>
+<li>nextjs-auth0</li>
+<li>swr</li>
+<li>TanStack libraries</li>
+<li>Storybook</li>
+</ul>
+<p><code>@next/third-parties</code> is a library that provides a collection of components and utilities that improve the performance and developer experience of loading popular third-party libraries in your Next.js application.</p>
+<h2 id="Learning-curve"><a href="#Learning-curve" class="headerlink" title="Learning curve"></a>Learning curve</h2><p>Low for developers who have React experience as most of it is React and there’s a possibility we can reuse the components we created for current projects.</p>
+<h1 id="🗝️-Key-Features"><a href="#🗝️-Key-Features" class="headerlink" title="🗝️ Key Features"></a>🗝️ Key Features</h1><p><strong>File-based Routing</strong></p>
+<p>Next.js uses a file-based routing system, where each React component in the pages directory corresponds to a route, simplifying navigation and code organization.</p>
+<p><strong>API Routes</strong></p>
+<p>It allows developers to build API endpoints directly within their Next.js application using API routes, making it easy to handle server-side logic and data fetching.</p>
+<p><strong>Image Optimization</strong></p>
+<p>Next.js provides built-in support for optimizing images, including automatic resizing, lazy loading, and responsive image handling, improving performance and user experience.</p>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><h2 id="Other-companies-using-Next-js"><a href="#Other-companies-using-Next-js" class="headerlink" title="Other companies using Next.js"></a>Other companies using Next.js</h2><ul>
+<li>The Washington Post</li>
+<li>Tencent News</li>
+<li>OpenAI</li>
+<li>Netflix Jobs</li>
+<li>…</li>
+</ul>
+
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/React/">#React</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Web/">#Web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2024/03/04/A-Peek-at-useRequest-hook/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">A Peek at useRequest hook</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+    
+</div>
+
+            </div>
+        
+        <!-- Config for comment using utterance -->
+        
+            <script src="https://utteranc.es/client.js"
+                    repo="playitsafe/my-blog-comments"
+                    issue-term="pathname"
+                    theme="github-light"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Aaron Zhang</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        
+        
+        <!-- Highlight.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js" integrity="sha512-BNc7saQYlxCL10lykUYhFBcnzdKMnjx5fp5s5wPucDyZ7rKNwCoqJh1GwEAIhuePEK4WM9askJBRsu7ma0Rzvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css" integrity="sha512-zcatBMvxa7rT7dDklfjauWsfiSFParF+hRfCdf4Zr40/MmA1gkFcBRbop0zMpvYF3FmznYFgcL8wlcuO/GwHoA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script>
+            hljs.highlightAll();
+        </script>
+
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%80-Deployment-Metrics"><span class="nav-text">🚀 Deployment Metrics</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Time"><span class="nav-text">Build Time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CI-x2F-CD-Integration"><span class="nav-text">CI &#x2F; CD Integration</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9A%A1Performance-Metrics"><span class="nav-text">⚡Performance Metrics</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Load-time"><span class="nav-text">Load time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bundling"><span class="nav-text">Bundling</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%9A%EF%B8%8FScalability-and-Extensibility"><span class="nav-text">🎚️Scalability and Extensibility</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#State-management"><span class="nav-text">State management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SEO"><span class="nav-text">SEO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A11y"><span class="nav-text">A11y</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Security"><span class="nav-text">Security</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Developer-experience"><span class="nav-text">🛠️ Developer experience</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Community-and-support"><span class="nav-text">Community and support</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3rd-party-libraries"><span class="nav-text">3rd-party libraries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learning-curve"><span class="nav-text">Learning curve</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%97%9D%EF%B8%8F-Key-Features"><span class="nav-text">🗝️ Key Features</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Other"><span class="nav-text">Other</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Other-companies-using-Next-js"><span class="nav-text">Other companies using Next.js</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
